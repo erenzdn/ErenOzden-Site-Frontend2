@@ -1,0 +1,107 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "about": "Hakkımda",
+    "services": "Hizmetler",
+    "portfolio": "Projeler",
+    "contact": "İletişim",
+    "cta": "İletişime Geç"
+  },
+  "language": {
+    "tr": "Türkçe",
+    "en": "English",
+    "switchTo": "Dil değiştir"
+  },
+  "hero": {
+    "greeting": "Merhaba, ben",
+    "name": "Eren Özden",
+    "title": "Full Stack Geliştirici",
+    "subtitle": "Modern web, mobil ve backend çözümleri sunan bilgisayar mühendisi.",
+    "cta": "İletişime Geç",
+    "viewWork": "Projelerimi Gör"
+  },
+  "about": {
+    "title": "Hakkımda",
+    "subtitle": "Yetenekler ve deneyimler",
+    "description": "Yazılım geliştirme tutkusu ile modern teknolojileri kullanarak yenilikçi çözümler üretiyorum."
+  },
+  "services": {
+    "title": "Hizmetler",
+    "subtitle": "Sunduğum profesyonel çözümler",
+    "webDev": "Web Geliştirme",
+    "mobileDev": "Mobil Uygulama",
+    "backend": "Backend Geliştirme",
+    "consulting": "Danışmanlık"
+  },
+  "portfolio": {
+    "title": "Projeler",
+    "subtitle": "Seçilmiş çalışmalarım",
+    "viewAll": "Tümünü Gör",
+    "viewProject": "Projeyi İncele"
+  },
+  "contact": {
+    "title": "İletişim",
+    "subtitle": "Benimle iletişime geçin",
+    "name": "Ad Soyad",
+    "email": "E-posta",
+    "message": "Mesajınız",
+    "send": "Gönder",
+    "success": "Mesajınız başarıyla gönderildi!",
+    "error": "Bir hata oluştu, lütfen tekrar deneyin."
+  },
+  "cta": {
+    "title": "Projenizi Hayata Geçirelim",
+    "subtitle": "Birlikte harika işler çıkarabiliriz",
+    "button": "Hemen Başlayalım"
+  },
+  "footer": {
+    "copyright": "Tüm hakları saklıdır.",
+    "madeWith": "ile yapıldı"
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "notFound": "Sayfa bulunamadı",
+    "backHome": "Ana Sayfaya Dön",
+    "learnMore": "Daha Fazla",
+    "allServices": "Tüm Hizmetler",
+    "allProjects": "Tüm Projeler",
+    "liveProject": "Canlı Projeyi Gör",
+    "sourceCode": "Kaynak Kodları",
+    "aboutProject": "Proje Hakkında"
+  },
+  "serviceDetail": {
+    "backToServices": "Tüm Hizmetler",
+    "howWeWork": "Nasıl Çalışıyoruz?",
+    "howWeWorkDesc": "İhtiyaçlarınızı analiz edip, en uygun teknolojileri seçerek projeye başlıyoruz. Süreç boyunca şeffaf iletişim ve çevik (agile) yöntemler kullanarak beklentilerinizin üzerinde bir sonuç ortaya çıkarıyoruz.",
+    "whatWeProvide": "Neler Sağlıyoruz?",
+    "benefits": {
+      "analysis": "Kapsamlı Analiz ve Planlama",
+      "architecture": "Modern ve Ölçeklenebilir Mimari",
+      "performance": "Performans ve Güvenlik Optimizasyonu",
+      "support": "Sürekli Destek ve Bakım"
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "Eren Özden | Bilgisayar Mühendisi & Full Stack Geliştirici",
+      "description": "Eren Özden — Bilgisayar Mühendisi & Full Stack Geliştirici. Modern web, mobil ve backend çözümleri."
+    },
+    "about": {
+      "title": "Hakkımda | Eren Özden",
+      "description": "Eren Özden hakkında detaylı bilgi, yetenekler ve deneyimler."
+    },
+    "services": {
+      "title": "Hizmetler | Eren Özden",
+      "description": "Web, mobil ve backend geliştirme hizmetlerim."
+    },
+    "portfolio": {
+      "title": "Projeler | Eren Özden",
+      "description": "Geliştirdiğim projeler ve çalışmalarım."
+    },
+    "contact": {
+      "title": "İletişim | Eren Özden",
+      "description": "Benimle iletişime geçin. Proje tekliflerinizi değerlendirelim."
+    }
+  }
+}

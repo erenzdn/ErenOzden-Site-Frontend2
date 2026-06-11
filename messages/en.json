@@ -1,0 +1,107 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "contact": "Contact",
+    "cta": "Get in Touch"
+  },
+  "language": {
+    "tr": "Türkçe",
+    "en": "English",
+    "switchTo": "Switch language"
+  },
+  "hero": {
+    "greeting": "Hello, I'm",
+    "name": "Eren Özden",
+    "title": "Full Stack Developer",
+    "subtitle": "Computer engineer delivering modern web, mobile and backend solutions.",
+    "cta": "Get in Touch",
+    "viewWork": "View My Work"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Skills and experience",
+    "description": "With a passion for software development, I create innovative solutions using modern technologies."
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "Professional solutions I offer",
+    "webDev": "Web Development",
+    "mobileDev": "Mobile Development",
+    "backend": "Backend Development",
+    "consulting": "Consulting"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Selected works",
+    "viewAll": "View All",
+    "viewProject": "View Project"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Get in touch with me",
+    "name": "Full Name",
+    "email": "Email",
+    "message": "Your Message",
+    "send": "Send",
+    "success": "Your message has been sent successfully!",
+    "error": "An error occurred, please try again."
+  },
+  "cta": {
+    "title": "Let's Bring Your Project to Life",
+    "subtitle": "Together we can create amazing things",
+    "button": "Let's Get Started"
+  },
+  "footer": {
+    "copyright": "All rights reserved.",
+    "madeWith": "Made with"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "notFound": "Page not found",
+    "backHome": "Back to Home",
+    "learnMore": "Learn More",
+    "allServices": "All Services",
+    "allProjects": "All Projects",
+    "liveProject": "View Live Project",
+    "sourceCode": "Source Code",
+    "aboutProject": "About the Project"
+  },
+  "serviceDetail": {
+    "backToServices": "All Services",
+    "howWeWork": "How We Work?",
+    "howWeWorkDesc": "We start by analyzing your needs and selecting the most suitable technologies. Throughout the process, we use transparent communication and agile methods to deliver results beyond your expectations.",
+    "whatWeProvide": "What We Provide?",
+    "benefits": {
+      "analysis": "Comprehensive Analysis and Planning",
+      "architecture": "Modern and Scalable Architecture",
+      "performance": "Performance and Security Optimization",
+      "support": "Continuous Support and Maintenance"
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "Eren Özden | Computer Engineer & Full Stack Developer",
+      "description": "Eren Özden — Computer Engineer & Full Stack Developer. Modern web, mobile and backend solutions."
+    },
+    "about": {
+      "title": "About | Eren Özden",
+      "description": "Detailed information about Eren Özden, skills and experience."
+    },
+    "services": {
+      "title": "Services | Eren Özden",
+      "description": "My web, mobile and backend development services."
+    },
+    "portfolio": {
+      "title": "Portfolio | Eren Özden",
+      "description": "Projects and works I have developed."
+    },
+    "contact": {
+      "title": "Contact | Eren Özden",
+      "description": "Get in touch with me. Let's discuss your project ideas."
+    }
+  }
+}
