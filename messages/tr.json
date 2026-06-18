@@ -3,9 +3,9 @@
     "home": "Ana Sayfa",
     "about": "Hakkımda",
     "services": "Hizmetler",
-    "portfolio": "Projeler",
+    "portfolio": "Portfolyo",
     "contact": "İletişim",
-    "cta": "İletişime Geç"
+    "cta": "Başlayalım"
   },
   "language": {
     "tr": "Türkçe",
@@ -13,95 +13,576 @@
     "switchTo": "Dil değiştir"
   },
   "hero": {
-    "greeting": "Merhaba, ben",
-    "name": "Eren Özden",
-    "title": "Full Stack Geliştirici",
-    "subtitle": "Modern web, mobil ve backend çözümleri sunan bilgisayar mühendisi.",
+    "badge": "Bilgisayar Mühendisi & Full Stack Geliştirici",
+    "title": "Modern çözümler üreten bir",
+    "titleHighlight": "yazılım mühendisi",
+    "subtitle": "Web, mobil ve backend alanlarında yenilikçi, performans odaklı ve kullanıcı dostu dijital çözümler üretiyorum.",
     "cta": "İletişime Geç",
-    "viewWork": "Projelerimi Gör"
+    "viewWork": "Hizmetleri Gör",
+    "trust": "50+ işletme güveniyor"
   },
   "about": {
-    "title": "Hakkımda",
-    "subtitle": "Yetenekler ve deneyimler",
-    "description": "Yazılım geliştirme tutkusu ile modern teknolojileri kullanarak yenilikçi çözümler üretiyorum."
+    "sectionLabel": "Hakkımızda",
+    "badge": "Hakkımızda",
+    "title": "Karmaşık İş Süreçlerini",
+    "titleSuffix": "Ölçeklenebilir Sistemlere ve Otonom İş Akışlarına Dönüştürüyoruz.",
+    "subtitle": "Teknoloji ve inovasyonun kesişim noktasında",
+    "description": "Manuel iş yükünüzü azaltmak ve operasyonel verimliliği artırmak için yüksek performanslı dijital sistemler inşa ediyoruz. Güçlü bir teknik altyapı (Next.js, Node.js) ve yapay zeka entegrasyonlarıyla, işletmenizi hatasız ve ölçeklenebilir bir yapıya kavuşturuyoruz.",
+    "ctaPrimary": "Görüşme Planlayın",
+    "ctaSecondary": "Çalışmalarımı İnceleyin",
+    "techTitle": "GÜVENİLİR TEKNOLOJİ ALTYAPISI",
+    "whoWeAre": {
+      "badge": "Biz Kimiz",
+      "title": "Mühendislik Disipliniyle Geleceğin Dijital Altyapısını İnşa Ediyoruz.",
+      "description1": "Dijital dünyada varlık göstermeyi sadece bir web sitesi veya uygulama sahibi olmak değil; doğru kurgulanmış bir sistem mimarisi kurmak olarak tanımlıyoruz. Karmaşık iş süreçlerini analiz ederek; yüksek performanslı, ölçeklenebilir ve operasyonel verimlilik odaklı yazılım çözümleri geliştiriyoruz.",
+      "description2": "Uzmanlık alanlarımızı Kurumsal ERP Sistemleri, Yapay Zeka (AI) Otomasyonları, Full-stack Web ve Mobil Uygulama geliştirme dikeylerinde topluyoruz. Her projeyi; veri güvenliğini, kod kalitesini ve sürdürülebilirliği merkeze alan bir mühendislik perspektifiyle ele alıyoruz. Amacımız; işletmelerin teknolojik dönüşümlerine rehberlik ederek, onları geleceğin dijital gereksinimlerine hazır hale getiren \"Future-Proof\" çözümler sunmaktır."
+    },
+    "stats": {
+      "modular": {
+        "title": "%100 Modüler Mimari",
+        "desc": "Projelerimizi, gelecekteki büyüme ve entegrasyonlara uyumlu, bakımı kolay ve dokümantasyonu tam kod standartlarıyla inşa ediyoruz."
+      },
+      "performance": {
+        "title": "High-Performance Stack",
+        "desc": "Next.js ve Node.js altyapısıyla, Core Web Vitals standartlarında, milisaniye seviyesinde yanıt sürelerine sahip optimize edilmiş sistemler sunuyoruz."
+      },
+      "scalable": {
+        "title": "Scalable & Future-Proof",
+        "desc": "Yapay zeka entegrasyonları ve bulut yerel (cloud-native) çözümlerle, manuel iş yükünü minimize eden otonom iş süreçleri tasarlıyoruz."
+      }
+    },
+    "cta": {
+      "badge": "Dönüşüme Başlayın",
+      "title": "Süreçlerinizi Otomatikleştirmeye Bugün Başlayın",
+      "description": "İşinizi nasıl büyütebileceğimizi ve size nasıl zaman kazandırabileceğimizi konuşmak için hemen ücretsiz bir ön görüşme planlayın.",
+      "button": "Ücretsiz Görüşme Planlayın"
+    },
+    "vision": {
+      "title": "Vizyon",
+      "text": "Teknolojinin sınırlarını zorlayan, kullanıcı odaklı ve geleceğe hazır dijital ürünler inşa etmek."
+    },
+    "mission": {
+      "title": "Misyon",
+      "text": "Her projeye özgün yaklaşımlar sunarak, müşterilerimin dijital dönüşüm yolculuğunda güvenilir bir partner olmak."
+    },
+    "experience": {
+      "title": "Deneyim",
+      "years": "Yıllık Deneyim",
+      "projects": "Tamamlanan Proje",
+      "clients": "Mutlu Müşteri",
+      "technologies": "Kullanılan Teknoloji"
+    },
+    "skills": {
+      "title": "Uzmanlık Alanları",
+      "frontend": "Frontend Geliştirme",
+      "backend": "Backend Sistemleri",
+      "mobile": "Mobil Uygulama",
+      "cloud": "Bulut & DevOps",
+      "ai": "AI & Machine Learning",
+      "database": "Veritabanı Tasarımı"
+    },
+    "approach": {
+      "title": "Çalışma Yaklaşımım",
+      "agile": "Çevik Metodoloji",
+      "agileDesc": "Sprint bazlı, iteratif geliştirme süreçleri",
+      "quality": "Kalite Odaklı",
+      "qualityDesc": "Test-driven development ve kod incelemeleri",
+      "communication": "Şeffaf İletişim",
+      "communicationDesc": "Düzenli raporlama ve anlık geri bildirim"
+    },
+    "downloadCV": "CV'mi İndir",
+    "viewProjects": "Projelerimi Gör"
   },
   "services": {
-    "title": "Hizmetler",
-    "subtitle": "Sunduğum profesyonel çözümler",
-    "webDev": "Web Geliştirme",
-    "mobileDev": "Mobil Uygulama",
-    "backend": "Backend Geliştirme",
-    "consulting": "Danışmanlık"
+    "sectionLabel": "Hizmetler",
+    "title": "Neler Yapıyorum",
+    "subtitle": "Hizmetler",
+    "description": "İşletmelerin dijital dönüşümüne yardımcı olan profesyonel yazılım hizmetleri sunuyorum. Detaylar için kartlara tıklayın.",
+    "viewDetails": "Detayları İncele",
+    "getQuote": "Teklif Al",
+    "learnMore": "Daha Fazla Bilgi",
+    "allServices": "Tüm Hizmetler",
+    "categories": {
+      "all": "Tümü",
+      "development": "Geliştirme",
+      "design": "Tasarım",
+      "consulting": "Danışmanlık"
+    },
+    "webDev": {
+      "title": "Web Geliştirme",
+      "shortDesc": "Hızlı, güvenli ve SEO uyumlu modern web uygulamaları"
+    },
+    "mobileDev": {
+      "title": "Mobil Uygulama",
+      "shortDesc": "iOS ve Android için native performanslı cross-platform çözümler"
+    },
+    "backend": {
+      "title": "Backend & API",
+      "shortDesc": "Ölçeklenebilir mikroservis mimarileri ve güçlü API'ler"
+    },
+    "cloud": {
+      "title": "Bulut & DevOps",
+      "shortDesc": "AWS, Azure, GCP üzerinde altyapı kurulumu ve CI/CD otomasyonu"
+    },
+    "ai": {
+      "title": "AI Entegrasyonu",
+      "shortDesc": "Yapay zeka ve makine öğrenimi çözümlerinin uygulamalarınıza entegrasyonu"
+    },
+    "consulting": {
+      "title": "Teknik Danışmanlık",
+      "shortDesc": "Mimari tasarım, kod inceleme ve teknoloji seçimi konularında uzman rehberliği"
+    },
+    "process": {
+      "title": "Süreç",
+      "step1": {
+        "title": "Keşif & Analiz",
+        "desc": "İhtiyaçlarınızı derinlemesine anlıyorum"
+      },
+      "step2": {
+        "title": "Planlama & Tasarım",
+        "desc": "Detaylı yol haritası ve mimari oluşturuyorum"
+      },
+      "step3": {
+        "title": "Geliştirme",
+        "desc": "Çevik metodoloji ile iteratif geliştirme"
+      },
+      "step4": {
+        "title": "Test & Lansman",
+        "desc": "Kapsamlı test ve sorunsuz yayınlama"
+      }
+    }
+  },
+  "serviceDetail": {
+    "backToServices": "Tüm Hizmetler",
+    "overview": "Genel Bakış",
+    "features": "Özellikler",
+    "technologies": "Kullanılan Teknolojiler",
+    "deliverables": "Teslim Edilenler",
+    "timeline": "Tahmini Süre",
+    "howWeWork": "Nasıl Çalışıyoruz?",
+    "howWeWorkDesc": "İhtiyaçlarınızı derinlemesine analiz ederek en uygun teknoloji stack'ini belirliyorum. Şeffaf iletişim ve çevik metodolojiler ile süreç boyunca sizi bilgilendiriyor, beklentilerinizin ötesinde sonuçlar ortaya çıkarıyorum.",
+    "whatWeProvide": "Neler Sağlıyorum?",
+    "benefits": {
+      "analysis": "Kapsamlı Analiz ve Stratejik Planlama",
+      "architecture": "Modern, Ölçeklenebilir ve Sürdürülebilir Mimari",
+      "performance": "Performans, Güvenlik ve SEO Optimizasyonu",
+      "support": "Lansman Sonrası Destek ve Bakım Hizmeti"
+    },
+    "startProject": "Bu Hizmeti Başlat",
+    "relatedServices": "İlgili Hizmetler",
+    "process": {
+      "title": "Çalışma Sürecim",
+      "description": "Her projede kanıtlanmış adımlarla ilerliyorum",
+      "step1": {
+        "title": "Keşif & Analiz",
+        "description": "İhtiyaçlarınızı derinlemesine anlayarak projenin temelini atıyorum"
+      },
+      "step2": {
+        "title": "Planlama & Strateji",
+        "description": "Detaylı yol haritası ve teknik mimari oluşturuyorum"
+      },
+      "step3": {
+        "title": "Tasarım & Prototip",
+        "description": "Kullanıcı deneyimini önceliklendirerek tasarım yapıyorum"
+      },
+      "step4": {
+        "title": "Geliştirme",
+        "description": "Agile metodoloji ile iteratif geliştirme yapıyorum"
+      },
+      "step5": {
+        "title": "Test & Optimizasyon",
+        "description": "Kapsamlı testler ve performans optimizasyonu yapıyorum"
+      },
+      "step6": {
+        "title": "Lansman & Destek",
+        "description": "Sorunsuz yayınlama ve sürekli destek sağlıyorum"
+      }
+    },
+    "techStack": {
+      "title": "Teknoloji Stack",
+      "description": "Modern ve test edilmiş teknolojilerle çalışıyorum"
+    },
+    "useCases": {
+      "title": "Kullanım Senaryoları",
+      "description": "Bu hizmetin gerçek dünya uygulamaları"
+    },
+    "whyChoose": {
+      "title": "Neden Beni Seçmelisiniz?",
+      "reason1": {
+        "title": "Kanıtlanmış Deneyim",
+        "description": "5+ yıllık profesyonel deneyim ve 50+ başarılı proje"
+      },
+      "reason2": {
+        "title": "Modern Teknolojiler",
+        "description": "En güncel araçlar ve best practice'ler ile geliştirme"
+      },
+      "reason3": {
+        "title": "Şeffaf İletişim",
+        "description": "Her aşamada düzenli bilgilendirme ve raporlama"
+      },
+      "reason4": {
+        "title": "Kalite Garantisi",
+        "description": "Test-driven development ve kod kalite standartları"
+      }
+    },
+    "pricing": {
+      "title": "Yatırım Planları",
+      "description": "İhtiyacınıza uygun esnek paketler",
+      "contact": "Detaylı Teklif İçin İletişime Geçin",
+      "starting": "Başlangıç",
+      "custom": "Özel Paket"
+    },
+    "faq": {
+      "title": "Sıkça Sorulan Sorular",
+      "q1": {
+        "question": "Proje ne kadar sürer?",
+        "answer": "Proje karmaşıklığına göre değişir. Basit projeler 2-4 hafta, orta ölçekli projeler 2-3 ay, büyük projeler ise 3-6 ay sürebilir. İlk görüşmeden sonra net bir zaman çizelgesi sunuyorum."
+      },
+      "q2": {
+        "question": "Proje sonrası destek veriyor musunuz?",
+        "answer": "Evet, tüm projelerimde lansman sonrası 30 gün ücretsiz destek veriyorum. Sonrasında aylık bakım paketleri veya ihtiyaca göre destek hizmeti sunuyorum."
+      },
+      "q3": {
+        "question": "Hangi ödeme yöntemlerini kabul ediyorsunuz?",
+        "answer": "Banka havalesi ve EFT ile çalışıyorum. Proje başlangıcında %50, teslimatta %50 şeklinde ödeme planı uyguluyorum. Büyük projelerde milestone bazlı ödeme de mümkün."
+      },
+      "q4": {
+        "question": "Kaynak kodu teslim ediliyor mu?",
+        "answer": "Evet, projenin tamamlanmasıyla birlikte tüm kaynak kodları, dokümantasyon ve gerekli erişim bilgileri size teslim edilir."
+      }
+    }
   },
   "portfolio": {
-    "title": "Projeler",
-    "subtitle": "Seçilmiş çalışmalarım",
-    "viewAll": "Tümünü Gör",
-    "viewProject": "Projeyi İncele"
+    "sectionLabel": "Projeler",
+    "title": "Son Çalışmalarım",
+    "subtitle": "Projeler",
+    "description": "Gerçekleştirdiğim projelerden örnekler.",
+    "filters": {
+      "all": "Tümü",
+      "web": "Web",
+      "mobile": "Mobil",
+      "ai": "Yapay Zeka",
+      "cloud": "Bulut",
+      "ecommerce": "E-Ticaret",
+      "saas": "SaaS"
+    },
+    "viewProject": "Projeyi İncele",
+    "viewDetails": "Detayları İncele",
+    "liveDemo": "Canlı Demo",
+    "sourceCode": "Kaynak Kod",
+    "caseStudy": "Vaka Çalışması",
+    "viewAll": "Tüm Projeleri Gör",
+    "loadMore": "Daha Fazla Yükle",
+    "noProjects": "Henüz proje eklenmemiş.",
+    "errorLoading": "Projeler yüklenirken bir hata oluştu.",
+    "retry": "Tekrar Dene",
+    "defaultTitle": "Proje",
+    "projectInfo": {
+      "client": "Müşteri",
+      "industry": "Sektör",
+      "duration": "Süre",
+      "year": "Yıl",
+      "role": "Rol",
+      "technologies": "Teknolojiler",
+      "challenge": "Zorluk",
+      "solution": "Çözüm",
+      "results": "Sonuçlar",
+      "testimonial": "Müşteri Yorumu"
+    },
+    "stats": {
+      "completed": "Tamamlanan Proje",
+      "clients": "Mutlu Müşteri",
+      "countries": "Farklı Ülke"
+    }
   },
   "contact": {
-    "title": "İletişim",
-    "subtitle": "Benimle iletişime geçin",
-    "name": "Ad Soyad",
-    "email": "E-posta",
-    "message": "Mesajınız",
-    "send": "Gönder",
-    "success": "Mesajınız başarıyla gönderildi!",
-    "error": "Bir hata oluştu, lütfen tekrar deneyin."
+    "sectionLabel": "İletişim",
+    "badge": "İletişim",
+    "title": "Benimle İletişime Geçin",
+    "subtitle": "Projenizi hayata geçirmek için ilk adımı atın",
+    "description": "Projeleriniz, fikirleriniz veya herhangi bir sorunuz için aşağıdaki formu doldurarak ulaşabilirsiniz. Size en kısa sürede dönüş yapacağım.",
+    "form": {
+      "firstName": "İsim",
+      "firstNamePlaceholder": "Eren",
+      "lastName": "Soyisim",
+      "lastNamePlaceholder": "Özden",
+      "name": "Ad Soyad",
+      "namePlaceholder": "Adınızı ve soyadınızı girin",
+      "email": "E-posta",
+      "emailPlaceholder": "ornek@mail.com",
+      "phone": "Telefon",
+      "phonePlaceholder": "+90 555 000 00 00",
+      "company": "Şirket (Opsiyonel)",
+      "companyPlaceholder": "Şirket adınız",
+      "subject": "Konu",
+      "subjectPlaceholder": "Projenizin konusu nedir?",
+      "budget": "Tahmini Bütçe",
+      "budgetPlaceholder": "Bütçe aralığı seçin",
+      "budgetOptions": {
+        "select": "Bütçe seçin",
+        "small": "₺10.000 - ₺50.000",
+        "medium": "₺50.000 - ₺150.000",
+        "large": "₺150.000 - ₺500.000",
+        "enterprise": "₺500.000+"
+      },
+      "timeline": "Zaman Çizelgesi",
+      "timelineOptions": {
+        "select": "Süre seçin",
+        "urgent": "Acil (1-2 hafta)",
+        "short": "Kısa vadeli (1-2 ay)",
+        "medium": "Orta vadeli (3-6 ay)",
+        "long": "Uzun vadeli (6+ ay)"
+      },
+      "service": "İlgilendiğiniz Hizmet",
+      "servicePlaceholder": "Bir hizmet seçin",
+      "message": "Mesajınız",
+      "messagePlaceholder": "Projenizden veya fikrinizden bahsedin...",
+      "attachment": "Dosya Ekle (Opsiyonel)",
+      "attachmentHint": "PDF, DOC veya görseller (maks. 10MB)",
+      "submit": "Formu Gönder",
+      "submitting": "Gönderiliyor...",
+      "privacyNote": "Bilgileriniz gizli tutulacak ve yalnızca sizinle iletişim kurmak için kullanılacaktır."
+    },
+    "validation": {
+      "nameRequired": "Ad soyad alanı zorunludur",
+      "nameMin": "Ad soyad en az 2 karakter olmalıdır",
+      "emailRequired": "E-posta adresi zorunludur",
+      "emailInvalid": "Geçerli bir e-posta adresi girin",
+      "phoneInvalid": "Geçerli bir telefon numarası girin",
+      "subjectRequired": "Konu alanı zorunludur",
+      "messageRequired": "Mesaj alanı zorunludur",
+      "messageMin": "Mesajınız en az 20 karakter olmalıdır",
+      "fileTooLarge": "Dosya boyutu 10MB'ı aşamaz",
+      "fileTypeInvalid": "Desteklenmeyen dosya formatı",
+      "turnstileRequired": "Lütfen robot olmadığınızı doğrulayın"
+    },
+    "success": {
+      "title": "Mesajınız Başarıyla Gönderildi!",
+      "message": "En kısa sürede sizinle iletişime geçeceğim. Genellikle 24 saat içinde yanıt veriyorum.",
+      "another": "Başka bir mesaj gönder"
+    },
+    "error": {
+      "title": "Bir Hata Oluştu",
+      "message": "Mesajınız gönderilemedi. Lütfen daha sonra tekrar deneyin veya doğrudan e-posta ile ulaşın.",
+      "retry": "Tekrar Dene"
+    },
+    "info": {
+      "title": "İletişim Bilgileri",
+      "email": "E-posta",
+      "phone": "Telefon",
+      "location": "Konum",
+      "availability": "Çalışma Saatleri",
+      "availabilityText": "Pazartesi - Cuma, 09:00 - 18:00 (UTC+3)",
+      "response": "Yanıt Süresi",
+      "responseText": "Genellikle 24 saat içinde"
+    },
+    "social": {
+      "title": "Sosyal Medya",
+      "followMe": "Beni takip edin"
+    },
+    "faq": {
+      "title": "Sıkça Sorulan Sorular",
+      "q1": "Proje süreci nasıl işliyor?",
+      "a1": "İlk görüşmede ihtiyaçlarınızı analiz ediyorum, ardından detaylı bir teklif hazırlıyorum. Onay sonrası çevik metodoloji ile geliştirme sürecine başlıyoruz.",
+      "q2": "Ödeme koşulları nasıl?",
+      "a2": "Genellikle proje başlangıcında %50, teslimatta %50 şeklinde çalışıyorum. Büyük projeler için aylık ödeme planları da mümkün.",
+      "q3": "Uzaktan çalışıyor musunuz?",
+      "a3": "Evet, tamamen uzaktan çalışıyorum. Dünyanın her yerinden müşterilerle başarılı projeler yürütüyorum."
+    }
   },
   "cta": {
-    "title": "Projenizi Hayata Geçirelim",
-    "subtitle": "Birlikte harika işler çıkarabiliriz",
-    "button": "Hemen Başlayalım"
+    "title": "Birlikte harika projeler yaratmaya hazır mısınız?",
+    "subtitle": "Hemen bir görüşme planlayın ve otomasyona başlayın.",
+    "button": "Ücretsiz Görüşme",
+    "secondary": "Projeleri İncele"
+  },
+  "stats": {
+    "experience": {
+      "value": "5",
+      "suffix": "+",
+      "label": "Yıl Deneyim"
+    },
+    "projects": {
+      "value": "920",
+      "suffix": "+",
+      "label": "Tamamlanan Proje"
+    },
+    "clients": {
+      "value": "32",
+      "suffix": "",
+      "label": "Mutlu Müşteri"
+    },
+    "code": {
+      "value": "10",
+      "suffix": "K+",
+      "label": "Satır Kod"
+    }
+  },
+  "testimonials": {
+    "badge": "Referanslar",
+    "title": "Müşterilerim Ne Diyor?",
+    "subtitle": "Gerçek projeler, gerçek sonuçlar.",
+    "items": {
+      "1": {
+        "name": "Ahmet Yılmaz",
+        "role": "CEO",
+        "company": "TechStart",
+        "text": "Eren ile çalışmak harika bir deneyimdi. Projemizi zamanında ve beklentilerimizin üzerinde teslim etti. Teknik bilgisi ve profesyonelliği ile fark yaratıyor."
+      },
+      "2": {
+        "name": "Zeynep Kaya",
+        "role": "CTO",
+        "company": "InnovateTR",
+        "text": "Karmaşık sorunlara yaratıcı ve verimli çözümler üretiyor. İletişim becerisi mükemmel, her aşamada bilgilendirme yapıyor."
+      },
+      "3": {
+        "name": "Mehmet Demir",
+        "role": "Product Manager",
+        "company": "DigitalPlus",
+        "text": "Kullanıcı deneyimi konusundaki hassasiyeti ve kod kalitesi takdire şayan. Kesinlikle tekrar çalışmak istediğimiz bir geliştirici."
+      },
+      "4": {
+        "name": "Ayşe Çelik",
+        "role": "Kurucu",
+        "company": "StartupHQ",
+        "text": "Müşteri desteği artık sorunsuz. Yanıt sürelerimiz büyük ölçüde iyileşti ve memnuniyet seviyesi tüm zamanların en yüksek seviyesinde."
+      }
+    }
+  },
+  "marquee": {
+    "categories": {
+      "webDev": "Web Geliştirme",
+      "mobileDev": "Mobil Uygulama",
+      "uiux": "UI/UX Tasarım",
+      "backend": "Backend API",
+      "devops": "DevOps",
+      "database": "Veritabanı"
+    }
   },
   "footer": {
-    "copyright": "Tüm hakları saklıdır.",
-    "madeWith": "ile yapıldı"
+    "brand": {
+      "name": "Eren Özden",
+      "tagline": "Full Stack Geliştirici & Yazılım Mimarı",
+      "description": "Crafting high-performance digital experiences through modern engineering and scalable software solutions."
+    },
+    "links": {
+      "services": {
+        "title": "Hizmetlerim",
+        "webDev": "Web Geliştirme",
+        "mobileDev": "Mobil Uygulama",
+        "backend": "Backend API",
+        "database": "Veritabanı",
+        "devops": "DevOps"
+      },
+      "pages": {
+        "title": "Sayfalar"
+      },
+      "contact": {
+        "title": "İletişim"
+      },
+      "legal": {
+        "title": "Yasal",
+        "privacy": "Gizlilik Politikası",
+        "terms": "Kullanım Şartları",
+        "cookies": "Çerez Politikası"
+      }
+    },
+    "newsletter": {
+      "title": "Bültene Abone Ol",
+      "description": "Yazılım dünyasındaki gelişmeler, yeni projeler ve ipuçları için bültene kaydolun.",
+      "placeholder": "E-posta adresiniz",
+      "button": "Abone Ol",
+      "success": "Başarıyla abone oldunuz!",
+      "error": "Bir hata oluştu, lütfen tekrar deneyin.",
+      "privacy": "Abonelikten istediğiniz zaman çıkabilirsiniz."
+    },
+    "social": {
+      "title": "Beni Takip Edin",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "twitter": "Twitter",
+      "instagram": "Instagram"
+    },
+    "copyright": "© {year} Eren Özden. Tüm hakları saklıdır.",
+    "allRightsReserved": "All right reserved",
+    "madeWith": "Türkiye'den ❤️ ile yapıldı",
+    "backToTop": "Yukarı Çık"
   },
   "common": {
     "loading": "Yükleniyor...",
     "error": "Bir hata oluştu",
-    "notFound": "Sayfa bulunamadı",
+    "notFound": "Sayfa Bulunamadı",
+    "notFoundDesc": "Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
     "backHome": "Ana Sayfaya Dön",
-    "learnMore": "Daha Fazla",
-    "allServices": "Tüm Hizmetler",
+    "learnMore": "Daha Fazla Bilgi",
+    "getStarted": "Hemen Başla",
+    "viewAll": "Tümünü Gör",
+    "readMore": "Devamını Oku",
+    "showMore": "Daha Fazla Göster",
+    "showLess": "Daha Az Göster",
+    "close": "Kapat",
+    "open": "Aç",
+    "yes": "Evet",
+    "no": "Hayır",
+    "or": "veya",
+    "and": "ve",
+    "new": "Yeni",
+    "featured": "Öne Çıkan",
+    "popular": "Popüler",
+    "comingSoon": "Yakında",
+    "underConstruction": "Yapım Aşamasında",
+    "menu": "Menü",
     "allProjects": "Tüm Projeler",
-    "liveProject": "Canlı Projeyi Gör",
-    "sourceCode": "Kaynak Kodları",
-    "aboutProject": "Proje Hakkında"
-  },
-  "serviceDetail": {
-    "backToServices": "Tüm Hizmetler",
-    "howWeWork": "Nasıl Çalışıyoruz?",
-    "howWeWorkDesc": "İhtiyaçlarınızı analiz edip, en uygun teknolojileri seçerek projeye başlıyoruz. Süreç boyunca şeffaf iletişim ve çevik (agile) yöntemler kullanarak beklentilerinizin üzerinde bir sonuç ortaya çıkarıyoruz.",
-    "whatWeProvide": "Neler Sağlıyoruz?",
-    "benefits": {
-      "analysis": "Kapsamlı Analiz ve Planlama",
-      "architecture": "Modern ve Ölçeklenebilir Mimari",
-      "performance": "Performans ve Güvenlik Optimizasyonu",
-      "support": "Sürekli Destek ve Bakım"
-    }
+    "aboutProject": "Proje Hakkında",
+    "liveProject": "Canlı Görüntüle",
+    "sourceCode": "Kaynak Kod"
   },
   "meta": {
     "home": {
-      "title": "Eren Özden | Bilgisayar Mühendisi & Full Stack Geliştirici",
-      "description": "Eren Özden — Bilgisayar Mühendisi & Full Stack Geliştirici. Modern web, mobil ve backend çözümleri."
+      "title": "Eren Özden | Full Stack Geliştirici & Yazılım Mimarı",
+      "description": "Modern web, mobil ve backend çözümleriyle dijital vizyonunuzu gerçeğe dönüştürüyorum. Startup'lardan kurumsal projelere kadar ölçeklenebilir ve kullanıcı odaklı yazılım çözümleri."
     },
     "about": {
-      "title": "Hakkımda | Eren Özden",
-      "description": "Eren Özden hakkında detaylı bilgi, yetenekler ve deneyimler."
+      "title": "Hakkımda | Eren Özden - Yazılım Geliştirici",
+      "description": "Yazılım geliştirme tutkum, teknik uzmanlığım ve proje deneyimlerim hakkında detaylı bilgi. Full stack geliştirici olarak vizyonunuzu kod'a dönüştürüyorum."
     },
     "services": {
-      "title": "Hizmetler | Eren Özden",
-      "description": "Web, mobil ve backend geliştirme hizmetlerim."
+      "title": "Hizmetler | Web, Mobil & Backend Geliştirme - Eren Özden",
+      "description": "Web geliştirme, mobil uygulama, backend sistemleri, bulut altyapısı ve teknik danışmanlık hizmetleri. İşletmenizi dijitalde büyütecek çözümler."
     },
     "portfolio": {
-      "title": "Projeler | Eren Özden",
-      "description": "Geliştirdiğim projeler ve çalışmalarım."
+      "title": "Portfolyo | Projeler & Çalışmalar - Eren Özden",
+      "description": "Startup MVP'lerinden kurumsal projelere kadar geliştirdiğim seçkin çalışmalar. Web, mobil ve AI projelerinin detaylı vaka çalışmaları."
     },
     "contact": {
-      "title": "İletişim | Eren Özden",
-      "description": "Benimle iletişime geçin. Proje tekliflerinizi değerlendirelim."
+      "title": "İletişim | Projenizi Konuşalım - Eren Özden",
+      "description": "Yeni projeniz için iletişime geçin. Ücretsiz danışmanlık görüşmesi ile fikirlerinizi değerlendirelim ve birlikte harika işler çıkaralım."
     }
+  },
+  "errors": {
+    "404": {
+      "title": "Sayfa Bulunamadı",
+      "description": "Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
+      "action": "Ana Sayfaya Dön"
+    },
+    "500": {
+      "title": "Sunucu Hatası",
+      "description": "Bir şeyler yanlış gitti. Lütfen daha sonra tekrar deneyin.",
+      "action": "Sayfayı Yenile"
+    },
+    "offline": {
+      "title": "Çevrimdışısınız",
+      "description": "İnternet bağlantınızı kontrol edin ve tekrar deneyin.",
+      "action": "Tekrar Dene"
+    }
+  },
+  "accessibility": {
+    "skipToContent": "İçeriğe Geç",
+    "mainNavigation": "Ana Navigasyon",
+    "menuOpen": "Menüyü Aç",
+    "menuClose": "Menüyü Kapat",
+    "darkMode": "Karanlık Mod",
+    "lightMode": "Aydınlık Mod",
+    "languageSelector": "Dil Seçici"
   }
 }

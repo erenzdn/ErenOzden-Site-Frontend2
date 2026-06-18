@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import {
   Code, Smartphone, Globe, Database, Cloud, Palette,
@@ -15,17 +16,27 @@ const brands = [
   "PostgreSQL", "Docker", "AWS", "Figma",
 ];
 
-const categories = [
-  { label: "Web Geliştirme", icon: Globe },
-  { label: "Mobil Uygulama", icon: Smartphone },
-  { label: "UI/UX Tasarım", icon: Palette },
-  { label: "Backend API", icon: Code },
-  { label: "DevOps", icon: Cloud },
-  { label: "Veritabanı", icon: Database },
-];
+const categoryIcons = {
+  webDev: Globe,
+  mobileDev: Smartphone,
+  uiux: Palette,
+  backend: Code,
+  devops: Cloud,
+  database: Database,
+};
 
 export default function Marquee({ variant }: MarqueeProps) {
+  const t = useTranslations('marquee');
   const trackRef = useRef<HTMLDivElement>(null);
+
+  const categories = [
+    { label: t('categories.webDev'), icon: Globe },
+    { label: t('categories.mobileDev'), icon: Smartphone },
+    { label: t('categories.uiux'), icon: Palette },
+    { label: t('categories.backend'), icon: Code },
+    { label: t('categories.devops'), icon: Cloud },
+    { label: t('categories.database'), icon: Database },
+  ];
 
   useEffect(() => {
     const track = trackRef.current;

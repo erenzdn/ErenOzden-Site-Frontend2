@@ -1,0 +1,58 @@
+# ==============================================================================
+# ERENOZDEN-FRONTEND - Docker Compose Configuration
+# ==============================================================================
+# Frontend ve reverse proxy için docker-compose yapılandırması
+
+services:
+  # Next.js Frontend Application
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: erenozden-frontend
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_STRAPI_URL=${NEXT_PUBLIC_STRAPI_URL}
+      - PORT=3000
+    expose:
+      - "3000"
+    networks:
+      - erenozden-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: erenozden-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - nginx-cache:/var/cache/nginx
+    depends_on:
+      - frontend
+    networks:
+      - erenozden-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  erenozden-network:
+    driver: bridge
+
+volumes:
+  nginx-cache:
+    driver: local

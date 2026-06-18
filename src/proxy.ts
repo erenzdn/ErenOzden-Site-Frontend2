@@ -32,6 +32,6 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     // Tüm path'leri yakala AMA şunları hariç tut:
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico)$).*)',
+    '/((?!api|strapi|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico)$).*)',
   ],
 };

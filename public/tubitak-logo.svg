@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" fill="none">
+  <!-- TÜB0TAK Logo placeholder - Bu gerçek logo deildir, sadece bir placeholder'd1r -->
+  <rect width="200" height="60" rx="4" fill="#0051A5"/>
+  <text x="100" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">
+    TÜB0TAK
+  </text>
+  <text x="100" y="45" font-family="Arial, sans-serif" font-size="8" fill="white" text-anchor="middle">
+    Türkiye Bilimsel ve Teknolojik Ara_t1rma Kurumu
+  </text>
+</svg>

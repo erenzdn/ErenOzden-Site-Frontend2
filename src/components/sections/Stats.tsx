@@ -1,21 +1,23 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const stats = [
-  { value: 5, suffix: "+", label: "Yıl Deneyim" },
-  { value: 920, suffix: "+", label: "Tamamlanan Proje" },
-  { value: 32, suffix: "", label: "Mutlu Müşteri" },
-  { value: 10, suffix: "K+", label: "Satır Kod" },
-];
-
 export default function Stats() {
+  const t = useTranslations('stats');
   const sectionRef = useRef<HTMLElement>(null);
   const counterRefs = useRef<(HTMLSpanElement | null)[]>([]);
+
+  const stats = [
+    { value: parseInt(t('experience.value')), suffix: t('experience.suffix'), label: t('experience.label') },
+    { value: parseInt(t('projects.value')), suffix: t('projects.suffix'), label: t('projects.label') },
+    { value: parseInt(t('clients.value')), suffix: t('clients.suffix'), label: t('clients.label') },
+    { value: parseInt(t('code.value')), suffix: t('code.suffix'), label: t('code.label') },
+  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {

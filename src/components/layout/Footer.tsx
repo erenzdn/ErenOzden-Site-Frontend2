@@ -3,10 +3,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useEffect, useRef } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { SITE, CONTACT, SOCIAL, NAV_LINKS } from "@/lib/constants";
+import { SITE, CONTACT, SOCIAL } from "@/lib/constants";
 import { createVantaCellsEffect } from "@/lib/vantaLoader";
+
+const NAV_KEYS = ['home', 'about', 'services', 'portfolio', 'contact'] as const;
+const NAV_HREFS: Record<(typeof NAV_KEYS)[number], string> = {
+  home: '/',
+  about: '/about',
+  services: '/services',
+  portfolio: '/portfolio',
+  contact: '/contact',
+};
 
 function GithubIcon() {
   return (
@@ -33,6 +43,8 @@ function TwitterIcon() {
 }
 
 export default function Footer() {
+  const t = useTranslations('footer');
+  const tNav = useTranslations('nav');
   const vantaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -77,7 +89,7 @@ export default function Footer() {
               {SITE.logo.main}<span className="text-primary">{SITE.logo.accent}</span>
             </Link>
             <p className="text-gray-text text-sm leading-relaxed mb-6 max-w-sm">
-              Crafting high-performance digital experiences through modern engineering and scalable software solutions.
+              {t('brand.description')}
             </p>
             <div className="flex items-center gap-3">
               <a href={SOCIAL.github} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-dark-border flex items-center justify-center text-gray-light hover:text-primary hover:border-primary transition-colors"><GithubIcon /></a>
@@ -86,31 +98,35 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Links Col */}
+          {/* Services Col */}
           <div>
-            <h4 className="text-white font-heading font-semibold mb-4 text-sm tracking-wide">Hizmetlerim</h4>
+            <h4 className="text-white font-heading font-semibold mb-4 text-sm tracking-wide">{t('links.services.title')}</h4>
             <ul className="space-y-2.5">
-              <li><Link href="/services" className="text-gray-text text-sm hover:text-primary transition-colors">Web Geliştirme</Link></li>
-              <li><Link href="/services" className="text-gray-text text-sm hover:text-primary transition-colors">Mobil Uygulama</Link></li>
-              <li><Link href="/services" className="text-gray-text text-sm hover:text-primary transition-colors">Backend API</Link></li>
-              <li><Link href="/services" className="text-gray-text text-sm hover:text-primary transition-colors">Veritabanı</Link></li>
-              <li><Link href="/services" className="text-gray-text text-sm hover:text-primary transition-colors">DevOps</Link></li>
+              <li><Link href="/services" className="text-gray-text text-sm hover:text-primary transition-colors">{t('links.services.webDev')}</Link></li>
+              <li><Link href="/services" className="text-gray-text text-sm hover:text-primary transition-colors">{t('links.services.mobileDev')}</Link></li>
+              <li><Link href="/services" className="text-gray-text text-sm hover:text-primary transition-colors">{t('links.services.backend')}</Link></li>
+              <li><Link href="/services" className="text-gray-text text-sm hover:text-primary transition-colors">{t('links.services.database')}</Link></li>
+              <li><Link href="/services" className="text-gray-text text-sm hover:text-primary transition-colors">{t('links.services.devops')}</Link></li>
             </ul>
           </div>
 
           {/* Pages Col */}
           <div>
-            <h4 className="text-white font-heading font-semibold mb-4 text-sm tracking-wide">Sayfalar</h4>
+            <h4 className="text-white font-heading font-semibold mb-4 text-sm tracking-wide">{t('links.pages.title')}</h4>
             <ul className="space-y-2.5">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}><Link href={link.href} className="text-gray-text text-sm hover:text-primary transition-colors">{link.label}</Link></li>
+              {NAV_KEYS.map((key) => (
+                <li key={key}>
+                  <Link href={NAV_HREFS[key]} className="text-gray-text text-sm hover:text-primary transition-colors">
+                    {tNav(key)}
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>
 
           {/* Contact Col */}
           <div>
-            <h4 className="text-white font-heading font-semibold mb-4 text-sm tracking-wide">İletişim</h4>
+            <h4 className="text-white font-heading font-semibold mb-4 text-sm tracking-wide">{t('links.contact.title')}</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-gray-text text-sm"><Phone size={16} className="text-primary shrink-0 mt-0.5" />{CONTACT.phone}</li>
               <li className="flex items-start gap-2 text-gray-text text-sm"><MapPin size={16} className="text-primary shrink-0 mt-0.5" />{CONTACT.location}</li>
@@ -121,10 +137,10 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="pt-8 border-t border-dark-border flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-text text-[13px]">© {new Date().getFullYear()} {SITE.name}. All right reserved</p>
+          <p className="text-gray-text text-[13px]">© {new Date().getFullYear()} {SITE.name}. {t('allRightsReserved')}</p>
           <div className="flex gap-4">
-            <a href="#" className="text-gray-text text-[13px] hover:text-white transition-colors">Gizlilik Politikası</a>
-            <a href="#" className="text-gray-text text-[13px] hover:text-white transition-colors">Kullanım Şartları</a>
+            <a href="#" className="text-gray-text text-[13px] hover:text-white transition-colors">{t('links.legal.privacy')}</a>
+            <a href="#" className="text-gray-text text-[13px] hover:text-white transition-colors">{t('links.legal.terms')}</a>
           </div>
         </div>
       </div>

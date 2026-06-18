@@ -1,16 +1,17 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import Button from "@/components/ui/Button";
 import { createVantaCellsEffect } from "@/lib/vantaLoader";
 
 export default function Hero() {
+  const t = useTranslations('hero');
   const sectionRef = useRef<HTMLElement>(null);
   const vantaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Entrance animations for hero content
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 2.2 });
       tl.from("[data-hero-animate]", {
@@ -25,7 +26,7 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    let effect: any = null;
+    let effect: ReturnType<typeof createVantaCellsEffect> extends Promise<infer T> ? T : never = null;
     let cancelled = false;
 
     (async () => {
@@ -63,30 +64,30 @@ export default function Hero() {
         <div data-hero-animate>
           <span className="badge badge-primary mb-8 text-[13px]">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Bilgisayar Mühendisi &amp; Full Stack Geliştirici
+            {t('badge')}
           </span>
         </div>
 
         {/* Heading */}
         <h1 data-hero-animate className="text-4xl md:text-5xl lg:text-[64px] font-heading font-bold leading-[1.1] text-white max-w-4xl mx-auto mb-6">
-          Modern çözümler üreten bir{" "}
-          <span className="text-gradient">yazılım mühendisi</span>
+          {t('title')}{" "}
+          <span className="text-gradient">{t('titleHighlight')}</span>
         </h1>
 
         {/* Subtext */}
         <p data-hero-animate className="text-gray-text text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-          Web, mobil ve backend alanlarında yenilikçi, performans odaklı ve kullanıcı dostu dijital çözümler üretiyorum.
+          {t('subtitle')}
         </p>
 
         {/* CTAs */}
         <div data-hero-animate className="flex flex-wrap items-center justify-center gap-4">
-          <Button href="/contact" variant="primary">İletişime Geç</Button>
-          <Button href="/#services" variant="outline">Hizmetleri Gör</Button>
+          <Button href="/contact" variant="primary">{t('cta')}</Button>
+          <Button href="/#services" variant="outline">{t('viewWork')}</Button>
         </div>
 
         {/* Trust */}
         <p data-hero-animate className="text-gray text-[13px] mt-12">
-          50+ işletme güveniyor
+          {t('trust')}
         </p>
       </div>
     </section>

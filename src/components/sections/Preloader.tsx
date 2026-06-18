@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { pauseLenis, resumeLenis } from "@/lib/lenisControls";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,12 +14,12 @@ export default function Preloader() {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    window.lenis?.stop();
+    pauseLenis();
 
     const tl = gsap.timeline({
       onComplete: () => {
         document.body.style.overflow = "";
-        window.lenis?.start();
+        resumeLenis();
         // Preloader bittiğinde ScrollTrigger'ı yeniliyoruz ki tüm animasyonlar doğru tetiklensin
         setTimeout(() => {
           ScrollTrigger.refresh();
@@ -48,7 +49,7 @@ export default function Preloader() {
     return () => {
       tl.kill();
       document.body.style.overflow = "";
-      window.lenis?.start();
+      resumeLenis();
     };
   }, []);
 

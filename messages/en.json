@@ -5,7 +5,7 @@
     "services": "Services",
     "portfolio": "Portfolio",
     "contact": "Contact",
-    "cta": "Get in Touch"
+    "cta": "Let's Talk"
   },
   "language": {
     "tr": "Türkçe",
@@ -13,95 +13,576 @@
     "switchTo": "Switch language"
   },
   "hero": {
-    "greeting": "Hello, I'm",
-    "name": "Eren Özden",
-    "title": "Full Stack Developer",
-    "subtitle": "Computer engineer delivering modern web, mobile and backend solutions.",
+    "badge": "Computer Engineer & Full Stack Developer",
+    "title": "A software engineer crafting",
+    "titleHighlight": "modern solutions",
+    "subtitle": "I build innovative, performance-driven, and user-friendly digital solutions in web, mobile, and backend development.",
     "cta": "Get in Touch",
-    "viewWork": "View My Work"
+    "viewWork": "View Services",
+    "trust": "Trusted by 50+ businesses"
   },
   "about": {
-    "title": "About Me",
-    "subtitle": "Skills and experience",
-    "description": "With a passion for software development, I create innovative solutions using modern technologies."
+    "sectionLabel": "About Us",
+    "badge": "About Us",
+    "title": "Transforming Complex Business Processes",
+    "titleSuffix": "Into Scalable Systems and Autonomous Workflows.",
+    "subtitle": "At the intersection of technology and innovation",
+    "description": "We build high-performance digital systems to reduce your manual workload and increase operational efficiency. With a robust tech stack (Next.js, Node.js) and AI integrations, we transform your business into an error-free and scalable structure.",
+    "ctaPrimary": "Schedule a Call",
+    "ctaSecondary": "Explore My Work",
+    "techTitle": "TRUSTED TECHNOLOGY STACK",
+    "whoWeAre": {
+      "badge": "Who We Are",
+      "title": "Building Tomorrow's Digital Infrastructure with Engineering Discipline.",
+      "description1": "We define digital presence not merely as having a website or app, but as building a properly architected system. By analyzing complex business processes, we develop high-performance, scalable, and operationally efficient software solutions.",
+      "description2": "Our expertise spans Enterprise ERP Systems, AI Automation, Full-stack Web, and Mobile Application development. We approach every project from an engineering perspective that prioritizes data security, code quality, and sustainability. Our goal is to guide businesses through their technological transformation, delivering 'Future-Proof' solutions that prepare them for tomorrow's digital requirements."
+    },
+    "stats": {
+      "modular": {
+        "title": "100% Modular Architecture",
+        "desc": "We build projects with fully documented code standards, easy maintenance, and compatibility for future growth and integrations."
+      },
+      "performance": {
+        "title": "High-Performance Stack",
+        "desc": "With Next.js and Node.js infrastructure, we deliver optimized systems with millisecond-level response times meeting Core Web Vitals standards."
+      },
+      "scalable": {
+        "title": "Scalable & Future-Proof",
+        "desc": "We design autonomous business processes that minimize manual workload through AI integrations and cloud-native solutions."
+      }
+    },
+    "cta": {
+      "badge": "Start Your Transformation",
+      "title": "Start Automating Your Processes Today",
+      "description": "Schedule a free consultation to discuss how we can grow your business and save you valuable time.",
+      "button": "Schedule Free Consultation"
+    },
+    "vision": {
+      "title": "Vision",
+      "text": "Building user-centric, future-proof digital products that push the boundaries of technology."
+    },
+    "mission": {
+      "title": "Mission",
+      "text": "Delivering unique approaches to every project while being a trusted partner in my clients' digital transformation journey."
+    },
+    "experience": {
+      "title": "Experience",
+      "years": "Years of Experience",
+      "projects": "Projects Completed",
+      "clients": "Happy Clients",
+      "technologies": "Technologies Used"
+    },
+    "skills": {
+      "title": "Areas of Expertise",
+      "frontend": "Frontend Development",
+      "backend": "Backend Systems",
+      "mobile": "Mobile Applications",
+      "cloud": "Cloud & DevOps",
+      "ai": "AI & Machine Learning",
+      "database": "Database Design"
+    },
+    "approach": {
+      "title": "My Approach",
+      "agile": "Agile Methodology",
+      "agileDesc": "Sprint-based, iterative development processes",
+      "quality": "Quality-Driven",
+      "qualityDesc": "Test-driven development and code reviews",
+      "communication": "Transparent Communication",
+      "communicationDesc": "Regular reporting and real-time feedback"
+    },
+    "downloadCV": "Download CV",
+    "viewProjects": "View Projects"
   },
   "services": {
-    "title": "Services",
-    "subtitle": "Professional solutions I offer",
-    "webDev": "Web Development",
-    "mobileDev": "Mobile Development",
-    "backend": "Backend Development",
-    "consulting": "Consulting"
+    "sectionLabel": "Services",
+    "title": "What I Do",
+    "subtitle": "Services",
+    "description": "I provide professional software services that help businesses with their digital transformation. Click on cards for details.",
+    "viewDetails": "View Details",
+    "getQuote": "Get a Quote",
+    "learnMore": "Learn More",
+    "allServices": "All Services",
+    "categories": {
+      "all": "All",
+      "development": "Development",
+      "design": "Design",
+      "consulting": "Consulting"
+    },
+    "webDev": {
+      "title": "Web Development",
+      "shortDesc": "Lightning-fast, secure, and SEO-optimized modern web applications"
+    },
+    "mobileDev": {
+      "title": "Mobile Development",
+      "shortDesc": "Native-performance cross-platform solutions for iOS and Android"
+    },
+    "backend": {
+      "title": "Backend & API",
+      "shortDesc": "Scalable microservice architectures and robust API development"
+    },
+    "cloud": {
+      "title": "Cloud & DevOps",
+      "shortDesc": "Infrastructure setup on AWS, Azure, GCP with CI/CD automation"
+    },
+    "ai": {
+      "title": "AI Integration",
+      "shortDesc": "Seamless integration of AI and machine learning into your applications"
+    },
+    "consulting": {
+      "title": "Technical Consulting",
+      "shortDesc": "Expert guidance on architecture design, code reviews, and technology selection"
+    },
+    "process": {
+      "title": "Process",
+      "step1": {
+        "title": "Discovery & Analysis",
+        "desc": "Deep dive into understanding your needs"
+      },
+      "step2": {
+        "title": "Planning & Design",
+        "desc": "Detailed roadmap and architecture blueprint"
+      },
+      "step3": {
+        "title": "Development",
+        "desc": "Agile-driven iterative development"
+      },
+      "step4": {
+        "title": "Testing & Launch",
+        "desc": "Comprehensive QA and seamless deployment"
+      }
+    }
+  },
+  "serviceDetail": {
+    "backToServices": "All Services",
+    "overview": "Overview",
+    "features": "Features",
+    "technologies": "Technologies Used",
+    "deliverables": "Deliverables",
+    "timeline": "Estimated Timeline",
+    "howWeWork": "How I Work",
+    "howWeWorkDesc": "I start by thoroughly analyzing your requirements to determine the optimal tech stack. Through transparent communication and agile methodologies, I keep you informed throughout the process and deliver results that exceed your expectations.",
+    "whatWeProvide": "What I Provide",
+    "benefits": {
+      "analysis": "Comprehensive Analysis and Strategic Planning",
+      "architecture": "Modern, Scalable, and Maintainable Architecture",
+      "performance": "Performance, Security, and SEO Optimization",
+      "support": "Post-Launch Support and Maintenance"
+    },
+    "startProject": "Start This Service",
+    "relatedServices": "Related Services",
+    "process": {
+      "title": "My Work Process",
+      "description": "I follow proven steps in every project",
+      "step1": {
+        "title": "Discovery & Analysis",
+        "description": "Understanding your needs deeply to build a solid foundation"
+      },
+      "step2": {
+        "title": "Planning & Strategy",
+        "description": "Creating detailed roadmap and technical architecture"
+      },
+      "step3": {
+        "title": "Design & Prototype",
+        "description": "Prioritizing user experience in design process"
+      },
+      "step4": {
+        "title": "Development",
+        "description": "Iterative development with agile methodology"
+      },
+      "step5": {
+        "title": "Testing & Optimization",
+        "description": "Comprehensive testing and performance optimization"
+      },
+      "step6": {
+        "title": "Launch & Support",
+        "description": "Smooth deployment and continuous support"
+      }
+    },
+    "techStack": {
+      "title": "Technology Stack",
+      "description": "Working with modern and battle-tested technologies"
+    },
+    "useCases": {
+      "title": "Use Cases",
+      "description": "Real-world applications of this service"
+    },
+    "whyChoose": {
+      "title": "Why Choose Me?",
+      "reason1": {
+        "title": "Proven Experience",
+        "description": "5+ years of professional experience and 50+ successful projects"
+      },
+      "reason2": {
+        "title": "Modern Technologies",
+        "description": "Development with latest tools and best practices"
+      },
+      "reason3": {
+        "title": "Transparent Communication",
+        "description": "Regular updates and reporting at every stage"
+      },
+      "reason4": {
+        "title": "Quality Guarantee",
+        "description": "Test-driven development and code quality standards"
+      }
+    },
+    "pricing": {
+      "title": "Investment Plans",
+      "description": "Flexible packages tailored to your needs",
+      "contact": "Contact for Detailed Quote",
+      "starting": "Starting",
+      "custom": "Custom Package"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": {
+        "question": "How long does a project take?",
+        "answer": "It varies based on project complexity. Simple projects take 2-4 weeks, medium-scale projects 2-3 months, and large projects 3-6 months. I provide a clear timeline after the initial consultation."
+      },
+      "q2": {
+        "question": "Do you provide post-launch support?",
+        "answer": "Yes, I provide 30 days of free post-launch support for all projects. Afterward, I offer monthly maintenance packages or on-demand support services."
+      },
+      "q3": {
+        "question": "What payment methods do you accept?",
+        "answer": "I work with bank transfers and wire transfers. Payment plan is 50% at project start and 50% at delivery. Milestone-based payment is also possible for large projects."
+      },
+      "q4": {
+        "question": "Is source code delivered?",
+        "answer": "Yes, upon project completion, all source code, documentation, and necessary access credentials are delivered to you."
+      }
+    }
   },
   "portfolio": {
-    "title": "Portfolio",
-    "subtitle": "Selected works",
-    "viewAll": "View All",
-    "viewProject": "View Project"
+    "sectionLabel": "Portfolio",
+    "title": "Recent Work",
+    "subtitle": "Projects",
+    "description": "Examples from my completed projects.",
+    "filters": {
+      "all": "All",
+      "web": "Web",
+      "mobile": "Mobile",
+      "ai": "AI",
+      "cloud": "Cloud",
+      "ecommerce": "E-Commerce",
+      "saas": "SaaS"
+    },
+    "viewProject": "View Project",
+    "viewDetails": "View Details",
+    "liveDemo": "Live Demo",
+    "sourceCode": "Source Code",
+    "caseStudy": "Case Study",
+    "viewAll": "View All Projects",
+    "loadMore": "Load More",
+    "noProjects": "No projects added yet.",
+    "errorLoading": "An error occurred while loading projects.",
+    "retry": "Retry",
+    "defaultTitle": "Project",
+    "projectInfo": {
+      "client": "Client",
+      "industry": "Industry",
+      "duration": "Duration",
+      "year": "Year",
+      "role": "Role",
+      "technologies": "Technologies",
+      "challenge": "Challenge",
+      "solution": "Solution",
+      "results": "Results",
+      "testimonial": "Client Testimonial"
+    },
+    "stats": {
+      "completed": "Projects Completed",
+      "clients": "Happy Clients",
+      "countries": "Countries Served"
+    }
   },
   "contact": {
-    "title": "Contact",
-    "subtitle": "Get in touch with me",
-    "name": "Full Name",
-    "email": "Email",
-    "message": "Your Message",
-    "send": "Send",
-    "success": "Your message has been sent successfully!",
-    "error": "An error occurred, please try again."
+    "sectionLabel": "Contact",
+    "badge": "Contact",
+    "title": "Get in Touch",
+    "subtitle": "Take the first step to bring your project to life",
+    "description": "Fill out the form below for your projects, ideas, or any questions. I'll get back to you as soon as possible.",
+    "form": {
+      "firstName": "First Name",
+      "firstNamePlaceholder": "John",
+      "lastName": "Last Name",
+      "lastNamePlaceholder": "Doe",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "email": "Email",
+      "emailPlaceholder": "example@mail.com",
+      "phone": "Phone",
+      "phonePlaceholder": "+1 555 000 0000",
+      "company": "Company (Optional)",
+      "companyPlaceholder": "Your company name",
+      "subject": "Subject",
+      "subjectPlaceholder": "What's your project about?",
+      "budget": "Estimated Budget",
+      "budgetPlaceholder": "Select a budget range",
+      "budgetOptions": {
+        "select": "Select budget",
+        "small": "$1,000 - $5,000",
+        "medium": "$5,000 - $15,000",
+        "large": "$15,000 - $50,000",
+        "enterprise": "$50,000+"
+      },
+      "timeline": "Timeline",
+      "timelineOptions": {
+        "select": "Select timeline",
+        "urgent": "Urgent (1-2 weeks)",
+        "short": "Short-term (1-2 months)",
+        "medium": "Medium-term (3-6 months)",
+        "long": "Long-term (6+ months)"
+      },
+      "service": "Service of Interest",
+      "servicePlaceholder": "Select a service",
+      "message": "Your Message",
+      "messagePlaceholder": "Tell me about your project or idea...",
+      "attachment": "Attach File (Optional)",
+      "attachmentHint": "PDF, DOC, or images (max 10MB)",
+      "submit": "Send Message",
+      "submitting": "Sending...",
+      "privacyNote": "Your information will be kept confidential and used only to contact you."
+    },
+    "validation": {
+      "nameRequired": "Full name is required",
+      "nameMin": "Name must be at least 2 characters",
+      "emailRequired": "Email address is required",
+      "emailInvalid": "Please enter a valid email address",
+      "phoneInvalid": "Please enter a valid phone number",
+      "subjectRequired": "Subject is required",
+      "messageRequired": "Message is required",
+      "messageMin": "Message must be at least 20 characters",
+      "fileTooLarge": "File size cannot exceed 10MB",
+      "fileTypeInvalid": "Unsupported file format",
+      "turnstileRequired": "Please verify that you are not a robot"
+    },
+    "success": {
+      "title": "Message Sent Successfully!",
+      "message": "I'll get back to you as soon as possible. Typically within 24 hours.",
+      "another": "Send another message"
+    },
+    "error": {
+      "title": "Something Went Wrong",
+      "message": "Your message couldn't be sent. Please try again later or reach out via email directly.",
+      "retry": "Try Again"
+    },
+    "info": {
+      "title": "Contact Information",
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
+      "availability": "Availability",
+      "availabilityText": "Monday - Friday, 9:00 AM - 6:00 PM (UTC+3)",
+      "response": "Response Time",
+      "responseText": "Usually within 24 hours"
+    },
+    "social": {
+      "title": "Social Media",
+      "followMe": "Follow me"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "How does the project process work?",
+      "a1": "During our initial call, I analyze your requirements and prepare a detailed proposal. Once approved, we begin the development process using agile methodology.",
+      "q2": "What are the payment terms?",
+      "a2": "Typically 50% upfront and 50% upon delivery. Monthly payment plans are available for larger projects.",
+      "q3": "Do you work remotely?",
+      "a3": "Yes, I work completely remotely. I've successfully delivered projects for clients worldwide."
+    }
   },
   "cta": {
-    "title": "Let's Bring Your Project to Life",
-    "subtitle": "Together we can create amazing things",
-    "button": "Let's Get Started"
+    "title": "Ready to create amazing projects together?",
+    "subtitle": "Schedule a call now and start automating.",
+    "button": "Free Consultation",
+    "secondary": "View Projects"
+  },
+  "stats": {
+    "experience": {
+      "value": "5",
+      "suffix": "+",
+      "label": "Years Experience"
+    },
+    "projects": {
+      "value": "920",
+      "suffix": "+",
+      "label": "Projects Completed"
+    },
+    "clients": {
+      "value": "32",
+      "suffix": "",
+      "label": "Happy Clients"
+    },
+    "code": {
+      "value": "10",
+      "suffix": "K+",
+      "label": "Lines of Code"
+    }
+  },
+  "testimonials": {
+    "badge": "Testimonials",
+    "title": "What My Clients Say",
+    "subtitle": "Real projects, real results.",
+    "items": {
+      "1": {
+        "name": "John Smith",
+        "role": "CEO",
+        "company": "TechStart",
+        "text": "Working with Eren was an incredible experience. He delivered our project on time and exceeded our expectations. His technical expertise and professionalism truly make a difference."
+      },
+      "2": {
+        "name": "Sarah Johnson",
+        "role": "CTO",
+        "company": "InnovateTech",
+        "text": "He provides creative and efficient solutions to complex problems. His communication skills are excellent, keeping us informed at every stage."
+      },
+      "3": {
+        "name": "Michael Brown",
+        "role": "Product Manager",
+        "company": "DigitalPlus",
+        "text": "His attention to user experience and code quality is commendable. Definitely a developer we want to work with again."
+      },
+      "4": {
+        "name": "Emily Davis",
+        "role": "Founder",
+        "company": "StartupHQ",
+        "text": "Customer support is now seamless. Our response times have improved dramatically and satisfaction levels are at an all-time high."
+      }
+    }
+  },
+  "marquee": {
+    "categories": {
+      "webDev": "Web Development",
+      "mobileDev": "Mobile Apps",
+      "uiux": "UI/UX Design",
+      "backend": "Backend API",
+      "devops": "DevOps",
+      "database": "Database"
+    }
   },
   "footer": {
-    "copyright": "All rights reserved.",
-    "madeWith": "Made with"
+    "brand": {
+      "name": "Eren Özden",
+      "tagline": "Full Stack Developer & Software Architect",
+      "description": "Crafting high-performance digital experiences through modern engineering and scalable software solutions."
+    },
+    "links": {
+      "services": {
+        "title": "Services",
+        "webDev": "Web Development",
+        "mobileDev": "Mobile Apps",
+        "backend": "Backend API",
+        "database": "Database",
+        "devops": "DevOps"
+      },
+      "pages": {
+        "title": "Pages"
+      },
+      "contact": {
+        "title": "Contact"
+      },
+      "legal": {
+        "title": "Legal",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service",
+        "cookies": "Cookie Policy"
+      }
+    },
+    "newsletter": {
+      "title": "Subscribe to Newsletter",
+      "description": "Stay updated with the latest in tech, new projects, and insider tips.",
+      "placeholder": "Your email address",
+      "button": "Subscribe",
+      "success": "Successfully subscribed!",
+      "error": "Something went wrong. Please try again.",
+      "privacy": "Unsubscribe anytime."
+    },
+    "social": {
+      "title": "Follow Me",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "twitter": "Twitter",
+      "instagram": "Instagram"
+    },
+    "copyright": "© {year} Eren Özden. All rights reserved.",
+    "allRightsReserved": "All rights reserved",
+    "madeWith": "Made with ❤️ from Turkey",
+    "backToTop": "Back to Top"
   },
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
-    "notFound": "Page not found",
+    "notFound": "Page Not Found",
+    "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to Home",
     "learnMore": "Learn More",
-    "allServices": "All Services",
+    "getStarted": "Get Started",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "showMore": "Show More",
+    "showLess": "Show Less",
+    "close": "Close",
+    "open": "Open",
+    "yes": "Yes",
+    "no": "No",
+    "or": "or",
+    "and": "and",
+    "new": "New",
+    "featured": "Featured",
+    "popular": "Popular",
+    "comingSoon": "Coming Soon",
+    "underConstruction": "Under Construction",
+    "menu": "Menu",
     "allProjects": "All Projects",
-    "liveProject": "View Live Project",
-    "sourceCode": "Source Code",
-    "aboutProject": "About the Project"
-  },
-  "serviceDetail": {
-    "backToServices": "All Services",
-    "howWeWork": "How We Work?",
-    "howWeWorkDesc": "We start by analyzing your needs and selecting the most suitable technologies. Throughout the process, we use transparent communication and agile methods to deliver results beyond your expectations.",
-    "whatWeProvide": "What We Provide?",
-    "benefits": {
-      "analysis": "Comprehensive Analysis and Planning",
-      "architecture": "Modern and Scalable Architecture",
-      "performance": "Performance and Security Optimization",
-      "support": "Continuous Support and Maintenance"
-    }
+    "aboutProject": "About Project",
+    "liveProject": "View Live",
+    "sourceCode": "Source Code"
   },
   "meta": {
     "home": {
-      "title": "Eren Özden | Computer Engineer & Full Stack Developer",
-      "description": "Eren Özden — Computer Engineer & Full Stack Developer. Modern web, mobile and backend solutions."
+      "title": "Eren Özden | Full Stack Developer & Software Architect",
+      "description": "Transforming digital visions into reality with modern web, mobile, and backend solutions. Scalable, user-centric software for startups to enterprise."
     },
     "about": {
-      "title": "About | Eren Özden",
-      "description": "Detailed information about Eren Özden, skills and experience."
+      "title": "About | Eren Özden - Software Developer",
+      "description": "Discover my passion for software development, technical expertise, and project experience. As a full stack developer, I turn your vision into code."
     },
     "services": {
-      "title": "Services | Eren Özden",
-      "description": "My web, mobile and backend development services."
+      "title": "Services | Web, Mobile & Backend Development - Eren Özden",
+      "description": "Web development, mobile apps, backend systems, cloud infrastructure, and technical consulting. Solutions that scale your business digitally."
     },
     "portfolio": {
-      "title": "Portfolio | Eren Özden",
-      "description": "Projects and works I have developed."
+      "title": "Portfolio | Projects & Case Studies - Eren Özden",
+      "description": "Featured work from startup MVPs to enterprise projects. Detailed case studies of web, mobile, and AI solutions delivered."
     },
     "contact": {
-      "title": "Contact | Eren Özden",
-      "description": "Get in touch with me. Let's discuss your project ideas."
+      "title": "Contact | Let's Discuss Your Project - Eren Özden",
+      "description": "Get in touch about your next project. Free consultation to evaluate your ideas and create something amazing together."
     }
+  },
+  "errors": {
+    "404": {
+      "title": "Page Not Found",
+      "description": "The page you're looking for doesn't exist or has been moved.",
+      "action": "Back to Home"
+    },
+    "500": {
+      "title": "Server Error",
+      "description": "Something went wrong on our end. Please try again later.",
+      "action": "Refresh Page"
+    },
+    "offline": {
+      "title": "You're Offline",
+      "description": "Check your internet connection and try again.",
+      "action": "Try Again"
+    }
+  },
+  "accessibility": {
+    "skipToContent": "Skip to Content",
+    "mainNavigation": "Main Navigation",
+    "menuOpen": "Open Menu",
+    "menuClose": "Close Menu",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "languageSelector": "Language Selector"
   }
 }

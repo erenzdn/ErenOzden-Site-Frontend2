@@ -1,0 +1,45 @@
+# Node modules
+node_modules
+npm-debug.log
+
+# Next.js
+.next/
+out/
+
+# Build files
+*.log
+.DS_Store
+*.pem
+
+# Environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Testing
+coverage
+.nyc_output
+
+# Misc
+README.md
+DOCUMENTATION.md
+*.md
+
+# Development
+dev.ps1
+.cursor/
+agent-transcripts/
+messages/
+terminals/

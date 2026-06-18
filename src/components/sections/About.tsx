@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { 
@@ -12,30 +13,32 @@ import Button from "@/components/ui/Button";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const stats = [
-  { 
-    title: "%100 Modüler Mimari", 
-    desc: "Projelerimizi, gelecekteki büyüme ve entegrasyonlara uyumlu, bakımı kolay ve dokümantasyonu tam kod standartlarıyla inşa ediyoruz.",
-    icon: Code 
-  },
-  { 
-    title: "High-Performance Stack", 
-    desc: "Next.js ve Node.js altyapısıyla, Core Web Vitals standartlarında, milisaniye seviyesinde yanıt sürelerine sahip optimize edilmiş sistemler sunuyoruz.",
-    icon: Gauge 
-  },
-  { 
-    title: "Scalable & Future-Proof", 
-    desc: "Yapay zeka entegrasyonları ve bulut yerel (cloud-native) çözümlerle, manuel iş yükünü minimize eden otonom iş süreçleri tasarlıyoruz.",
-    icon: Brain 
-  },
-];
+const statIcons = [Code, Gauge, Brain];
 
 export default function About() {
+  const t = useTranslations('about');
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const stats = [
+    { 
+      title: t('stats.modular.title'), 
+      desc: t('stats.modular.desc'),
+      icon: Code 
+    },
+    { 
+      title: t('stats.performance.title'), 
+      desc: t('stats.performance.desc'),
+      icon: Gauge 
+    },
+    { 
+      title: t('stats.scalable.title'), 
+      desc: t('stats.scalable.desc'),
+      icon: Brain 
+    },
+  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Hero Animation
       gsap.from(".about-hero-animate", {
         opacity: 0,
         y: 40,
@@ -44,7 +47,6 @@ export default function About() {
         ease: "power3.out",
       });
 
-      // Who We Are Animation
       gsap.from(".who-we-are-animate", {
         opacity: 0,
         y: 30,
@@ -58,7 +60,6 @@ export default function About() {
         }
       });
 
-      // CTA Animation
       gsap.from(".cta-animate", {
         opacity: 0,
         y: 30,
@@ -86,28 +87,28 @@ export default function About() {
       <section className="relative pt-12 pb-20 md:pt-16 md:pb-28 z-10">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <span className="badge badge-primary mb-6 about-hero-animate">
-            Hakkımızda
+            {t('badge')}
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-[56px] font-heading font-bold leading-[1.1] mb-6 max-w-4xl mx-auto about-hero-animate">
-            <span className="text-gradient">Karmaşık İş Süreçlerini</span>
+            <span className="text-gradient">{t('title')}</span>
             <br />
-            Ölçeklenebilir Sistemlere ve Otonom İş Akışlarına Dönüştürüyoruz.
+            {t('titleSuffix')}
           </h1>
           <p className="text-gray-text text-base md:text-lg max-w-3xl mx-auto mb-8 leading-relaxed about-hero-animate">
-            Manuel iş yükünüzü azaltmak ve operasyonel verimliliği artırmak için yüksek performanslı dijital sistemler inşa ediyoruz. Güçlü bir teknik altyapı (Next.js, Node.js) ve yapay zeka entegrasyonlarıyla, işletmenizi hatasız ve ölçeklenebilir bir yapıya kavuşturuyoruz.
+            {t('description')}
           </p>
           <div className="flex flex-wrap justify-center gap-4 about-hero-animate">
             <Button href="/contact" variant="primary" showArrow className="px-7 py-3.5">
-              Görüşme Planlayın
+              {t('ctaPrimary')}
             </Button>
             <Button href="/portfolio" variant="outline" className="px-7 py-3.5">
-              Çalışmalarımı İnceleyin
+              {t('ctaSecondary')}
             </Button>
           </div>
 
           {/* Tech/Trust row */}
           <div className="mt-20 text-center about-hero-animate">
-            <p className="text-xs uppercase tracking-widest text-gray-light font-bold mb-6">GÜVENİLİR TEKNOLOJİ ALTYAPISI</p>
+            <p className="text-xs uppercase tracking-widest text-gray-light font-bold mb-6">{t('techTitle')}</p>
             <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-6 opacity-30 select-none">
               <span className="text-sm font-bold tracking-widest text-white">REACT</span>
               <span className="text-sm font-bold tracking-widest text-white">NEXT.JS</span>
@@ -128,16 +129,16 @@ export default function About() {
             {/* Left Col - Text */}
             <div className="lg:col-span-7 space-y-6 who-we-are-animate">
               <span className="badge">
-                Biz Kimiz
+                {t('whoWeAre.badge')}
               </span>
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-white leading-tight">
-                Mühendislik Disipliniyle Geleceğin Dijital Altyapısını İnşa Ediyoruz.
+                {t('whoWeAre.title')}
               </h2>
               <p className="text-gray-text text-base leading-relaxed">
-                Dijital dünyada varlık göstermeyi sadece bir web sitesi veya uygulama sahibi olmak değil; doğru kurgulanmış bir sistem mimarisi kurmak olarak tanımlıyoruz. Karmaşık iş süreçlerini analiz ederek; yüksek performanslı, ölçeklenebilir ve operasyonel verimlilik odaklı yazılım çözümleri geliştiriyoruz.
+                {t('whoWeAre.description1')}
               </p>
               <p className="text-gray-text text-base leading-relaxed">
-                Uzmanlık alanlarımızı Kurumsal ERP Sistemleri, Yapay Zeka (AI) Otomasyonları, Full-stack Web ve Mobil Uygulama geliştirme dikeylerinde topluyoruz. Her projeyi; veri güvenliğini, kod kalitesini ve sürdürülebilirliği merkeze alan bir mühendislik perspektifiyle ele alıyoruz. Amacımız; işletmelerin teknolojik dönüşümlerine rehberlik ederek, onları geleceğin dijital gereksinimlerine hazır hale getiren "Future-Proof" çözümler sunmaktır.
+                {t('whoWeAre.description2')}
               </p>
             </div>
 
@@ -168,16 +169,16 @@ export default function About() {
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="cta-animate card card-glow p-8 md:p-16 relative overflow-hidden text-center max-w-[1000px] mx-auto">
             <div className="glow-blob top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20" />
-            <span className="badge badge-primary mb-6">Dönüşüme Başlayın</span>
+            <span className="badge badge-primary mb-6">{t('cta.badge')}</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white mb-6 max-w-2xl mx-auto leading-tight">
-              Süreçlerinizi Otomatikleştirmeye Bugün Başlayın
+              {t('cta.title')}
             </h2>
             <p className="text-gray-text text-sm md:text-base max-w-xl mx-auto mb-8 leading-relaxed">
-              İşinizi nasıl büyütebileceğimizi ve size nasıl zaman kazandırabileceğimizi konuşmak için hemen ücretsiz bir ön görüşme planlayın.
+              {t('cta.description')}
             </p>
             <div className="flex justify-center">
               <Button href="/contact" variant="primary" showArrow className="px-8 py-4 text-base">
-                Ücretsiz Görüşme Planlayın
+                {t('cta.button')}
               </Button>
             </div>
           </div>

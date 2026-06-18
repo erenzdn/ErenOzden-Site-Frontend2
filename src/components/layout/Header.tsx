@@ -7,6 +7,7 @@ import { Menu, X } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 import { SITE } from '@/lib/constants';
+import { pauseLenis, resumeLenis } from '@/lib/lenisControls';
 
 const NAV_KEYS = ['home', 'about', 'services', 'portfolio', 'contact'] as const;
 const NAV_HREFS: Record<(typeof NAV_KEYS)[number], string> = {
@@ -31,14 +32,14 @@ export default function Header() {
   useEffect(() => {
     if (isMobileOpen) {
       document.body.style.overflow = 'hidden';
-      window.lenis?.stop();
+      pauseLenis();
     } else {
       document.body.style.overflow = '';
-      window.lenis?.start();
+      resumeLenis();
     }
     return () => {
       document.body.style.overflow = '';
-      window.lenis?.start();
+      resumeLenis();
     };
   }, [isMobileOpen]);
 

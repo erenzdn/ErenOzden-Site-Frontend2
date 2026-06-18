@@ -1,7 +1,7 @@
 import { STRAPI_URL } from "./constants";
 
 // API URL artık tek bir ortam değişkeni (NEXT_PUBLIC_STRAPI_URL) üzerinden yönetiliyor.
-// Geliştirmede local URL (örn. http://localhost:1337), production'da https://mehmeterenozden.com
+// Geliştirmede local URL (örn. http://localhost:1337), production'da https://api.mehmeterenozden.com
 export const STRAPI_BASE_URL = STRAPI_URL;
 
 // draftAndPublish Uyarısı/Bilgilendirmesi:
@@ -101,16 +101,34 @@ function normalizeStrapiItem(item: any): any {
 }
 
 /**
+ * Strapi REST path'ini normalize eder (/services → /api/services).
+ */
+function toStrapiApiPath(endpoint: string): string {
+  const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+  return cleanEndpoint.startsWith("/api/") ? cleanEndpoint : `/api${cleanEndpoint}`;
+}
+
+/**
+ * Tarayıcıda same-origin proxy (/strapi), sunucuda da internal proxy kullanır.
+ * CORS engelini aşmak ve SSL sorunlarını çözmek için tüm istekler proxy üzerinden gider.
+ */
+export function buildStrapiApiUrl(endpoint: string): string {
+  const apiPath = toStrapiApiPath(endpoint);
+  if (typeof window !== "undefined") {
+    // Client-side: relative proxy URL
+    return `/strapi${apiPath}`;
+  }
+  // Server-side: internal proxy URL (localhost)
+  // Bu sayede SSL sertifika sorunları ve CORS sorunları çözülür
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3001";
+  return `${baseUrl}/strapi${apiPath}`;
+}
+
+/**
  * Güvenli URL birleştirme ve trailing slash tutarlılığı sağlayan helper.
  */
 function buildApiUrl(endpoint: string): string {
-  const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
-  
-  // Eğer endpoint zaten "/api" ile başlıyorsa, mükerrer /api eklemeyi önle
-  if (cleanEndpoint.startsWith("/api/")) {
-    return `${STRAPI_BASE_URL}${cleanEndpoint}`;
-  }
-  return `${STRAPI_BASE_URL}/api${cleanEndpoint}`;
+  return buildStrapiApiUrl(endpoint);
 }
 
 /**

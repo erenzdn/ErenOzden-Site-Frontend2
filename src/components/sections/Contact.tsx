@@ -1,18 +1,45 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Phone, Mail } from "lucide-react";
+import { Phone, Mail, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { CONTACT } from "@/lib/constants";
+import { buildStrapiApiUrl } from "@/lib/apiClient";
 
 gsap.registerPlugin(ScrollTrigger);
 
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
+type FormStatus = "idle" | "submitting" | "success" | "error";
+
+// Production key - Cloudflare Dashboard'dan localhost domain'i eklemeyi unutmayın
+// Test için: "1x00000000000000000000AA" (her zaman geçer)
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "0x4AAAAAADlLsZkl_GOM_A2E";
+
 export default function Contact() {
+  const t = useTranslations("contact");
   const sectionRef = useRef<HTMLElement>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
+
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [formStatus, setFormStatus] = useState<FormStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [validationErrors, setValidationErrors] = useState<Partial<Record<keyof FormData | "turnstile", string>>>({});
 
   useEffect(() => {
-    // Sayfa yüklendiğinde veya mount edildiğinde ScrollTrigger hesaplamalarını garantiye alıyoruz
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);
@@ -24,10 +51,10 @@ export default function Contact() {
         duration: 0.7,
         stagger: 0.1,
         ease: "power3.out",
-        clearProps: "all", // Animasyon tamamlandıktan sonra tüm opacity kilitlerini açar ve alanların görünmesini garanti eder
+        clearProps: "all",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 90%", // Sayfa açılır açılmaz tetiklenmesini garanti etmek için daha aşağı çekildi
+          start: "top 90%",
           toggleActions: "play none none reverse",
         },
       });
@@ -35,33 +62,168 @@ export default function Contact() {
     return () => ctx.revert();
   }, []);
 
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      setFormData((prev) => ({ ...prev, [name]: value }));
+      if (validationErrors[name as keyof FormData]) {
+        setValidationErrors((prev) => ({ ...prev, [name]: undefined }));
+      }
+    },
+    [validationErrors]
+  );
+
+  const handleTurnstileSuccess = useCallback((token: string) => {
+    setTurnstileToken(token);
+    setValidationErrors((prev) => ({ ...prev, turnstile: undefined }));
+  }, []);
+
+  const handleTurnstileError = useCallback(() => {
+    setTurnstileToken(null);
+  }, []);
+
+  const handleTurnstileExpire = useCallback(() => {
+    setTurnstileToken(null);
+  }, []);
+
+  const validateForm = (): boolean => {
+    const errors: Partial<Record<keyof FormData | "turnstile", string>> = {};
+
+    if (!formData.name.trim() || formData.name.trim().length < 2) {
+      errors.name = t("validation.nameRequired");
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim() || !emailRegex.test(formData.email)) {
+      errors.email = t("validation.emailInvalid");
+    }
+
+    if (!formData.message.trim() || formData.message.trim().length < 20) {
+      errors.message = t("validation.messageMin");
+    }
+
+    if (!turnstileToken) {
+      errors.turnstile = t("validation.turnstileRequired");
+    }
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const resetForm = () => {
+    setFormData({ name: "", email: "", message: "" });
+    setTurnstileToken(null);
+    setValidationErrors({});
+    turnstileRef.current?.reset();
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setFormStatus("submitting");
+    setErrorMessage("");
+
+    try {
+      const payload = {
+        data: {
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+          cfTurnstileToken: turnstileToken,
+        },
+      };
+
+      const response = await fetch(buildStrapiApiUrl("/api/messages"), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.error?.message || `HTTP ${response.status}`);
+      }
+
+      setFormStatus("success");
+      resetForm();
+    } catch (error) {
+      setFormStatus("error");
+      setErrorMessage(error instanceof Error ? error.message : t("error.message"));
+      turnstileRef.current?.reset();
+      setTurnstileToken(null);
+    }
+  };
+
+  const handleSendAnother = () => {
+    setFormStatus("idle");
+    resetForm();
+  };
+
+  if (formStatus === "success") {
+    return (
+      <section
+        ref={sectionRef}
+        id="contact"
+        className="section-padding relative overflow-hidden w-full flex flex-col items-center"
+      >
+        <div className="glow-blob top-1/2 left-0 -translate-y-1/2" />
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-[1200px] w-full relative z-10">
+          <div className="max-w-xl mx-auto text-center">
+            <div className="card p-10 md:p-14">
+              <div className="w-20 h-20 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto mb-6">
+                <CheckCircle size={40} className="text-green-500" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-heading font-bold text-white mb-4">
+                {t("success.title")}
+              </h3>
+              <p className="text-gray-text text-base mb-8">{t("success.message")}</p>
+              <button
+                onClick={handleSendAnother}
+                className="px-8 py-3.5 bg-primary text-dark font-medium rounded-xl hover:bg-primary-dark transition-all duration-300 shadow-lg shadow-primary/20 hover:shadow-primary/40 cursor-pointer"
+              >
+                {t("success.another")}
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section ref={sectionRef} id="contact" className="section-padding relative overflow-hidden w-full flex flex-col items-center">
+    <section
+      ref={sectionRef}
+      id="contact"
+      className="section-padding relative overflow-hidden w-full flex flex-col items-center"
+    >
       <div className="glow-blob top-1/2 left-0 -translate-y-1/2" />
       <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-[1200px] w-full relative z-10">
-        
-        {/* Top Header */}
         <div className="text-center mb-16" data-contact-animate>
-          <span className="badge badge-primary mb-5 inline-flex">İletişim</span>
+          <span className="badge badge-primary mb-5 inline-flex">{t("badge")}</span>
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-5 leading-tight">
-            Benimle İletişime Geçin
+            {t("title")}
           </h2>
-          <p className="text-gray-text text-base max-w-xl mx-auto">
-            Projeleriniz, fikirleriniz veya herhangi bir sorunuz için aşağıdaki formu doldurarak ulaşabilirsiniz. Size en kısa sürede dönüş yapacağım.
-          </p>
+          <p className="text-gray-text text-base max-w-xl mx-auto">{t("description")}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-          
-          {/* Left Info Cards */}
           <div className="lg:col-span-5 space-y-5">
             <div data-contact-animate className="card card-glow p-8 flex flex-col gap-4">
               <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
                 <Mail size={22} className="text-primary" />
               </div>
               <div>
-                <p className="text-gray-text text-sm mb-1">E-posta</p>
-                <a href={`mailto:${CONTACT.email}`} className="text-white text-lg font-heading font-semibold hover:text-primary transition-colors">
+                <p className="text-gray-text text-sm mb-1">{t("info.email")}</p>
+                <a
+                  href={`mailto:${CONTACT.email}`}
+                  className="text-white text-lg font-heading font-semibold hover:text-primary transition-colors"
+                >
                   {CONTACT.email}
                 </a>
               </div>
@@ -72,73 +234,140 @@ export default function Contact() {
                 <Phone size={22} className="text-primary" />
               </div>
               <div>
-                <p className="text-gray-text text-sm mb-1">Telefon</p>
-                <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} className="text-white text-lg font-heading font-semibold hover:text-primary transition-colors">
+                <p className="text-gray-text text-sm mb-1">{t("info.phone")}</p>
+                <a
+                  href={`tel:${CONTACT.phone.replace(/\s+/g, "")}`}
+                  className="text-white text-lg font-heading font-semibold hover:text-primary transition-colors"
+                >
                   {CONTACT.phone}
                 </a>
               </div>
             </div>
           </div>
 
-          {/* Right Form */}
           <div className="lg:col-span-7">
-            <form data-contact-animate className="card p-8 md:p-10" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                <div className="space-y-2">
-                  <label className="text-white text-sm font-medium ml-1">İsim</label>
-                  <input 
-                    type="text" 
-                    placeholder="Eren" 
-                    className="w-full px-5 py-3.5 bg-dark border border-dark-border rounded-xl text-white text-sm placeholder:text-gray focus:outline-none focus:border-primary/50 transition-colors" 
-                  />
+            <form
+              data-contact-animate
+              className="card p-8 md:p-10"
+              onSubmit={handleSubmit}
+              noValidate
+            >
+              {formStatus === "error" && (
+                <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-start gap-3">
+                  <AlertCircle size={20} className="text-red-500 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-red-400 font-medium text-sm">{t("error.title")}</p>
+                    <p className="text-red-400/80 text-sm mt-1">{errorMessage}</p>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-white text-sm font-medium ml-1">Soyisim</label>
-                  <input 
-                    type="text" 
-                    placeholder="Özden" 
-                    className="w-full px-5 py-3.5 bg-dark border border-dark-border rounded-xl text-white text-sm placeholder:text-gray focus:outline-none focus:border-primary/50 transition-colors" 
-                  />
-                </div>
-              </div>
+              )}
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                <div className="space-y-2">
-                  <label className="text-white text-sm font-medium ml-1">E-posta</label>
-                  <input 
-                    type="email" 
-                    placeholder="ornek@mail.com" 
-                    className="w-full px-5 py-3.5 bg-dark border border-dark-border rounded-xl text-white text-sm placeholder:text-gray focus:outline-none focus:border-primary/50 transition-colors" 
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-white text-sm font-medium ml-1">Telefon</label>
-                  <input 
-                    type="tel" 
-                    placeholder="+90 555 000 00 00" 
-                    className="w-full px-5 py-3.5 bg-dark border border-dark-border rounded-xl text-white text-sm placeholder:text-gray focus:outline-none focus:border-primary/50 transition-colors" 
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2 mb-8">
-                <label className="text-white text-sm font-medium ml-1">Mesajınız</label>
-                <textarea 
-                  rows={5} 
-                  placeholder="Projenizden veya fikrinizden bahsedin..." 
-                  className="w-full px-5 py-3.5 bg-dark border border-dark-border rounded-xl text-white text-sm placeholder:text-gray focus:outline-none focus:border-primary/50 transition-colors resize-none" 
+              <div className="space-y-2 mb-5">
+                <label htmlFor="name" className="text-white text-sm font-medium ml-1">
+                  {t("form.name")}
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder={t("form.namePlaceholder")}
+                  className={`w-full px-5 py-3.5 bg-dark border rounded-xl text-white text-sm placeholder:text-gray focus:outline-none transition-colors ${
+                    validationErrors.name
+                      ? "border-red-500/50 focus:border-red-500"
+                      : "border-dark-border focus:border-primary/50"
+                  }`}
+                  disabled={formStatus === "submitting"}
                 />
+                {validationErrors.name && (
+                  <p className="text-red-400 text-xs ml-1 mt-1">{validationErrors.name}</p>
+                )}
               </div>
 
-              <button 
-                type="submit" 
-                className="w-full py-4 bg-primary text-dark font-medium rounded-xl hover:bg-primary-dark transition-all duration-300 shadow-lg shadow-primary/20 hover:shadow-primary/40 cursor-pointer"
+              <div className="space-y-2 mb-5">
+                <label htmlFor="email" className="text-white text-sm font-medium ml-1">
+                  {t("form.email")}
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder={t("form.emailPlaceholder")}
+                  className={`w-full px-5 py-3.5 bg-dark border rounded-xl text-white text-sm placeholder:text-gray focus:outline-none transition-colors ${
+                    validationErrors.email
+                      ? "border-red-500/50 focus:border-red-500"
+                      : "border-dark-border focus:border-primary/50"
+                  }`}
+                  disabled={formStatus === "submitting"}
+                />
+                {validationErrors.email && (
+                  <p className="text-red-400 text-xs ml-1 mt-1">{validationErrors.email}</p>
+                )}
+              </div>
+
+              <div className="space-y-2 mb-6">
+                <label htmlFor="message" className="text-white text-sm font-medium ml-1">
+                  {t("form.message")}
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  placeholder={t("form.messagePlaceholder")}
+                  className={`w-full px-5 py-3.5 bg-dark border rounded-xl text-white text-sm placeholder:text-gray focus:outline-none transition-colors resize-none ${
+                    validationErrors.message
+                      ? "border-red-500/50 focus:border-red-500"
+                      : "border-dark-border focus:border-primary/50"
+                  }`}
+                  disabled={formStatus === "submitting"}
+                />
+                {validationErrors.message && (
+                  <p className="text-red-400 text-xs ml-1 mt-1">{validationErrors.message}</p>
+                )}
+              </div>
+
+              <div className="flex flex-col items-center mb-6">
+                <Turnstile
+                  ref={turnstileRef}
+                  siteKey={TURNSTILE_SITE_KEY}
+                  onSuccess={handleTurnstileSuccess}
+                  onError={handleTurnstileError}
+                  onExpire={handleTurnstileExpire}
+                  options={{
+                    theme: "dark",
+                    size: "normal",
+                  }}
+                />
+                {validationErrors.turnstile && (
+                  <p className="text-red-400 text-xs mt-2">{validationErrors.turnstile}</p>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                disabled={formStatus === "submitting"}
+                className="w-full py-4 bg-primary text-dark font-medium rounded-xl hover:bg-primary-dark transition-all duration-300 shadow-lg shadow-primary/20 hover:shadow-primary/40 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:bg-primary flex items-center justify-center gap-2"
               >
-                Formu Gönder
+                {formStatus === "submitting" ? (
+                  <>
+                    <Loader2 size={20} className="animate-spin" />
+                    {t("form.submitting")}
+                  </>
+                ) : (
+                  t("form.submit")
+                )}
               </button>
+
+              <p className="text-gray-text/60 text-xs text-center mt-4">
+                {t("form.privacyNote")}
+              </p>
             </form>
           </div>
-          
         </div>
       </div>
     </section>

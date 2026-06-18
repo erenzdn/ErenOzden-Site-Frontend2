@@ -5,13 +5,8 @@ import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { setLenisInstance } from "@/lib/lenisControls";
 import "lenis/dist/lenis.css";
-
-declare global {
-  interface Window {
-    lenis: Lenis | null;
-  }
-}
 
 interface SmoothScrollProps {
   children: ReactNode;
@@ -37,7 +32,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     });
 
     lenisRef.current = lenis;
-    window.lenis = lenis;
+    setLenisInstance(lenis);
 
     // Her kaydırmada ScrollTrigger tetikleyicilerini güncelle
     lenis.on("scroll", () => {
@@ -57,7 +52,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       gsap.ticker.remove(updatePhysics);
       lenis.destroy();
       lenisRef.current = null;
-      window.lenis = null;
+      setLenisInstance(null);
     };
   }, []);
 
