@@ -11,14 +11,14 @@ export const SITE = {
 } as const;
 
 export const CONTACT = {
-  email: "info@erenozden.com",
-  phone: "+90 555 123 45 67",
+  email: "mehmeteren850@gmail.com",
+  phone: "+90 507 027 63 00",
   location: "İstanbul, Türkiye",
 } as const;
 
 export const SOCIAL = {
-  github: "https://github.com",
-  linkedin: "https://linkedin.com",
+  github: "https://github.com/erenzdn",
+  linkedin: "https://www.linkedin.com/in/mehmet-eren-özden",
   twitter: "https://twitter.com",
   instagram: "https://instagram.com",
 } as const;
