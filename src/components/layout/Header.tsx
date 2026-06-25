@@ -24,9 +24,27 @@ export default function Header() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 30);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    let rafId: number | null = null;
+    let lastScrollY = window.scrollY;
+    
+    const handleScroll = () => {
+      if (rafId !== null) return;
+      
+      rafId = requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+        if (Math.abs(currentScrollY - lastScrollY) > 5) {
+          setIsScrolled(currentScrollY > 30);
+          lastScrollY = currentScrollY;
+        }
+        rafId = null;
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   useEffect(() => {
@@ -52,9 +70,9 @@ export default function Header() {
             : 'bg-transparent'
         }`}
       >
-        <nav className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
+        <nav className="max-w-[1200px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="text-xl font-heading font-bold text-white tracking-tight">
+          <Link href="/" className="text-lg sm:text-xl font-heading font-bold text-white tracking-tight shrink-0">
             {SITE.logo.main}<span className="text-primary">{SITE.logo.accent}</span>
           </Link>
 
@@ -82,18 +100,18 @@ export default function Header() {
 
           {/* Mobile toggle */}
           <button
-            className="lg:hidden text-white p-2"
+            className="lg:hidden text-white p-2 -mr-2 hover:bg-dark-light/60 rounded-lg transition-colors flex items-center justify-center shrink-0"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
             aria-label="Menü"
           >
-            {isMobileOpen ? <X size={22} /> : <Menu size={22} />}
+            {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </nav>
       </header>
 
       {/* Mobile Overlay */}
       {isMobileOpen && (
-        <div className="fixed inset-0 z-40 bg-dark/95 backdrop-blur-xl flex flex-col items-center justify-center gap-6">
+        <div className="fixed inset-0 z-40 bg-dark/95 backdrop-blur-xl flex flex-col items-center justify-center gap-6 px-4 pt-20 pb-8">
           {NAV_KEYS.map((key) => (
             <Link
               key={key}

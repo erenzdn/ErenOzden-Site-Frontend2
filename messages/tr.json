@@ -271,6 +271,7 @@
     "liveDemo": "Canlı Demo",
     "sourceCode": "Kaynak Kod",
     "caseStudy": "Vaka Çalışması",
+    "featuredLabel": "Seçkin Proje",
     "viewAll": "Tüm Projeleri Gör",
     "loadMore": "Daha Fazla Yükle",
     "noProjects": "Henüz proje eklenmemiş.",
@@ -449,6 +450,24 @@
       }
     }
   },
+  "features": {
+    "subtitle": "Özellikler",
+    "title": "Neden Beni Seçmelisiniz?",
+    "description": "Modern teknolojiler ve kanıtlanmış yöntemlerle projelerinize değer katıyorum.",
+    "feature1Title": "Yıldırım Hızında Performans",
+    "feature1Desc": "Optimize edilmiş kod ve modern altyapı ile milisaniye seviyesinde yanıt süreleri. Kullanıcılarınız farkı hissedecek.",
+    "feature2Title": "Güvenlik Odaklı Geliştirme",
+    "feature2Desc": "Her katmanda güvenlik önlemleri, şifreleme ve düzenli güvenlik denetimleri ile verileriniz güvende.",
+    "feature3Title": "Akıllı AI Entegrasyonları",
+    "feature3Desc": "Yapay zeka ve makine öğrenimi teknolojileriyle süreçlerinizi otomatikleştirin ve verimliliği artırın.",
+    "feature4Title": "Ölçeklenebilir Mimari",
+    "feature4Desc": "Büyüme planlarınıza hazır, mikroservis mimarileri ve bulut-native çözümlerle geleceğe yatırım yapın.",
+    "feature5Title": "Kullanıcı Odaklı Tasarım",
+    "feature5Desc": "Modern UX/UI prensipleri ile kullanıcıların sevdiği, kolay ve sezgisel arayüzler geliştiriyorum.",
+    "feature6Title": "Sürekli İyileştirme",
+    "feature6Desc": "Analytics, A/B testleri ve kullanıcı geri bildirimleriyle ürününüzü sürekli optimize ediyorum.",
+    "bottomText": "Projelerinizi bir sonraki seviyeye taşımaya hazırım"
+  },
   "marquee": {
     "categories": {
       "webDev": "Web Geliştirme",
@@ -557,7 +576,79 @@
     "contact": {
       "title": "İletişim | Projenizi Konuşalım - Eren Özden",
       "description": "Yeni projeniz için iletişime geçin. Ücretsiz danışmanlık görüşmesi ile fikirlerinizi değerlendirelim ve birlikte harika işler çıkaralım."
+    },
+    "privacy": {
+      "title": "Gizlilik Politikası | Eren Özden",
+      "description": "Kişisel verilerinizin nasıl toplandığı, kullanıldığı ve korunduğu hakkında bilgi edinin."
+    },
+    "terms": {
+      "title": "Kullanım Şartları | Eren Özden",
+      "description": "Web sitemizi ve hizmetlerimizi kullanırken geçerli olan şartlar ve koşullar."
     }
+  },
+  "privacy": {
+    "title": "Gizlilik Politikası",
+    "lastUpdated": "Son güncelleme: Haziran 2026",
+    "sections": [
+      {
+        "title": "1. Giriş",
+        "content": "Bu Gizlilik Politikası, Eren Özden (mehmeterenozden.com) web sitesini ziyaret ettiğinizde veya hizmetlerimizle iletişime geçtiğinizde kişisel verilerinizin nasıl işlendiğini açıklar. Sitenizi kullanarak bu politikayı kabul etmiş sayılırsınız."
+      },
+      {
+        "title": "2. Toplanan Veriler",
+        "content": "İletişim formu aracılığıyla ad, e-posta adresi, telefon numarası ve mesaj içeriği gibi bilgileri toplayabiliriz. Ayrıca site performansını iyileştirmek için çerezler ve analitik veriler (sayfa görüntüleme, tarayıcı türü, cihaz bilgisi) otomatik olarak toplanabilir."
+      },
+      {
+        "title": "3. Verilerin Kullanım Amacı",
+        "content": "Topladığımız veriler yalnızca taleplerinize yanıt vermek, hizmet sunmak, site deneyimini geliştirmek ve yasal yükümlülüklerimizi yerine getirmek amacıyla kullanılır. Verileriniz üçüncü taraflara satılmaz veya pazarlama amacıyla paylaşılmaz."
+      },
+      {
+        "title": "4. Veri Güvenliği",
+        "content": "Kişisel verilerinizi korumak için uygun teknik ve idari önlemler alınmaktadır. İletişim formları güvenli bağlantı (HTTPS) üzerinden iletilir. Ancak internet üzerinden yapılan hiçbir veri aktarımının %100 güvenli olmadığını unutmayın."
+      },
+      {
+        "title": "5. Haklarınız",
+        "content": "KVKK kapsamında kişisel verilerinize erişme, düzeltme, silme ve işlenmesine itiraz etme haklarına sahipsiniz. Bu haklarınızı kullanmak için mehmeteren850@gmail.com adresinden bizimle iletişime geçebilirsiniz."
+      },
+      {
+        "title": "6. İletişim",
+        "content": "Gizlilik politikamız hakkında sorularınız için mehmeteren850@gmail.com adresine e-posta gönderebilirsiniz."
+      }
+    ]
+  },
+  "terms": {
+    "title": "Kullanım Şartları",
+    "lastUpdated": "Son güncelleme: Haziran 2026",
+    "sections": [
+      {
+        "title": "1. Kabul",
+        "content": "Bu web sitesine (mehmeterenozden.com) erişerek ve kullanarak aşağıdaki kullanım şartlarını kabul etmiş sayılırsınız. Bu şartları kabul etmiyorsanız lütfen siteyi kullanmayın."
+      },
+      {
+        "title": "2. Hizmet Tanımı",
+        "content": "Bu site, Eren Özden'in yazılım geliştirme hizmetlerini tanıtmak, portfolyo çalışmalarını sergilemek ve potansiyel müşterilerle iletişim kurmak amacıyla sunulmaktadır. Sitedeki bilgiler genel bilgilendirme amaçlıdır ve bağlayıcı teklif niteliği taşımaz."
+      },
+      {
+        "title": "3. Fikri Mülkiyet",
+        "content": "Sitedeki tüm içerik, tasarım, kod örnekleri, görseller ve metinler Eren Özden'e aittir ve telif hakkı yasalarıyla korunmaktadır. Yazılı izin olmadan kopyalanamaz, çoğaltılamaz veya dağıtılamaz."
+      },
+      {
+        "title": "4. Sorumluluk Sınırlaması",
+        "content": "Site \"olduğu gibi\" sunulmaktadır. İçeriklerin doğruluğu, güncelliği veya eksiksizliği konusunda garanti verilmez. Sitenin kullanımından kaynaklanan doğrudan veya dolaylı zararlardan sorumluluk kabul edilmez."
+      },
+      {
+        "title": "5. Üçüncü Taraf Bağlantılar",
+        "content": "Sitemiz GitHub, LinkedIn ve diğer harici platformlara bağlantılar içerebilir. Bu sitelerin içerik ve gizlilik uygulamalarından sorumlu değiliz."
+      },
+      {
+        "title": "6. Değişiklikler",
+        "content": "Bu kullanım şartlarını önceden haber vermeksizin güncelleme hakkımız saklıdır. Değişiklikler bu sayfada yayınlandığı anda yürürlüğe girer."
+      },
+      {
+        "title": "7. İletişim",
+        "content": "Kullanım şartları hakkında sorularınız için mehmeteren850@gmail.com adresinden bizimle iletişime geçebilirsiniz."
+      }
+    ]
   },
   "errors": {
     "404": {

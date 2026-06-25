@@ -56,7 +56,7 @@ export default function Testimonials() {
   return (
     <section ref={sectionRef} id="testimonials" className="section-padding relative">
       <div className="glow-blob top-[-100px] left-1/2 -translate-x-1/2" />
-      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-14" data-test-animate>
           <span className="badge badge-primary mb-5 inline-flex">{t('badge')}</span>
           <h2 className="text-3xl md:text-4xl lg:text-[44px] font-heading font-bold text-white mb-5">{t('title')}</h2>

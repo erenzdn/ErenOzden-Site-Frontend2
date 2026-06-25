@@ -60,7 +60,7 @@ export default function StrapiTestPage() {
     <>
       <Header />
       <main className="pt-28 pb-16 min-h-screen bg-dark text-white font-sans">
-        <div className="max-w-6xl mx-auto px-6 relative z-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
           
           {/* Hero Section */}
           <div className="mb-12 text-center md:text-left">

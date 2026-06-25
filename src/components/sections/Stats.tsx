@@ -41,7 +41,7 @@ export default function Stats() {
 
   return (
     <section ref={sectionRef} id="stats" className="py-16">
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="card p-10 md:p-14">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((s, i) => (

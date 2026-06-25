@@ -22,22 +22,23 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     // Lenis pürüzsüz kaydırma motorunu başlat
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // akıcı bir ivmelenme eğrisi
+      duration: 1.0, // 1.2'den 1.0'a düşürüldü (daha hızlı)
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 1.05, // Premium hissi desteklemek için hassas çarpan
+      wheelMultiplier: 1.0, // 1.05'ten 1.0'a düşürüldü (daha responsive)
       touchMultiplier: 1.5,
+      infinite: false,
+      autoResize: true,
+      syncTouch: false, // Touch performansı için optimize edildi
     });
 
     lenisRef.current = lenis;
     setLenisInstance(lenis);
 
     // Her kaydırmada ScrollTrigger tetikleyicilerini güncelle
-    lenis.on("scroll", () => {
-      ScrollTrigger.update();
-    });
+    lenis.on("scroll", ScrollTrigger.update);
 
     // GSAP ticker döngüsünü Lenis raf fonksiyonu ile senkronize et
     const updatePhysics = (time: number) => {

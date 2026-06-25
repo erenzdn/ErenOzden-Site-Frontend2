@@ -2,12 +2,21 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useEffect, useRef } from "react";
-import { useTranslations } from "next-intl";
+import React, { useEffect, useRef, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { SITE, CONTACT, SOCIAL } from "@/lib/constants";
+import {
+  SITE,
+  CONTACT,
+  SOCIAL,
+  FOOTER_SERVICE_KEYS,
+  FOOTER_SERVICE_ICON_MAP,
+  type FooterServiceKey,
+} from "@/lib/constants";
 import { createVantaCellsEffect } from "@/lib/vantaLoader";
+import { type Locale } from "@/i18n/routing";
+import { loadStrapiCollection, strapiRouteKey } from "@/lib/strapi";
 
 const NAV_KEYS = ['home', 'about', 'services', 'portfolio', 'contact'] as const;
 const NAV_HREFS: Record<(typeof NAV_KEYS)[number], string> = {
@@ -17,6 +26,25 @@ const NAV_HREFS: Record<(typeof NAV_KEYS)[number], string> = {
   portfolio: '/portfolio',
   contact: '/contact',
 };
+
+interface StrapiService {
+  documentId: string;
+  slug?: string | null;
+  iconName: string;
+}
+
+function resolveServiceHref(
+  key: FooterServiceKey,
+  services: StrapiService[]
+): string {
+  const iconName = FOOTER_SERVICE_ICON_MAP[key];
+  if (!iconName) return "/services";
+
+  const service = services.find((s) => s.iconName === iconName);
+  if (!service) return "/services";
+
+  return `/services/${strapiRouteKey(service)}`;
+}
 
 function GithubIcon() {
   return (
@@ -43,9 +71,40 @@ function TwitterIcon() {
 }
 
 export default function Footer() {
+  const locale = useLocale() as Locale;
   const t = useTranslations('footer');
   const tNav = useTranslations('nav');
   const vantaRef = useRef<HTMLDivElement>(null);
+  const [serviceHrefs, setServiceHrefs] = useState<Record<FooterServiceKey, string>>(() =>
+    Object.fromEntries(FOOTER_SERVICE_KEYS.map((key) => [key, "/services"])) as Record<FooterServiceKey, string>
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const services = await loadStrapiCollection<StrapiService>(
+          "/api/services",
+          locale,
+          { sort: "order:asc" }
+        );
+        if (cancelled) return;
+
+        const hrefs = Object.fromEntries(
+          FOOTER_SERVICE_KEYS.map((key) => [key, resolveServiceHref(key, services)])
+        ) as Record<FooterServiceKey, string>;
+
+        setServiceHrefs(hrefs);
+      } catch {
+        // Strapi erişilemezse /services fallback kalır
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [locale]);
 
   useEffect(() => {
     let effect: any = null;
@@ -68,7 +127,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-dark border-t border-dark-border pt-16 pb-8 relative overflow-hidden bg-black">
+    <footer className="bg-dark border-t border-dark-border pt-16 pb-8 relative overflow-hidden z-20">
       {/* Vanta Cells Interactive 3D Animated Background */}
       <div 
         ref={vantaRef} 
@@ -76,12 +135,12 @@ export default function Footer() {
       />
 
       {/* Subtle overlay gradient to ensure high-contrast readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40 z-0 pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-black/40 z-0 pointer-events-none" />
 
       {/* Background glow blob */}
       <div className="glow-blob bottom-[-200px] left-1/2 -translate-x-1/2 opacity-50 z-0 pointer-events-none" />
 
-      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-16">
           {/* Brand Col */}
           <div className="lg:col-span-2">
@@ -102,11 +161,16 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-heading font-semibold mb-4 text-sm tracking-wide">{t('links.services.title')}</h4>
             <ul className="space-y-2.5">
-              <li><Link href="/services" className="text-gray-text text-sm hover:text-primary transition-colors">{t('links.services.webDev')}</Link></li>
-              <li><Link href="/services" className="text-gray-text text-sm hover:text-primary transition-colors">{t('links.services.mobileDev')}</Link></li>
-              <li><Link href="/services" className="text-gray-text text-sm hover:text-primary transition-colors">{t('links.services.backend')}</Link></li>
-              <li><Link href="/services" className="text-gray-text text-sm hover:text-primary transition-colors">{t('links.services.database')}</Link></li>
-              <li><Link href="/services" className="text-gray-text text-sm hover:text-primary transition-colors">{t('links.services.devops')}</Link></li>
+              {FOOTER_SERVICE_KEYS.map((key) => (
+                <li key={key}>
+                  <Link
+                    href={serviceHrefs[key]}
+                    className="text-gray-text text-sm hover:text-primary transition-colors"
+                  >
+                    {t(`links.services.${key}`)}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -139,8 +203,8 @@ export default function Footer() {
         <div className="pt-8 border-t border-dark-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-text text-[13px]">© {new Date().getFullYear()} {SITE.name}. {t('allRightsReserved')}</p>
           <div className="flex gap-4">
-            <a href="#" className="text-gray-text text-[13px] hover:text-white transition-colors">{t('links.legal.privacy')}</a>
-            <a href="#" className="text-gray-text text-[13px] hover:text-white transition-colors">{t('links.legal.terms')}</a>
+            <Link href="/privacy" className="text-gray-text text-[13px] hover:text-white transition-colors">{t('links.legal.privacy')}</Link>
+            <Link href="/terms" className="text-gray-text text-[13px] hover:text-white transition-colors">{t('links.legal.terms')}</Link>
           </div>
         </div>
       </div>

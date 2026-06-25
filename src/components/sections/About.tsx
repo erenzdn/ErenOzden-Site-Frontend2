@@ -41,34 +41,38 @@ export default function About() {
     const ctx = gsap.context(() => {
       gsap.from(".about-hero-animate", {
         opacity: 0,
-        y: 40,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: "power3.out",
+        y: 30, // 40'tan 30'a düşürüldü
+        duration: 0.6, // 0.8'den 0.6'ya düşürüldü
+        stagger: 0.1, // 0.15'ten 0.1'e düşürüldü
+        ease: "power2.out", // power3'ten power2'ye değiştirildi
       });
 
       gsap.from(".who-we-are-animate", {
         opacity: 0,
-        y: 30,
-        duration: 0.7,
-        stagger: 0.15,
-        ease: "power3.out",
+        y: 25, // 30'dan 25'e düşürüldü
+        duration: 0.5, // 0.7'den 0.5'e düşürüldü
+        stagger: 0.1, // 0.15'ten 0.1'e düşürüldü
+        ease: "power2.out", // power3'ten power2'ye değiştirildi
         scrollTrigger: {
           trigger: ".who-we-are-trigger",
           start: "top 80%",
           toggleActions: "play none none reverse",
+          fastScrollEnd: true,
+          preventOverlaps: true,
         }
       });
 
       gsap.from(".cta-animate", {
         opacity: 0,
-        y: 30,
-        duration: 0.8,
-        ease: "power3.out",
+        y: 25, // 30'dan 25'e düşürüldü
+        duration: 0.6, // 0.8'den 0.6'ya düşürüldü
+        ease: "power2.out", // power3'ten power2'ye değiştirildi
         scrollTrigger: {
           trigger: ".cta-trigger",
           start: "top 85%",
           toggleActions: "play none none reverse",
+          fastScrollEnd: true,
+          preventOverlaps: true,
         }
       });
 
@@ -85,7 +89,7 @@ export default function About() {
 
       {/* 1. Hero Section */}
       <section className="relative pt-12 pb-20 md:pt-16 md:pb-28 z-10">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
           <span className="badge badge-primary mb-6 about-hero-animate">
             {t('badge')}
           </span>
@@ -123,7 +127,7 @@ export default function About() {
 
       {/* 2. Who We Are Section */}
       <section className="who-we-are-trigger relative py-20 md:py-28 border-t border-dark-border/40 z-10">
-        <div className="max-w-[1200px] mx-auto px-6">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
             {/* Left Col - Text */}
@@ -166,7 +170,7 @@ export default function About() {
 
       {/* 5. CTA Section */}
       <section className="cta-trigger relative py-20 md:py-28 border-t border-dark-border/40 z-10">
-        <div className="max-w-[1200px] mx-auto px-6">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="cta-animate card card-glow p-8 md:p-16 relative overflow-hidden text-center max-w-[1000px] mx-auto">
             <div className="glow-blob top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20" />
             <span className="badge badge-primary mb-6">{t('cta.badge')}</span>

@@ -1,46 +1,64 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import Button from "@/components/ui/Button";
-import { createVantaCellsEffect } from "@/lib/vantaLoader";
 
 export default function Hero() {
   const t = useTranslations('hero');
   const sectionRef = useRef<HTMLElement>(null);
   const vantaRef = useRef<HTMLDivElement>(null);
+  const [vantaLoaded, setVantaLoaded] = useState(false);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 2.2 });
+      const tl = gsap.timeline({ delay: 2.8 });
       tl.from("[data-hero-animate]", {
         opacity: 0,
         y: 30,
         duration: 0.7,
         stagger: 0.12,
         ease: "power3.out",
+        immediateRender: false,
       });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   useEffect(() => {
-    let effect: ReturnType<typeof createVantaCellsEffect> extends Promise<infer T> ? T : never = null;
+    let effect: any = null;
     let cancelled = false;
 
-    (async () => {
-      const instance = await createVantaCellsEffect(vantaRef.current, {});
-      if (cancelled) {
-        if (instance?.destroy) instance.destroy();
-        return;
+    // Vanta effect'i 3 saniye sonra yükle (preloader bitiminden sonra)
+    const timeoutId = setTimeout(async () => {
+      if (cancelled) return;
+      
+      try {
+        const { createVantaCellsEffect } = await import("@/lib/vantaLoader");
+        if (cancelled) return;
+        
+        const instance = await createVantaCellsEffect(vantaRef.current, {});
+        if (cancelled) {
+          if (instance?.destroy) instance.destroy();
+          return;
+        }
+        if (!instance) return;
+        effect = instance;
+        setVantaLoaded(true);
+      } catch (error) {
+        // Vanta yüklenemezse sessizce başarısız ol
+        console.error('Vanta effect could not load', error);
       }
-      if (!instance) return;
-      effect = instance;
-    })();
+    }, 3000);
 
     return () => {
       cancelled = true;
+      clearTimeout(timeoutId);
       if (effect?.destroy) effect.destroy();
     };
   }, []);
@@ -50,7 +68,7 @@ export default function Hero() {
       {/* Vanta Cells Interactive 3D Animated Background */}
       <div 
         ref={vantaRef} 
-        className="absolute inset-0 z-0 opacity-25 transition-opacity duration-1000" 
+        className={`absolute inset-0 z-0 transition-opacity duration-1000 ${vantaLoaded ? 'opacity-25' : 'opacity-0'}`}
       />
 
       {/* Subtle overlay gradient to ensure high-contrast readability */}
@@ -59,7 +77,7 @@ export default function Hero() {
       {/* Background glow blob */}
       <div className="glow-blob top-[-200px] left-1/2 -translate-x-1/2 opacity-60 z-0 pointer-events-none" />
 
-      <div className="max-w-[1200px] mx-auto px-6 text-center relative z-10 py-20">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center relative z-10 py-20">
         {/* Badge */}
         <div data-hero-animate>
           <span className="badge badge-primary mb-8 text-[13px]">

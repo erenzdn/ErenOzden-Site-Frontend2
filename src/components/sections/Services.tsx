@@ -58,26 +58,32 @@ export default function Services() {
   useEffect(() => {
     if (loading) return;
     
-    setTimeout(() => {
+    const refreshTimer = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 100);
+    }, 150);
 
     const ctx = gsap.context(() => {
       gsap.from(".service-card", {
         opacity: 0,
-        y: 50,
-        duration: 0.7,
-        stagger: 0.12,
-        ease: "power3.out",
+        y: 30, // 50'den 30'a düşürüldü
+        duration: 0.5, // 0.7'den 0.5'e düşürüldü
+        stagger: 0.08, // 0.12'den 0.08'e düşürüldü
+        ease: "power2.out", // power3'ten power2'ye değiştirildi
         clearProps: "all",
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 85%",
           toggleActions: "play none none reverse",
+          fastScrollEnd: true,
+          preventOverlaps: true,
         },
       });
     }, sectionRef);
-    return () => ctx.revert();
+    
+    return () => {
+      clearTimeout(refreshTimer);
+      ctx.revert();
+    };
   }, [loading]);
 
   return (

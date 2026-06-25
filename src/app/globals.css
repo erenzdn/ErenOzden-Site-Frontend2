@@ -90,6 +90,8 @@
    ──────────────────────────────────────────────── */
 
 html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -97,6 +99,9 @@ body {
   color: var(--color-white);
   font-family: var(--font-body);
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
 }
 
 /* ─── Selection ─── */
@@ -249,12 +254,27 @@ body {
   * {
     -webkit-tap-highlight-color: transparent;
   }
+  
+  /* Mobilde text boyutlarını hafifçe küçült */
+  h1 {
+    font-size: clamp(1.75rem, 8vw, 3rem);
+  }
+  
+  /* Mobilde kartların padding'ini azalt */
+  .card {
+    padding: 1rem;
+  }
 }
 
 @media (max-width: 640px) {
   /* Small mobile optimizasyonları */
   .section-padding {
     padding: 40px 0;
+  }
+  
+  /* Çok küçük ekranlarda yazı boyutunu optimize et */
+  body {
+    font-size: 14px;
   }
 }
 

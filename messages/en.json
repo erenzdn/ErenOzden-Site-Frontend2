@@ -271,6 +271,7 @@
     "liveDemo": "Live Demo",
     "sourceCode": "Source Code",
     "caseStudy": "Case Study",
+    "featuredLabel": "Featured Project",
     "viewAll": "View All Projects",
     "loadMore": "Load More",
     "noProjects": "No projects added yet.",
@@ -449,6 +450,24 @@
       }
     }
   },
+  "features": {
+    "subtitle": "Features",
+    "title": "Why Choose Me?",
+    "description": "Adding value to your projects with modern technologies and proven methodologies.",
+    "feature1Title": "Lightning-Fast Performance",
+    "feature1Desc": "Millisecond-level response times with optimized code and modern infrastructure. Your users will feel the difference.",
+    "feature2Title": "Security-First Development",
+    "feature2Desc": "Your data is safe with security measures at every layer, encryption, and regular security audits.",
+    "feature3Title": "Smart AI Integrations",
+    "feature3Desc": "Automate your processes and boost efficiency with artificial intelligence and machine learning technologies.",
+    "feature4Title": "Scalable Architecture",
+    "feature4Desc": "Invest in the future with microservice architectures and cloud-native solutions ready for your growth plans.",
+    "feature5Title": "User-Centric Design",
+    "feature5Desc": "Creating interfaces users love—easy and intuitive—with modern UX/UI principles.",
+    "feature6Title": "Continuous Improvement",
+    "feature6Desc": "Constantly optimizing your product with analytics, A/B testing, and user feedback.",
+    "bottomText": "Ready to take your projects to the next level"
+  },
   "marquee": {
     "categories": {
       "webDev": "Web Development",
@@ -557,7 +576,79 @@
     "contact": {
       "title": "Contact | Let's Discuss Your Project - Eren Özden",
       "description": "Get in touch about your next project. Free consultation to evaluate your ideas and create something amazing together."
+    },
+    "privacy": {
+      "title": "Privacy Policy | Eren Özden",
+      "description": "Learn how your personal data is collected, used, and protected."
+    },
+    "terms": {
+      "title": "Terms of Service | Eren Özden",
+      "description": "Terms and conditions that apply when using our website and services."
     }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: June 2026",
+    "sections": [
+      {
+        "title": "1. Introduction",
+        "content": "This Privacy Policy explains how Eren Özden (mehmeterenozden.com) processes your personal data when you visit our website or contact us. By using this site, you agree to this policy."
+      },
+      {
+        "title": "2. Data We Collect",
+        "content": "We may collect information such as your name, email address, phone number, and message content through our contact form. We may also automatically collect cookies and analytics data (page views, browser type, device information) to improve site performance."
+      },
+      {
+        "title": "3. How We Use Your Data",
+        "content": "We use collected data solely to respond to your inquiries, provide services, improve the site experience, and fulfill legal obligations. Your data is never sold or shared with third parties for marketing purposes."
+      },
+      {
+        "title": "4. Data Security",
+        "content": "We implement appropriate technical and administrative measures to protect your personal data. Contact forms are transmitted over secure connections (HTTPS). However, no data transmission over the internet is 100% secure."
+      },
+      {
+        "title": "5. Your Rights",
+        "content": "You have the right to access, correct, delete, and object to the processing of your personal data. To exercise these rights, contact us at mehmeteren850@gmail.com."
+      },
+      {
+        "title": "6. Contact",
+        "content": "For questions about this privacy policy, email us at mehmeteren850@gmail.com."
+      }
+    ]
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated: June 2026",
+    "sections": [
+      {
+        "title": "1. Acceptance",
+        "content": "By accessing and using this website (mehmeterenozden.com), you agree to these terms of service. If you do not agree, please do not use this site."
+      },
+      {
+        "title": "2. Service Description",
+        "content": "This site is provided to showcase Eren Özden's software development services, display portfolio work, and facilitate communication with potential clients. Information on the site is for general reference and does not constitute a binding offer."
+      },
+      {
+        "title": "3. Intellectual Property",
+        "content": "All content, design, code samples, images, and text on this site belong to Eren Özden and are protected by copyright law. They may not be copied, reproduced, or distributed without written permission."
+      },
+      {
+        "title": "4. Limitation of Liability",
+        "content": "This site is provided \"as is.\" No guarantee is made regarding the accuracy, timeliness, or completeness of content. We are not liable for any direct or indirect damages arising from use of this site."
+      },
+      {
+        "title": "5. Third-Party Links",
+        "content": "Our site may contain links to GitHub, LinkedIn, and other external platforms. We are not responsible for the content or privacy practices of those sites."
+      },
+      {
+        "title": "6. Changes",
+        "content": "We reserve the right to update these terms without prior notice. Changes take effect when published on this page."
+      },
+      {
+        "title": "7. Contact",
+        "content": "For questions about these terms, contact us at mehmeteren850@gmail.com."
+      }
+    ]
   },
   "errors": {
     "404": {

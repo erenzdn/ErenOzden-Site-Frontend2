@@ -242,7 +242,7 @@ export default async function ServiceDetailPage({ params }: Props) {
       <main className="pt-24 min-h-screen relative overflow-hidden">
         <div className="glow-blob top-[-100px] right-[-200px]" />
         
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
           <div className="pt-8 pb-16">
             <Button href="/services" variant="ghost" className="mb-8" showArrow={false}>
               &larr; {t('backToServices')}

@@ -34,3 +34,26 @@ export const NAV_LINKS = [
   { label: "Projeler", href: "/portfolio" },
   { label: "İletişim", href: "/contact" },
 ] as const;
+
+/** Footer "Hizmetlerim" bölümündeki link anahtarları */
+export const FOOTER_SERVICE_KEYS = [
+  "webDev",
+  "mobileDev",
+  "backend",
+  "database",
+  "devops",
+] as const;
+
+export type FooterServiceKey = (typeof FOOTER_SERVICE_KEYS)[number];
+
+/**
+ * Footer hizmet linklerini Strapi servisleriyle eşleştirmek için iconName haritası.
+ * Eşleşme yoksa /services sayfasına yönlendirilir.
+ */
+export const FOOTER_SERVICE_ICON_MAP: Record<FooterServiceKey, string | null> = {
+  webDev: "Globe",
+  mobileDev: "Smartphone",
+  backend: "process",
+  database: null,
+  devops: "auto",
+};

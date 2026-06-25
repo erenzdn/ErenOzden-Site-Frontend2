@@ -27,7 +27,7 @@ export default function Blog() {
 
   return (
     <section ref={sectionRef} id="blog" className="section-padding">
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="text-center mb-14">
           <span className="badge badge-primary mb-5 inline-flex">Blog</span>
           <h2 className="text-3xl md:text-4xl lg:text-[44px] font-heading font-bold text-white">Son Yazılarım</h2>
