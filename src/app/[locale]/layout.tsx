@@ -4,8 +4,8 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { hasLocale } from 'next-intl';
 import { routing, locales, type Locale } from '@/i18n/routing';
-import SmoothScroll from '@/components/providers/SmoothScroll';
 import { SlugMapProvider } from '@/contexts/SlugMapContext';
+import ClientLayoutWrapper from '@/components/layout/ClientLayoutWrapper';
 
 /**
  * Build zamanında statik sayfalar oluşturmak için desteklenen dilleri döndür
@@ -73,7 +73,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <NextIntlClientProvider messages={messages}>
       <SlugMapProvider>
-        <SmoothScroll>{children}</SmoothScroll>
+        <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
       </SlugMapProvider>
     </NextIntlClientProvider>
   );

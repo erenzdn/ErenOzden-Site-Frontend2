@@ -81,12 +81,7 @@ export default function About() {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full relative overflow-hidden bg-dark">
-      {/* Background Glowing Blobs */}
-      <div className="glow-blob top-0 right-[-150px] opacity-40" />
-      <div className="glow-blob top-[30%] left-[-200px] opacity-30" />
-      <div className="glow-blob bottom-10 right-[-100px] opacity-25" />
-
+    <div ref={containerRef} className="w-full relative">
       {/* 1. Hero Section */}
       <section className="relative pt-12 pb-20 md:pt-16 md:pb-28 z-10">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">

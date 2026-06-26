@@ -19,8 +19,13 @@ const nextConfig: NextConfig = {
 
   // Image optimization
   images: {
-    // Set to false in production for optimization, true in development
-    unoptimized: process.env.NODE_ENV !== "production",
+    // PRODUCTION FIX: unoptimized false yapıldı (image optimization aktif)
+    unoptimized: false,
+    // Quality seviyeleri tanımla
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    formats: ["image/webp"],
+    minimumCacheTTL: 60,
     remotePatterns: [
       // Development Strapi (local)
       {

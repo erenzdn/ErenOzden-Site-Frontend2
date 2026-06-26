@@ -1,66 +1,125 @@
 "use client";
 
-import { useEffect, useRef, ReactNode } from "react";
+/**
+ * SmoothScroll Provider (Lenis) - Mobil Optimize Edilmiş
+ * - Mobile cihazlarda (< 768px) devre dışı (native scroll)
+ * - Desktop'ta pürüzsüz kaydırma
+ * - GSAP ScrollTrigger entegrasyonu
+ */
+
+import { useEffect, useRef, useState, ReactNode } from "react";
 import { usePathname } from "next/navigation";
-import Lenis from "lenis";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { setLenisInstance } from "@/lib/lenisControls";
-import "lenis/dist/lenis.css";
 
 interface SmoothScrollProps {
   children: ReactNode;
 }
 
 export default function SmoothScroll({ children }: SmoothScrollProps) {
-  const lenisRef = useRef<Lenis | null>(null);
+  const lenisRef = useRef<any>(null);
   const pathname = usePathname();
+  const [isMobile, setIsMobile] = useState(false);
 
+  // Mobil kontrolü (SSR-safe)
   useEffect(() => {
-    // GSAP ile ScrollTrigger plugin'ini kaydet
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Lenis pürüzsüz kaydırma motorunu başlat
-    const lenis = new Lenis({
-      duration: 1.0, // 1.2'den 1.0'a düşürüldü (daha hızlı)
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 1.0, // 1.05'ten 1.0'a düşürüldü (daha responsive)
-      touchMultiplier: 1.5,
-      infinite: false,
-      autoResize: true,
-      syncTouch: false, // Touch performansı için optimize edildi
-    });
-
-    lenisRef.current = lenis;
-    setLenisInstance(lenis);
-
-    // Her kaydırmada ScrollTrigger tetikleyicilerini güncelle
-    lenis.on("scroll", ScrollTrigger.update);
-
-    // GSAP ticker döngüsünü Lenis raf fonksiyonu ile senkronize et
-    const updatePhysics = (time: number) => {
-      lenis.raf(time * 1000);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
     };
-    gsap.ticker.add(updatePhysics);
 
-    // GSAP'in lag dengeleme gecikmesini devre dışı bırakarak senkronizasyon kaymasını önle
-    gsap.ticker.lagSmoothing(0);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
 
-    return () => {
-      gsap.ticker.remove(updatePhysics);
-      lenis.destroy();
-      lenisRef.current = null;
-      setLenisInstance(null);
-    };
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Sayfa rotası her değiştiğinde pürüzsüzce veya anında yukarı kaydır
+  // Lenis initialization (sadece desktop'ta)
+  useEffect(() => {
+    // Mobilde Lenis yükleme (native scroll kullan)
+    if (isMobile) {
+      return;
+    }
+
+    let cleanup: (() => void) | null = null;
+    let cancelled = false;
+
+    const initLenis = async () => {
+      try {
+        // Dinamik import (code-splitting)
+        const [gsapModule, lenisModule, scrollTriggerModule] = await Promise.all([
+          import("gsap"),
+          import("lenis"),
+          import("gsap/ScrollTrigger"),
+        ]);
+
+        if (cancelled) return;
+
+        const gsap = gsapModule.default;
+        const Lenis = lenisModule.default;
+        const ScrollTrigger = scrollTriggerModule.ScrollTrigger;
+
+        // GSAP plugin'ini kaydet
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Lenis instance oluştur (optimize edilmiş ayarlar)
+        const lenis = new Lenis({
+          duration: 0.9,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          orientation: "vertical",
+          gestureOrientation: "vertical",
+          smoothWheel: true,
+          wheelMultiplier: 0.9,
+          touchMultiplier: 1.5,
+          infinite: false,
+          autoResize: true,
+          syncTouch: false,
+        });
+
+        if (cancelled) {
+          lenis.destroy();
+          return;
+        }
+
+        lenisRef.current = lenis;
+        setLenisInstance(lenis);
+
+        // ScrollTrigger entegrasyonu
+        lenis.on("scroll", ScrollTrigger.update);
+
+        // GSAP ticker ile senkronizasyon
+        const updatePhysics = (time: number) => {
+          lenis.raf(time * 1000);
+        };
+        gsap.ticker.add(updatePhysics);
+        gsap.ticker.lagSmoothing(0);
+
+        // Cleanup function tanımla
+        cleanup = () => {
+          gsap.ticker.remove(updatePhysics);
+          lenis.destroy();
+          lenisRef.current = null;
+          setLenisInstance(null);
+        };
+      } catch (error) {
+        console.error("[Lenis] Failed to initialize smooth scroll", error);
+      }
+    };
+
+    initLenis();
+
+    // useEffect cleanup
+    return () => {
+      cancelled = true;
+      if (cleanup) cleanup();
+    };
+  }, [isMobile]);
+
+  // Route değişiminde scroll reset
   useEffect(() => {
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
+    } else {
+      // Mobilde veya Lenis yüklenmemişse native scroll
+      window.scrollTo(0, 0);
     }
   }, [pathname]);
 

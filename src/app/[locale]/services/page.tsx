@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import PageMain from '@/components/layout/PageMain';
 import Services from '@/components/sections/Services';
 import { locales, type Locale } from '@/i18n/routing';
 
@@ -30,9 +31,9 @@ export default async function ServicesPage({ params }: Props) {
   return (
     <>
       <Header />
-      <main className="pt-24 min-h-screen flex flex-col">
+      <PageMain className="flex flex-col">
         <Services />
-      </main>
+      </PageMain>
       <Footer />
     </>
   );

@@ -178,7 +178,6 @@ export default function Contact() {
         id="contact"
         className="section-padding relative overflow-hidden w-full flex flex-col items-center"
       >
-        <div className="glow-blob top-1/2 left-0 -translate-y-1/2" />
         <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-10 max-w-[1200px] w-full relative z-10">
           <div className="max-w-xl mx-auto text-center">
             <div className="card p-6 sm:p-8 md:p-10 lg:p-12">
@@ -208,7 +207,6 @@ export default function Contact() {
       id="contact"
       className="section-padding relative overflow-hidden w-full flex flex-col items-center"
     >
-      <div className="glow-blob top-1/2 left-0 -translate-y-1/2" />
       <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-10 max-w-[1200px] w-full relative z-10">
         <div className="text-center mb-12 sm:mb-14 md:mb-16" data-contact-animate>
           <span className="badge badge-primary mb-4 sm:mb-5 inline-flex">{t("badge")}</span>

@@ -69,6 +69,14 @@ function localePart(locale: Locale | null): string {
   return locale ? `locale=${locale}` : "";
 }
 
+async function strapiFetch(url: string, init?: StrapiFetchInit): Promise<Response> {
+  if (typeof window === "undefined") {
+    const { serverStrapiFetch } = await import("./strapiUpstream");
+    return serverStrapiFetch(url, init);
+  }
+  return fetch(url, init);
+}
+
 export async function loadStrapiCollection<T>(
   endpoint: string,
   locale: Locale,
@@ -95,7 +103,7 @@ export async function fetchStrapiProjects<T>(
   for (const loc of strapiLocaleAttempts(locale)) {
     const url = withQuery(buildStrapiApiUrl("/api/projects"), [localePart(loc)]);
     try {
-      const res = await fetch(url, init);
+      const res = await strapiFetch(url, init);
       if (!res.ok) continue;
       const json = await res.json();
       if (Array.isArray(json.data) && json.data.length > 0) return json.data as T[];
@@ -113,7 +121,7 @@ export async function fetchStrapiServices<T>(
   for (const loc of strapiLocaleAttempts(locale)) {
     const url = withQuery(buildStrapiApiUrl("/api/services"), [localePart(loc)]);
     try {
-      const res = await fetch(url, init);
+      const res = await strapiFetch(url, init);
       if (!res.ok) continue;
       const json = await res.json();
       if (Array.isArray(json.data) && json.data.length > 0) return json.data as T[];
@@ -135,7 +143,7 @@ export async function fetchStrapiProject<T>(
       [localePart(loc)]
     );
     try {
-      const res = await fetch(slugUrl, init);
+      const res = await strapiFetch(slugUrl, init);
       if (res.ok) {
         const json = await res.json();
         if (json.data?.length > 0) return json.data[0] as T;
@@ -151,7 +159,7 @@ export async function fetchStrapiProject<T>(
       ["populate=*", localePart(loc)]
     );
     try {
-      const res = await fetch(docUrl, init);
+      const res = await strapiFetch(docUrl, init);
       if (res.ok) {
         const json = await res.json();
         if (json.data) return json.data as T;
@@ -177,7 +185,7 @@ export async function fetchStrapiService<T>(
       [localePart(loc)]
     );
     try {
-      const res = await fetch(slugUrl, init);
+      const res = await strapiFetch(slugUrl, init);
       if (res.ok) {
         const json = await res.json();
         if (json.data?.length > 0) return json.data[0] as T;
@@ -193,7 +201,7 @@ export async function fetchStrapiService<T>(
       [localePart(loc)]
     );
     try {
-      const res = await fetch(docUrl, init);
+      const res = await strapiFetch(docUrl, init);
       if (res.ok) {
         const json = await res.json();
         if (json.data) return json.data as T;

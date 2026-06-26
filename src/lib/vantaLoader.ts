@@ -46,6 +46,8 @@ export type VantaCellsOptions = {
   scale?: number;
   color1?: number;
   color2?: number;
+  size?: number;
+  speed?: number;
 };
 
 /**

@@ -88,7 +88,6 @@ export default function Services() {
 
   return (
     <section ref={sectionRef} id="services" className="section-padding relative overflow-hidden w-full flex flex-col items-center">
-      <div className="glow-blob bottom-[-100px] left-[-200px]" />
       <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-[1200px] w-full relative z-10">
         <SectionTitle 
           subtitle={t('subtitle')} 

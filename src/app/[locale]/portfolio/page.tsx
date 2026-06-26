@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import PageMain from '@/components/layout/PageMain';
 import Portfolio from '@/components/sections/Portfolio';
 import { locales, type Locale } from '@/i18n/routing';
 
@@ -30,9 +31,9 @@ export default async function PortfolioPage({ params }: Props) {
   return (
     <>
       <Header />
-      <main className="pt-24 min-h-screen">
-        <Portfolio />
-      </main>
+      <PageMain>
+        <Portfolio locale={locale} />
+      </PageMain>
       <Footer />
     </>
   );

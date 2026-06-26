@@ -109,19 +109,15 @@ function toStrapiApiPath(endpoint: string): string {
 }
 
 /**
- * Tarayıcıda same-origin proxy (/strapi), sunucuda da internal proxy kullanır.
- * CORS engelini aşmak ve SSL sorunlarını çözmek için tüm istekler proxy üzerinden gider.
+ * Tarayıcıda same-origin proxy (/strapi), sunucuda doğrudan Strapi URL'i kullanır.
+ * Sunucu istekleri strapiUpstream üzerinden gider (SSL + port uyumsuzluğu önlenir).
  */
 export function buildStrapiApiUrl(endpoint: string): string {
   const apiPath = toStrapiApiPath(endpoint);
   if (typeof window !== "undefined") {
-    // Client-side: relative proxy URL
     return `/strapi${apiPath}`;
   }
-  // Server-side: internal proxy URL (localhost)
-  // Bu sayede SSL sertifika sorunları ve CORS sorunları çözülür
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3001";
-  return `${baseUrl}/strapi${apiPath}`;
+  return `${STRAPI_BASE_URL}${apiPath}`;
 }
 
 /**

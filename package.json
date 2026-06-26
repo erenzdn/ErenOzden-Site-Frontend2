@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack -p 3001",
-    "dev:base": "next dev --turbopack -p 3001",
+    "dev": "set NODE_TLS_REJECT_UNAUTHORIZED=0 && next dev --turbopack -p 3001",
+    "dev:base": "set NODE_TLS_REJECT_UNAUTHORIZED=0 && next dev --turbopack -p 3001",
     "dev:win": "powershell -ExecutionPolicy Bypass -File ./dev.ps1",
     "build": "next build",
     "build:analyze": "ANALYZE=true next build",

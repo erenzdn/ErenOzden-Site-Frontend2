@@ -1,48 +1,6 @@
-import http from "node:http";
-import https from "node:https";
 import { NextRequest, NextResponse } from "next/server";
 import { STRAPI_URL } from "@/lib/constants";
-
-const insecureHttpsAgent =
-  process.env.NODE_ENV === "development"
-    ? new https.Agent({ rejectUnauthorized: false })
-    : undefined;
-
-function upstreamRequest(
-  target: string,
-  method: string,
-  headers: Record<string, string>,
-  body?: string
-): Promise<{ status: number; contentType: string; body: Buffer }> {
-  return new Promise((resolve, reject) => {
-    const url = new URL(target);
-    const lib = url.protocol === "https:" ? https : http;
-    const requestOptions: https.RequestOptions = {
-      method,
-      headers,
-      hostname: url.hostname,
-      port: url.port || (url.protocol === "https:" ? 443 : 80),
-      path: `${url.pathname}${url.search}`,
-      agent: url.protocol === "https:" ? insecureHttpsAgent : undefined,
-    };
-
-    const req = lib.request(requestOptions, (res) => {
-      const chunks: Buffer[] = [];
-      res.on("data", (chunk) => chunks.push(chunk));
-      res.on("end", () => {
-        resolve({
-          status: res.statusCode || 500,
-          contentType: res.headers["content-type"] || "application/json",
-          body: Buffer.concat(chunks),
-        });
-      });
-    });
-
-    req.on("error", reject);
-    if (body) req.write(body);
-    req.end();
-  });
-}
+import { serverStrapiFetch } from "@/lib/strapiUpstream";
 
 async function proxyToStrapi(request: NextRequest, path: string[]) {
   const target = `${STRAPI_URL}/${path.join("/")}${request.nextUrl.search}`;
@@ -56,12 +14,16 @@ async function proxyToStrapi(request: NextRequest, path: string[]) {
       ? undefined
       : await request.text();
 
-  const response = await upstreamRequest(target, request.method, headers, body);
+  const response = await serverStrapiFetch(target, {
+    method: request.method,
+    headers,
+    body,
+  });
 
-  return new NextResponse(new Uint8Array(response.body), {
+  return new NextResponse(response.body, {
     status: response.status,
     headers: {
-      "content-type": response.contentType,
+      "content-type": response.headers.get("content-type") || "application/json",
     },
   });
 }
