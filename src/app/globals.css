@@ -302,6 +302,62 @@ body {
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.08);
 }
 
+/* ─── Premium Service Card Hover Effect ─── */
+.service-card-premium {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-card-premium::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(156, 163, 175, 0.2) 25%,
+    rgba(209, 213, 219, 0.2) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    rgba(156, 163, 175, 0.2) 100%
+  );
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+  animation: shimmer 3s linear infinite;
+  animation-play-state: paused;
+}
+
+.service-card-premium:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+.service-card-premium:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 
+    0 0 40px rgba(255, 255, 255, 0.2),
+    0 0 80px rgba(209, 213, 219, 0.25),
+    0 20px 60px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, 
+    rgba(30, 33, 38, 0.95) 0%, 
+    rgba(40, 44, 50, 0.9) 50%,
+    rgba(35, 38, 43, 0.95) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
 /* ─── Purple glow background blob ─── */
 .glow-blob {
   position: absolute;

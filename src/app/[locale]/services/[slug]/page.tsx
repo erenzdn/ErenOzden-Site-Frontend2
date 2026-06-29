@@ -7,6 +7,7 @@ import Footer from '@/components/layout/Footer';
 import CTA from '@/components/sections/CTA';
 import Button from '@/components/ui/Button';
 import { SlugMapSetter } from '@/components/SlugMapSetter';
+import ProcessSection from '@/components/sections/ProcessSection';
 import {
   fetchStrapiService,
   fetchStrapiServices,
@@ -164,31 +165,37 @@ export default async function ServiceDetailPage({ params }: Props) {
       number: '01',
       title: t('process.step1.title'),
       description: t('process.step1.description'),
+      details: t('userFlow.step1.description'),
     },
     {
       number: '02',
       title: t('process.step2.title'),
       description: t('process.step2.description'),
+      details: t('userFlow.step2.description'),
     },
     {
       number: '03',
       title: t('process.step3.title'),
       description: t('process.step3.description'),
+      details: t('userFlow.step3.description'),
     },
     {
       number: '04',
       title: t('process.step4.title'),
       description: t('process.step4.description'),
+      details: t('userFlow.step4.description'),
     },
     {
       number: '05',
       title: t('process.step5.title'),
       description: t('process.step5.description'),
+      details: t('userFlow.step5.description'),
     },
     {
       number: '06',
       title: t('process.step6.title'),
       description: t('process.step6.description'),
+      details: t('userFlow.step6.description'),
     },
   ];
 
@@ -308,39 +315,11 @@ export default async function ServiceDetailPage({ params }: Props) {
               </div>
             </div>
 
-            <div className="mb-24">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl lg:text-4xl font-heading font-bold text-white mb-4">
-                  {t('process.title')}
-                </h2>
-                <p className="text-gray-text text-lg">
-                  {t('process.description')}
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {processSteps.map((step, index) => (
-                  <div
-                    key={index}
-                    className="card p-6 hover:border-white/30 transition-all group cursor-default"
-                  >
-                    <div className="flex items-start gap-4">
-                      <span className="text-4xl font-heading font-bold text-white/20 group-hover:text-white/40 transition-colors">
-                        {step.number}
-                      </span>
-                      <div className="flex-1">
-                        <h3 className="text-xl font-heading font-bold text-white mb-2">
-                          {step.title}
-                        </h3>
-                        <p className="text-gray-text text-sm leading-relaxed">
-                          {step.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <ProcessSection 
+              title={t('process.title')}
+              description={t('process.description')}
+              steps={processSteps}
+            />
 
             <div className="mb-24">
               <div className="text-center mb-12">

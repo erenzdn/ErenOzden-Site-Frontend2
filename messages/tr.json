@@ -232,6 +232,34 @@
       "starting": "Başlangıç",
       "custom": "Özel Paket"
     },
+    "userFlow": {
+      "title": "Kullanıcı Akışı",
+      "description": "Projenizin başlangıcından teslimine kadar olan yolculuk",
+      "step1": {
+        "title": "İletişim",
+        "description": "İhtiyaçlarınızı ve hedeflerinizi paylaşın"
+      },
+      "step2": {
+        "title": "Analiz",
+        "description": "Detaylı analiz ve teknik değerlendirme"
+      },
+      "step3": {
+        "title": "Teklif",
+        "description": "Özel teklif ve proje planı sunumu"
+      },
+      "step4": {
+        "title": "Geliştirme",
+        "description": "İteratif geliştirme ve düzenli güncellemeler"
+      },
+      "step5": {
+        "title": "Test",
+        "description": "Kapsamlı test ve kalite kontrol"
+      },
+      "step6": {
+        "title": "Teslimat",
+        "description": "Sorunsuz lansman ve dökümantasyon"
+      }
+    },
     "faq": {
       "title": "Sıkça Sorulan Sorular",
       "q1": {

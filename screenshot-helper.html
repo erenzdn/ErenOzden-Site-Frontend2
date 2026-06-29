@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earthquake Check - Screenshot Helper</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #718096;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .screenshot-box {
+            background: #f7fafc;
+            border: 2px dashed #cbd5e0;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .url-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+
+        .url-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: #48bb78;
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 10px 25px rgba(72, 187, 120, 0.4);
+        }
+
+        .tips {
+            background: #edf2f7;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .tips h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .tips ul {
+            list-style-position: inside;
+            color: #4a5568;
+            line-height: 1.8;
+        }
+
+        .tips li {
+            margin-bottom: 5px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .card-value {
+            color: #667eea;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 5px;
+        }
+
+        .success {
+            background: #48bb78;
+            border: 2px solid #48bb78;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        .success.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .emoji {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 640px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">📸</div>
+        <h1>Earthquake Check Screenshot Helper</h1>
+        <p class="subtitle">Projeniz için mükemmel ekran görüntüleri alın</p>
+
+        <div class="screenshot-box">
+            <input 
+                type="text" 
+                class="url-input" 
+                id="urlInput" 
+                value="https://earthquakecheck.mehmeterenozden.com/"
+                placeholder="Website URL'sini girin..."
+            >
+            <button class="btn" onclick="openInNewTab()">
+                🚀 Siteyi Yeni Sekmede Aç
+            </button>
+            <button class="btn btn-secondary" onclick="copyInstructions()">
+                📋 Screenshot Komutunu Kopyala
+            </button>
+        </div>
+
+        <div class="success" id="successMessage">
+            ✅ Komut panoya kopyalandı! Chrome DevTools'ta yapıştırın.
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-title">Önerilen Boyut</div>
+                <div class="card-value">1920x1080</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Format</div>
+                <div class="card-value">PNG</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Kalite</div>
+                <div class="card-value">100%</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Aspect Ratio</div>
+                <div class="card-value">16:9</div>
+            </div>
+        </div>
+
+        <div class="tips">
+            <h3>💡 Hızlı Screenshot Adımları</h3>
+            <ul>
+                <li><strong>F12</strong> ile Chrome DevTools'u açın</li>
+                <li><strong>Ctrl + Shift + P</strong> (Windows) veya <strong>Cmd + Shift + P</strong> (Mac)</li>
+                <li>"<strong>Capture full size screenshot</strong>" yazın</li>
+                <li><strong>Enter</strong> tuşuna basın</li>
+                <li>Otomatik olarak indirilecek!</li>
+            </ul>
+        </div>
+
+        <div class="tips" style="margin-top: 15px; border-left-color: #48bb78;">
+            <h3>🎯 Alınması Gereken Bölümler</h3>
+            <div style="margin-top: 10px;">
+                <span class="badge">Hero Section</span>
+                <span class="badge">Deprem Konsolu</span>
+                <span class="badge">CBS Bağlantı</span>
+                <span class="badge">Özellikler</span>
+                <span class="badge">Analiz Formu</span>
+            </div>
+        </div>
+
+        <div class="tips" style="margin-top: 15px; border-left-color: #f6ad55;">
+            <h3>⚡ Pro İpuçları</h3>
+            <ul>
+                <li>Animasyonların bitmesini bekleyin</li>
+                <li>F11 ile tam ekran yapın (daha temiz görünüm)</li>
+                <li>Canlı verilerin yüklendiğinden emin olun</li>
+                <li>Tarayıcı araç çubuğu gözükmesin</li>
+                <li>Mouse cursor ekranda görünmesin</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function openInNewTab() {
+            const url = document.getElementById('urlInput').value;
+            window.open(url, '_blank');
+            showSuccess();
+        }
+
+        function copyInstructions() {
+            const instructions = `Chrome DevTools Screenshot Komutu:
+1. F12 tuşuna bas
+2. Ctrl + Shift + P tuşlarına bas
+3. "Capture full size screenshot" yaz
+4. Enter'a bas
+
+Screenshot otomatik olarak indirilecek!`;
+            
+            navigator.clipboard.writeText(instructions).then(() => {
+                showSuccess();
+            }).catch(err => {
+                alert('Kopyalama başarısız. Manuel olarak not edin.');
+            });
+        }
+
+        function showSuccess() {
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.add('show');
+            setTimeout(() => {
+                successMsg.classList.remove('show');
+            }, 3000);
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                openInNewTab();
+            }
+        });
+    </script>
+</body>
+</html>

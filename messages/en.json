@@ -232,6 +232,34 @@
       "starting": "Starting",
       "custom": "Custom Package"
     },
+    "userFlow": {
+      "title": "User Flow",
+      "description": "Your journey from project initiation to delivery",
+      "step1": {
+        "title": "Contact",
+        "description": "Share your needs and goals"
+      },
+      "step2": {
+        "title": "Analysis",
+        "description": "Detailed analysis and technical evaluation"
+      },
+      "step3": {
+        "title": "Proposal",
+        "description": "Custom proposal and project plan presentation"
+      },
+      "step4": {
+        "title": "Development",
+        "description": "Iterative development with regular updates"
+      },
+      "step5": {
+        "title": "Testing",
+        "description": "Comprehensive testing and quality control"
+      },
+      "step6": {
+        "title": "Delivery",
+        "description": "Smooth launch and documentation"
+      }
+    },
     "faq": {
       "title": "Frequently Asked Questions",
       "q1": {

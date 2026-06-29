@@ -50,17 +50,17 @@ export default function VantaPageBackground({
         // Mobil ve Desktop için farklı ayarlar
         const options = isMobile
           ? {
-              // Mobil: Optimize edilmiş ayarlar
+              // Mobil: Daha belirgin ayarlar
               mouseControls: false, // Mouse kontrolü kapalı
               touchControls: true, // Touch kontrolü açık
               gyroControls: false, // Gyro kapalı (batarya tasarrufu)
               minHeight: 200,
               minWidth: 200,
-              scale: 1.2, // Daha büyük ölçek (daha az parçacık)
+              scale: 1.1, // Biraz daha fazla parçacık
               color1: 0x0,
               color2: 0xffffff,
-              size: 1.2, // Daha büyük hücreler (daha az hesaplama)
-              speed: 0.6, // Daha yavaş animasyon (30fps target)
+              size: 1.1, // Biraz daha küçük hücreler (daha fazla detay)
+              speed: 0.85, // Daha hızlı animasyon (daha fark edilir)
             }
           : {
               // Desktop: Full quality
@@ -109,7 +109,7 @@ export default function VantaPageBackground({
         ref={vantaRef}
         className={cn(
           "absolute inset-0 transition-opacity duration-1000",
-          vantaLoaded ? (isMobile ? "opacity-15" : "opacity-20") : "opacity-0"
+          vantaLoaded ? (isMobile ? "opacity-30" : "opacity-20") : "opacity-0"
         )}
       />
 
