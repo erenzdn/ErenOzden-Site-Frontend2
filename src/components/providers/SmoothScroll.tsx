@@ -9,7 +9,7 @@
 
 import { useEffect, useRef, useState, ReactNode } from "react";
 import { usePathname } from "next/navigation";
-import { setLenisInstance, notifyScroll } from "@/lib/lenisControls";
+import { setLenisInstance, notifyScroll, type LenisScrollInstance } from "@/lib/lenisControls";
 
 interface SmoothScrollProps {
   children: ReactNode;
@@ -80,7 +80,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
         }
 
         lenisRef.current = lenis;
-        setLenisInstance(lenis);
+        setLenisInstance(lenis as unknown as LenisScrollInstance);
 
         // ScrollTrigger entegrasyonu + section nav dinleyicileri
         lenis.on("scroll", () => {

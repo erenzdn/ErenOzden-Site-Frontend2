@@ -2,7 +2,7 @@ export type LenisScrollInstance = {
   stop: () => void;
   start: () => void;
   scrollTo: (
-    target: number | string | Element,
+    target: number | string | HTMLElement,
     options?: { offset?: number; immediate?: boolean; lock?: boolean; duration?: number }
   ) => void;
   on?: (event: string, callback: () => void) => void;
