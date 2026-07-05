@@ -328,12 +328,14 @@ body {
   animation-play-state: paused;
 }
 
-.service-card-premium:hover::before {
+.service-card-premium:hover::before,
+.service-card-premium:active::before {
   opacity: 1;
   animation-play-state: running;
 }
 
-.service-card-premium:hover {
+.service-card-premium:hover,
+.service-card-premium:active {
   transform: translateY(-8px) scale(1.02);
   border-color: rgba(255, 255, 255, 0.6);
   box-shadow: 

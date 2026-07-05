@@ -56,11 +56,11 @@ export default function VantaPageBackground({
               gyroControls: false, // Gyro kapalı (batarya tasarrufu)
               minHeight: 200,
               minWidth: 200,
-              scale: 1.1, // Biraz daha fazla parçacık
+              scale: 1.3, // Daha fazla parçacık
               color1: 0x0,
               color2: 0xffffff,
-              size: 1.1, // Biraz daha küçük hücreler (daha fazla detay)
-              speed: 0.85, // Daha hızlı animasyon (daha fark edilir)
+              size: 0.9, // Daha küçük hücreler (daha fazla detay)
+              speed: 0.95, // Daha hızlı animasyon (daha fark edilir)
             }
           : {
               // Desktop: Full quality
@@ -69,11 +69,11 @@ export default function VantaPageBackground({
               gyroControls: false,
               minHeight: 200,
               minWidth: 200,
-              scale: 1,
+              scale: 1.2, // Daha fazla parçacık
               color1: 0x0,
               color2: 0xffffff,
-              size: 1.0,
-              speed: 1.0,
+              size: 0.85, // Daha küçük hücreler (daha fazla detay)
+              speed: 1.1, // Biraz daha hızlı
             };
 
         const instance = await createVantaCellsEffect(vantaRef.current, options);
@@ -109,13 +109,13 @@ export default function VantaPageBackground({
         ref={vantaRef}
         className={cn(
           "absolute inset-0 transition-opacity duration-1000",
-          vantaLoaded ? (isMobile ? "opacity-30" : "opacity-20") : "opacity-0"
+          vantaLoaded ? (isMobile ? "opacity-55" : "opacity-50") : "opacity-0"
         )}
       />
 
-      {/* Overlay gradients */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
-      <div className="glow-blob top-[-200px] left-1/2 -translate-x-1/2 opacity-60" />
+      {/* Overlay gradients - hafifletilmiş */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
+      <div className="glow-blob top-[-200px] left-1/2 -translate-x-1/2 opacity-70" />
     </div>
   );
 }

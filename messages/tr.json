@@ -260,6 +260,75 @@
         "description": "Sorunsuz lansman ve dökümantasyon"
       }
     },
+    "processVisuals": {
+      "timeline": {
+        "nodes": ["Hedef", "Analiz", "Strateji", "Plan"],
+        "ready": "Sprint hazır"
+      },
+      "rocket": {
+        "live": "CANLI"
+      },
+      "stepLabel": "Adım",
+      "ofLabel": "/",
+      "activitiesTitle": "Bu Aşamada Yapılanlar",
+      "nextStep": "Sonraki adım",
+      "stepMetas": [
+        {
+          "duration": "1–2 Gün",
+          "activities": [
+            "İhtiyaç & hedef analizi",
+            "Rakip & pazar araştırması",
+            "Kullanıcı persona tanımı",
+            "Teknik fizibilite değerlendirmesi"
+          ]
+        },
+        {
+          "duration": "2–3 Gün",
+          "activities": [
+            "Detaylı yol haritası",
+            "Teknik mimari tasarımı",
+            "Sprint & milestone planı",
+            "Kaynak & süre tahmini"
+          ]
+        },
+        {
+          "duration": "3–7 Gün",
+          "activities": [
+            "Wireframe & kullanıcı akışı",
+            "UI/UX tasarım sistemi",
+            "İnteraktif prototip",
+            "Kullanıcı testi & iterasyon"
+          ]
+        },
+        {
+          "duration": "1–8 Hafta",
+          "activities": [
+            "Frontend & backend geliştirme",
+            "API entegrasyonları",
+            "Agile sprint döngüleri",
+            "Code review & kalite kontrolü"
+          ]
+        },
+        {
+          "duration": "3–5 Gün",
+          "activities": [
+            "Unit & entegrasyon testleri",
+            "Performans optimizasyonu",
+            "SEO & erişilebilirlik denetimi",
+            "Güvenlik taraması"
+          ]
+        },
+        {
+          "duration": "1–2 Gün",
+          "activities": [
+            "Canlı deploy & yayınlama",
+            "Gerçek zamanlı izleme",
+            "Dökümantasyon teslimi",
+            "30 gün ücretsiz destek"
+          ]
+        }
+      ]
+    },
     "faq": {
       "title": "Sıkça Sorulan Sorular",
       "q1": {
@@ -285,6 +354,7 @@
     "title": "Son Çalışmalarım",
     "subtitle": "Projeler",
     "description": "Gerçekleştirdiğim projelerden örnekler.",
+    "goToProject": "projesine git",
     "filters": {
       "all": "Tümü",
       "web": "Web",

@@ -137,19 +137,41 @@ export async function fetchStrapiProject<T>(
   locale: Locale,
   init?: StrapiFetchInit
 ): Promise<T | null> {
+  const fs = typeof window === 'undefined' ? require('node:fs') : null;
+  const log = (msg: string) => {
+    if (fs) {
+      try {
+        fs.appendFileSync('c:/Users/msi-nb/Desktop/ERENOZDEN-FRONTEND-2/debug.log', msg + '\n');
+      } catch (e) {}
+    }
+  };
+
+  log(`[fetchStrapiProject] called with identifier: "${identifier}", locale: "${locale}"`);
+
   for (const loc of strapiLocaleAttempts(locale)) {
     const slugUrl = withQuery(
       `${buildStrapiApiUrl("/api/projects")}?filters[slug][$eq]=${encodeURIComponent(identifier)}&populate=*`,
       [localePart(loc)]
     );
+    log(`[fetchStrapiProject] slug attempt url: ${slugUrl}`);
     try {
       const res = await strapiFetch(slugUrl, init);
+      log(`[fetchStrapiProject] slug attempt status: ${res.status}`);
       if (res.ok) {
         const json = await res.json();
-        if (json.data?.length > 0) return json.data[0] as T;
+        log(`[fetchStrapiProject] slug attempt JSON data length: ${json.data?.length}`);
+        if (json.data?.length > 0) {
+          log(`[fetchStrapiProject] slug attempt SUCCESS`);
+          return json.data[0] as T;
+        }
+      } else {
+        try {
+          const text = await res.text();
+          log(`[fetchStrapiProject] slug attempt error body: ${text.substring(0, 200)}`);
+        } catch (e) {}
       }
-    } catch {
-      // documentId denemesine geç
+    } catch (err: any) {
+      log(`[fetchStrapiProject] slug attempt exception: ${err.message || err}`);
     }
   }
 
@@ -158,17 +180,29 @@ export async function fetchStrapiProject<T>(
       `${buildStrapiApiUrl(`/api/projects/${encodeURIComponent(identifier)}`)}`,
       ["populate=*", localePart(loc)]
     );
+    log(`[fetchStrapiProject] doc attempt url: ${docUrl}`);
     try {
       const res = await strapiFetch(docUrl, init);
+      log(`[fetchStrapiProject] doc attempt status: ${res.status}`);
       if (res.ok) {
         const json = await res.json();
-        if (json.data) return json.data as T;
+        log(`[fetchStrapiProject] doc attempt JSON data keys: ${json.data ? Object.keys(json.data) : 'none'}`);
+        if (json.data) {
+          log(`[fetchStrapiProject] doc attempt SUCCESS`);
+          return json.data as T;
+        }
+      } else {
+        try {
+          const text = await res.text();
+          log(`[fetchStrapiProject] doc attempt error body: ${text.substring(0, 200)}`);
+        } catch (e) {}
       }
-    } catch {
-      // Sonraki locale denemesine geç
+    } catch (err: any) {
+      log(`[fetchStrapiProject] doc attempt exception: ${err.message || err}`);
     }
   }
 
+  log(`[fetchStrapiProject] FAILED both attempts, returning null`);
   return null;
 }
 

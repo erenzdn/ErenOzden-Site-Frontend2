@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import {
   Check,
   ChevronRight,
@@ -32,8 +33,7 @@ function RadarVisual() {
   );
 }
 
-function TimelineVisual() {
-  const nodes = ['Hedef', 'Analiz', 'Strateji', 'Plan'];
+function TimelineVisual({ nodes, readyText }: { nodes: string[], readyText: string }) {
   return (
     <div className="relative w-full h-36 sm:h-44 flex items-center justify-center overflow-hidden px-4 sm:px-6 select-none">
       <div className="absolute h-0.5 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] bg-white/8 rounded-full" />
@@ -67,7 +67,7 @@ function TimelineVisual() {
         className="absolute top-3 right-4 sm:top-4 sm:right-6 px-2 py-0.5 rounded-full bg-white/8 border border-white/12 text-[8px] sm:text-[9px] text-white/50 font-medium"
         style={{ animation: 'fadeUp 0.6s ease-out 1s both' }}
       >
-        Sprint hazır
+        {readyText}
       </div>
     </div>
   );
@@ -141,18 +141,25 @@ function TerminalVisual() {
   );
 }
 
-const METRICS = [
+const METRICS_TR = [
   { label: 'Performans', value: 96 },
   { label: 'SEO', value: 100 },
   { label: 'Hız', value: 88 },
   { label: 'Güvenlik', value: 94 },
 ];
 
-function MetricsVisual() {
+const METRICS_EN = [
+  { label: 'Performance', value: 96 },
+  { label: 'SEO', value: 100 },
+  { label: 'Speed', value: 88 },
+  { label: 'Security', value: 94 },
+];
+
+function MetricsVisual({ metrics }: { metrics: Array<{ label: string; value: number }> }) {
   return (
     <div className="relative w-full h-36 sm:h-44 flex items-center justify-center overflow-hidden select-none px-4 sm:px-6">
       <div className="w-full space-y-2.5 sm:space-y-3">
-        {METRICS.map((m, i) => (
+        {metrics.map((m, i) => (
           <div key={m.label} className="flex items-center gap-2 sm:gap-3" style={{ animation: `fadeUp 0.4s ease-out ${i * 150}ms both` }}>
             <span className="text-[10px] sm:text-[10px] text-white/50 font-medium w-16 sm:w-20 shrink-0">{m.label}</span>
             <div className="flex-1 h-1.5 sm:h-2 rounded-full bg-white/8 overflow-hidden">
@@ -173,7 +180,7 @@ function MetricsVisual() {
   );
 }
 
-function RocketVisual() {
+function RocketVisual({ liveText }: { liveText: string }) {
   return (
     <div className="relative w-full h-36 sm:h-44 flex items-center justify-center overflow-hidden select-none">
       {[...Array(8)].map((_, i) => (
@@ -211,7 +218,7 @@ function RocketVisual() {
       </div>
       <div className="absolute top-3 right-6 sm:top-4 sm:right-8 flex items-center gap-1.5 px-2 sm:px-2.5 py-1 rounded-full bg-white/8 border border-white/12" style={{ animation: 'fadeIn 0.6s ease-out 0.8s both' }}>
         <div className="w-1.5 h-1.5 rounded-full bg-white/70 animate-pulse" />
-        <span className="text-[8px] sm:text-[9px] text-white/60 font-semibold tracking-wide">CANLI</span>
+        <span className="text-[8px] sm:text-[9px] text-white/60 font-semibold tracking-wide">{liveText}</span>
       </div>
     </div>
   );
@@ -247,44 +254,12 @@ interface ProcessSectionProps {
 interface StepMeta {
   duration: string;
   activities: string[];
-  Visual: () => React.JSX.Element;
+  Visual: React.ComponentType<any>;
 }
-
-const stepMetas: StepMeta[] = [
-  {
-    duration: '1–2 Gün',
-    activities: ['İhtiyaç & hedef analizi', 'Rakip & pazar araştırması', 'Kullanıcı persona tanımı', 'Teknik fizibilite değerlendirmesi'],
-    Visual: RadarVisual,
-  },
-  {
-    duration: '2–3 Gün',
-    activities: ['Detaylı yol haritası', 'Teknik mimari tasarımı', 'Sprint & milestone planı', 'Kaynak & süre tahmini'],
-    Visual: TimelineVisual,
-  },
-  {
-    duration: '3–7 Gün',
-    activities: ['Wireframe & kullanıcı akışı', 'UI/UX tasarım sistemi', 'İnteraktif prototip', 'Kullanıcı testi & iterasyon'],
-    Visual: WireframeVisual,
-  },
-  {
-    duration: '1–8 Hafta',
-    activities: ['Frontend & backend geliştirme', 'API entegrasyonları', 'Agile sprint döngüleri', 'Code review & kalite kontrolü'],
-    Visual: TerminalVisual,
-  },
-  {
-    duration: '3–5 Gün',
-    activities: ['Unit & entegrasyon testleri', 'Performans optimizasyonu', 'SEO & erişilebilirlik denetimi', 'Güvenlik taraması'],
-    Visual: MetricsVisual,
-  },
-  {
-    duration: '1–2 Gün',
-    activities: ['Canlı deploy & yayınlama', 'Gerçek zamanlı izleme', 'Dökümantasyon teslimi', '30 gün ücretsiz destek'],
-    Visual: RocketVisual,
-  },
-];
 
 /* ─── Main component ───────────────────────────────────────────────────── */
 export default function ProcessSection({ title, description, steps }: ProcessSectionProps) {
+  const t = useTranslations('serviceDetail.processVisuals');
   const [activeStep, setActiveStep] = useState(0);
   const cardRef = useRef<HTMLDivElement>(null);
   const isFirst = useRef(true);
@@ -296,6 +271,90 @@ export default function ProcessSection({ title, description, steps }: ProcessSec
       cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [activeStep]);
+
+  // Get localized content
+  const timelineNodes: string[] = [
+    t('timeline.nodes.0'),
+    t('timeline.nodes.1'),
+    t('timeline.nodes.2'),
+    t('timeline.nodes.3'),
+  ];
+  const readyText = t('timeline.ready');
+  const liveText = t('rocket.live');
+  const stepLabel = t('stepLabel');
+  const ofLabel = t('ofLabel');
+  const activitiesTitle = t('activitiesTitle');
+  const nextStep = t('nextStep');
+
+  // Get locale for metrics
+  const locale = typeof window !== 'undefined' 
+    ? (window.location.pathname.includes('/en') ? 'en' : 'tr')
+    : 'tr';
+  const metrics = locale === 'en' ? METRICS_EN : METRICS_TR;
+
+  // Build step metas with localized content
+  const stepMetas: StepMeta[] = [
+    {
+      duration: t('stepMetas.0.duration'),
+      activities: [
+        t('stepMetas.0.activities.0'),
+        t('stepMetas.0.activities.1'),
+        t('stepMetas.0.activities.2'),
+        t('stepMetas.0.activities.3'),
+      ],
+      Visual: RadarVisual,
+    },
+    {
+      duration: t('stepMetas.1.duration'),
+      activities: [
+        t('stepMetas.1.activities.0'),
+        t('stepMetas.1.activities.1'),
+        t('stepMetas.1.activities.2'),
+        t('stepMetas.1.activities.3'),
+      ],
+      Visual: () => <TimelineVisual nodes={timelineNodes} readyText={readyText} />,
+    },
+    {
+      duration: t('stepMetas.2.duration'),
+      activities: [
+        t('stepMetas.2.activities.0'),
+        t('stepMetas.2.activities.1'),
+        t('stepMetas.2.activities.2'),
+        t('stepMetas.2.activities.3'),
+      ],
+      Visual: WireframeVisual,
+    },
+    {
+      duration: t('stepMetas.3.duration'),
+      activities: [
+        t('stepMetas.3.activities.0'),
+        t('stepMetas.3.activities.1'),
+        t('stepMetas.3.activities.2'),
+        t('stepMetas.3.activities.3'),
+      ],
+      Visual: TerminalVisual,
+    },
+    {
+      duration: t('stepMetas.4.duration'),
+      activities: [
+        t('stepMetas.4.activities.0'),
+        t('stepMetas.4.activities.1'),
+        t('stepMetas.4.activities.2'),
+        t('stepMetas.4.activities.3'),
+      ],
+      Visual: () => <MetricsVisual metrics={metrics} />,
+    },
+    {
+      duration: t('stepMetas.5.duration'),
+      activities: [
+        t('stepMetas.5.activities.0'),
+        t('stepMetas.5.activities.1'),
+        t('stepMetas.5.activities.2'),
+        t('stepMetas.5.activities.3'),
+      ],
+      Visual: () => <RocketVisual liveText={liveText} />,
+    },
+  ];
 
   const current = steps[activeStep];
   const meta = stepMetas[activeStep] ?? stepMetas[0];
@@ -314,10 +373,10 @@ export default function ProcessSection({ title, description, steps }: ProcessSec
       <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 items-start">
 
         {/* ── Sağ panel — mobilde ÜSTTE, masaüstünde sağda ── */}
-        <div ref={cardRef} className="order-1 lg:order-2 lg:sticky lg:top-24 scroll-mt-24">
+        <div ref={cardRef} className="order-1 lg:order-2 lg:sticky lg:top-24 scroll-mt-24 lg:max-h-[calc(100vh-8rem)]">
           <div
             key={activeStep}
-            className="relative rounded-2xl sm:rounded-3xl overflow-hidden backdrop-blur-xl border border-white/10 bg-white/5 animate-in fade-in zoom-in-95 duration-500"
+            className="relative rounded-2xl sm:rounded-3xl overflow-hidden backdrop-blur-xl border border-white/10 bg-white/5 animate-in fade-in zoom-in-95 duration-500 flex flex-col h-full"
           >
             {/* Dot grid */}
             <div
@@ -329,12 +388,12 @@ export default function ProcessSection({ title, description, steps }: ProcessSec
             <div className="absolute bottom-0 right-0 w-10 h-10 sm:w-14 sm:h-14 border-r-2 border-b-2 border-white/20 rounded-br-2xl sm:rounded-br-3xl pointer-events-none" />
 
             {/* Animasyon alanı */}
-            <div className="relative z-10 border-b border-white/8">
+            <div className="relative z-10 border-b border-white/8 shrink-0">
               <Visual />
             </div>
 
             {/* Bilgi alanı */}
-            <div className="relative z-10 p-4 sm:p-6 flex flex-col gap-4 sm:gap-5">
+            <div className="relative z-10 p-4 sm:p-6 flex flex-col gap-4 sm:gap-5 overflow-y-auto flex-1 min-h-0">
 
               {/* Badge + süre */}
               <div className="flex items-center justify-between">
@@ -343,7 +402,7 @@ export default function ProcessSection({ title, description, steps }: ProcessSec
                     <span className="text-xs font-heading font-bold text-white">{current.number}</span>
                   </div>
                   <span className="text-[10px] sm:text-[11px] font-medium text-white/45 uppercase tracking-wider sm:tracking-widest">
-                    Adım {parseInt(current.number, 10)} / {steps.length}
+                    {stepLabel} {parseInt(current.number, 10)} {ofLabel} {steps.length}
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white/10 border border-white/15">
@@ -363,18 +422,18 @@ export default function ProcessSection({ title, description, steps }: ProcessSec
               <div className="h-px bg-linear-to-r from-transparent via-white/12 to-transparent" />
 
               {/* Aktiviteler */}
-              <div>
+              <div className="shrink-0">
                 <p className="text-[10px] font-semibold text-white/35 uppercase tracking-widest mb-2.5 sm:mb-3">
-                  Bu Aşamada Yapılanlar
+                  {activitiesTitle}
                 </p>
                 {/* Mobilde tek sütun, sm'de iki sütun */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {meta.activities.map((activity) => (
                     <div
                       key={activity}
-                      className="flex items-center gap-2.5 p-2.5 sm:p-3 rounded-xl bg-white/6 border border-white/8 hover:bg-white/10 hover:border-white/18 transition-all duration-300"
+                      className="flex items-start gap-2.5 p-2.5 sm:p-3 rounded-xl bg-white/6 border border-white/8 hover:bg-white/10 hover:border-white/18 transition-all duration-300"
                     >
-                      <div className="shrink-0 w-4 h-4 rounded-full bg-white/15 border border-white/25 flex items-center justify-center">
+                      <div className="shrink-0 w-4 h-4 rounded-full bg-white/15 border border-white/25 flex items-center justify-center mt-0.5">
                         <CheckCircle2 size={9} className="text-white/75" />
                       </div>
                       <span className="text-[11px] sm:text-[11px] text-white/80 leading-snug">{activity}</span>
@@ -387,7 +446,7 @@ export default function ProcessSection({ title, description, steps }: ProcessSec
               <div className="h-px bg-linear-to-r from-transparent via-white/12 to-transparent" />
 
               {/* Nav + sonraki */}
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between shrink-0 mt-auto pt-2">
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   {steps.map((_, i) => (
                     <button
@@ -398,7 +457,7 @@ export default function ProcessSection({ title, description, steps }: ProcessSec
                           ? 'w-6 sm:w-7 h-2 bg-white shadow-sm shadow-white/30'
                           : 'w-2 h-2 bg-white/25 hover:bg-white/50'
                       }`}
-                      aria-label={`Adım ${i + 1}`}
+                      aria-label={`${stepLabel} ${i + 1}`}
                     />
                   ))}
                 </div>
@@ -407,14 +466,14 @@ export default function ProcessSection({ title, description, steps }: ProcessSec
                     onClick={() => setActiveStep(activeStep + 1)}
                     className="flex items-center gap-1.5 text-[11px] font-medium text-white/55 hover:text-white transition-colors duration-200 group"
                   >
-                    Sonraki adım
+                    {nextStep}
                     <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
                   </button>
                 )}
               </div>
 
               {/* Progress bar */}
-              <div className="flex gap-1 sm:gap-1.5">
+              <div className="flex gap-1 sm:gap-1.5 shrink-0">
                 {steps.map((_, i) => (
                   <div
                     key={i}

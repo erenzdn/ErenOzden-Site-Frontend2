@@ -114,28 +114,29 @@ export default function Services() {
                 <Link 
                   href={`/services/${strapiRouteKey(s)}`} 
                   key={s.documentId} 
+                  onTouchStart={() => {}}
                   className="service-card service-card-premium card p-7 flex flex-col group cursor-pointer relative"
                 >
                   {/* Animated gradient overlay */}
-                  <div className="absolute inset-0 bg-linear-to-br from-white/0 via-gray-400/0 to-white/0 group-hover:from-white/5 group-hover:via-gray-400/5 group-hover:to-white/5 transition-all duration-700 rounded-xl pointer-events-none" />
+                  <div className="absolute inset-0 bg-linear-to-br from-white/0 via-gray-400/0 to-white/0 group-hover:from-white/5 group-hover:via-gray-400/5 group-hover:to-white/5 group-active:from-white/5 group-active:via-gray-400/5 group-active:to-white/5 transition-all duration-700 rounded-xl pointer-events-none" />
                   
                   {/* Content wrapper */}
                   <div className="relative z-10 flex flex-col h-full">
                     <div className="flex justify-between items-start mb-5">
-                      <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center transition-all duration-500 group-hover:bg-linear-to-br group-hover:from-white/30 group-hover:to-gray-300/30 group-hover:border-white/70 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.5)] group-hover:scale-110">
-                        <Icon size={22} className="text-white transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6" />
+                      <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center transition-all duration-500 group-hover:bg-linear-to-br group-hover:from-white/30 group-hover:to-gray-300/30 group-hover:border-white/70 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.5)] group-hover:scale-110 group-active:bg-linear-to-br group-active:from-white/30 group-active:to-gray-300/30 group-active:border-white/70 group-active:shadow-[0_0_20px_rgba(255,255,255,0.5)] group-active:scale-110">
+                        <Icon size={22} className="text-white transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 group-active:scale-110 group-active:rotate-6" />
                       </div>
-                      <div className="w-8 h-8 rounded-full bg-dark border border-dark-border flex items-center justify-center transition-all duration-500 group-hover:bg-linear-to-r group-hover:from-gray-200 group-hover:to-white group-hover:text-dark group-hover:border-transparent group-hover:shadow-[0_0_15px_rgba(255,255,255,0.6)] group-hover:rotate-45 group-hover:scale-110">
+                      <div className="w-8 h-8 rounded-full bg-dark border border-dark-border flex items-center justify-center transition-all duration-500 group-hover:bg-linear-to-r group-hover:from-gray-200 group-hover:to-white group-hover:text-dark group-hover:border-transparent group-hover:shadow-[0_0_15px_rgba(255,255,255,0.6)] group-hover:rotate-45 group-hover:scale-110 group-active:bg-linear-to-r group-active:from-gray-200 group-active:to-white group-active:text-dark group-active:border-transparent group-active:shadow-[0_0_15px_rgba(255,255,255,0.6)] group-active:rotate-45 group-active:scale-110">
                         <ArrowRight size={14} className="transition-transform duration-500" />
                       </div>
                     </div>
-                    <h3 className="text-lg font-heading font-bold text-white mb-2 transition-all duration-500 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-white group-hover:via-gray-100 group-hover:to-gray-200">{s.title}</h3>
-                    <p className="text-gray-text text-sm leading-relaxed mb-5 flex-1 line-clamp-3 transition-all duration-500 group-hover:text-gray-200">{s.description}</p>
+                    <h3 className="text-lg font-heading font-bold text-white mb-2 transition-all duration-500 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-white group-hover:via-gray-100 group-hover:to-gray-200 group-active:text-transparent group-active:bg-clip-text group-active:bg-linear-to-r group-active:from-white group-active:via-gray-100 group-active:to-gray-200">{s.title}</h3>
+                    <p className="text-gray-text text-sm leading-relaxed mb-5 flex-1 line-clamp-3 transition-all duration-500 group-hover:text-gray-200 group-active:text-gray-200">{s.description}</p>
                     <div className="flex flex-wrap gap-1.5">
                       {s.features?.slice(0, 3).map((f, idx) => (
                         <span 
                           key={f} 
-                          className="px-2.5 py-1 text-[11px] bg-dark-lighter border border-dark-border rounded-full text-gray-light truncate max-w-full transition-all duration-500 group-hover:bg-linear-to-r group-hover:from-gray-800/60 group-hover:to-gray-700/60 group-hover:border-gray-400/50 group-hover:text-gray-100 group-hover:shadow-[0_0_10px_rgba(255,255,255,0.3)]"
+                          className="px-2.5 py-1 text-[11px] bg-dark-lighter border border-dark-border rounded-full text-gray-light truncate max-w-full transition-all duration-500 group-hover:bg-linear-to-r group-hover:from-gray-800/60 group-hover:to-gray-700/60 group-hover:border-gray-400/50 group-hover:text-gray-100 group-hover:shadow-[0_0_10px_rgba(255,255,255,0.3)] group-active:bg-linear-to-r group-active:from-gray-800/60 group-active:to-gray-700/60 group-active:border-gray-400/50 group-active:text-gray-100 group-active:shadow-[0_0_10px_rgba(255,255,255,0.3)]"
                           style={{ 
                             transitionDelay: `${idx * 50}ms` 
                           }}

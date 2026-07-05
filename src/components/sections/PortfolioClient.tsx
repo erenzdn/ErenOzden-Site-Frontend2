@@ -41,11 +41,11 @@ interface PortfolioClientProps {
 }
 
 const GRADIENT_COLORS = [
-  "from-neutral-700 to-neutral-900",
-  "from-gray-700 to-black",
-  "from-zinc-800 to-zinc-950",
-  "from-stone-700 to-stone-900",
-  "from-slate-700 to-slate-900",
+  "bg-linear-to-br from-neutral-700 to-neutral-900",
+  "bg-linear-to-br from-gray-700 to-black",
+  "bg-linear-to-br from-zinc-800 to-zinc-950",
+  "bg-linear-to-br from-stone-700 to-stone-900",
+  "bg-linear-to-br from-slate-700 to-slate-900",
 ];
 
 export default function PortfolioClient({ projects, isHome = false }: PortfolioClientProps) {
@@ -129,7 +129,7 @@ export default function PortfolioClient({ projects, isHome = false }: PortfolioC
               />
             ) : (
               <div
-                className={`w-full h-full bg-gradient-to-br ${GRADIENT_COLORS[idx % GRADIENT_COLORS.length]} flex items-center justify-center`}
+                className={`w-full h-full ${GRADIENT_COLORS[idx % GRADIENT_COLORS.length]} flex items-center justify-center`}
               >
                 <span className="text-white/40 text-4xl font-heading font-bold">
                   {p.title[0]}
@@ -168,6 +168,7 @@ export default function PortfolioClient({ projects, isHome = false }: PortfolioC
           sectionTitle={t("title")}
           featuredLabel={t("featuredLabel")}
           viewDetailsLabel={t("viewDetails")}
+          goToProjectLabel={t("goToProject")}
         />
       ) : (
         <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-[1200px] w-full relative z-10">
@@ -201,7 +202,7 @@ export default function PortfolioClient({ projects, isHome = false }: PortfolioC
                     />
                   ) : (
                     <div
-                      className={`w-full h-full bg-gradient-to-br ${GRADIENT_COLORS[idx % GRADIENT_COLORS.length]} flex items-center justify-center`}
+                      className={`w-full h-full ${GRADIENT_COLORS[idx % GRADIENT_COLORS.length]} flex items-center justify-center`}
                     >
                       <span className="text-white/40 text-4xl font-heading font-bold">
                         {p.title[0]}

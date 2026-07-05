@@ -260,6 +260,75 @@
         "description": "Smooth launch and documentation"
       }
     },
+    "processVisuals": {
+      "timeline": {
+        "nodes": ["Goal", "Analysis", "Strategy", "Plan"],
+        "ready": "Sprint ready"
+      },
+      "rocket": {
+        "live": "LIVE"
+      },
+      "stepLabel": "Step",
+      "ofLabel": "/",
+      "activitiesTitle": "Activities in This Phase",
+      "nextStep": "Next step",
+      "stepMetas": [
+        {
+          "duration": "1–2 Days",
+          "activities": [
+            "Needs & goal analysis",
+            "Competitor & market research",
+            "User persona definition",
+            "Technical feasibility assessment"
+          ]
+        },
+        {
+          "duration": "2–3 Days",
+          "activities": [
+            "Detailed roadmap",
+            "Technical architecture design",
+            "Sprint & milestone plan",
+            "Resource & timeline estimation"
+          ]
+        },
+        {
+          "duration": "3–7 Days",
+          "activities": [
+            "Wireframe & user flow",
+            "UI/UX design system",
+            "Interactive prototype",
+            "User testing & iteration"
+          ]
+        },
+        {
+          "duration": "1–8 Weeks",
+          "activities": [
+            "Frontend & backend development",
+            "API integrations",
+            "Agile sprint cycles",
+            "Code review & quality control"
+          ]
+        },
+        {
+          "duration": "3–5 Days",
+          "activities": [
+            "Unit & integration tests",
+            "Performance optimization",
+            "SEO & accessibility audit",
+            "Security scanning"
+          ]
+        },
+        {
+          "duration": "1–2 Days",
+          "activities": [
+            "Live deploy & launch",
+            "Real-time monitoring",
+            "Documentation delivery",
+            "30 days free support"
+          ]
+        }
+      ]
+    },
     "faq": {
       "title": "Frequently Asked Questions",
       "q1": {
@@ -285,6 +354,7 @@
     "title": "Recent Work",
     "subtitle": "Projects",
     "description": "Examples from my completed projects.",
+    "goToProject": "go to project",
     "filters": {
       "all": "All",
       "web": "Web",
