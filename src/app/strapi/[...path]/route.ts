@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { STRAPI_URL } from "@/lib/constants";
+import { checkStrapiProxyAllowlist } from "@/lib/strapiProxyAllowlist";
 import { serverStrapiFetch } from "@/lib/strapiUpstream";
 
 async function proxyToStrapi(request: NextRequest, path: string[]) {
@@ -30,27 +31,33 @@ async function proxyToStrapi(request: NextRequest, path: string[]) {
 
 type RouteContext = { params: Promise<{ path: string[] }> };
 
-export async function GET(request: NextRequest, context: RouteContext) {
+async function handleProxyRequest(request: NextRequest, context: RouteContext) {
   const { path } = await context.params;
+  const allowlist = checkStrapiProxyAllowlist(request.method, path);
+
+  if (!allowlist.allowed) {
+    return new NextResponse(null, { status: allowlist.status });
+  }
+
   return proxyToStrapi(request, path);
+}
+
+export async function GET(request: NextRequest, context: RouteContext) {
+  return handleProxyRequest(request, context);
 }
 
 export async function POST(request: NextRequest, context: RouteContext) {
-  const { path } = await context.params;
-  return proxyToStrapi(request, path);
+  return handleProxyRequest(request, context);
 }
 
 export async function PUT(request: NextRequest, context: RouteContext) {
-  const { path } = await context.params;
-  return proxyToStrapi(request, path);
+  return handleProxyRequest(request, context);
 }
 
 export async function PATCH(request: NextRequest, context: RouteContext) {
-  const { path } = await context.params;
-  return proxyToStrapi(request, path);
+  return handleProxyRequest(request, context);
 }
 
 export async function DELETE(request: NextRequest, context: RouteContext) {
-  const { path } = await context.params;
-  return proxyToStrapi(request, path);
+  return handleProxyRequest(request, context);
 }

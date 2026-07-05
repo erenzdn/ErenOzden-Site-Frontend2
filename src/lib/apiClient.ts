@@ -144,11 +144,9 @@ async function request(endpoint: string, options: FetchOptions = {}) {
     "Content-Type": "application/json",
   };
 
-  // Strapi API Token / Auth Desteği İçin Yer Ayrıldı (Gelecekte ihtiyaç olursa)
-  // Strapi Users & Permissions / API Token kullanımı gerekirse .env içine STRAPI_API_TOKEN tanımlanabilir.
-  const apiToken = process.env.STRAPI_API_TOKEN || process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
-  if (apiToken) {
-    defaultHeaders["Authorization"] = `Bearer ${apiToken}`;
+  // STRAPI_API_TOKEN yalnızca sunucu tarafında kullanılır; client bundle'a asla dahil edilmez.
+  if (typeof window === "undefined" && process.env.STRAPI_API_TOKEN) {
+    defaultHeaders["Authorization"] = `Bearer ${process.env.STRAPI_API_TOKEN}`;
   }
 
   const config: RequestInit = {
