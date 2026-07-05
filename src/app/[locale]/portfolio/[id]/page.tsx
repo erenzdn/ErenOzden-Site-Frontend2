@@ -9,7 +9,11 @@ import CTA from '@/components/sections/CTA';
 import Button from '@/components/ui/Button';
 import { SlugMapSetter } from '@/components/SlugMapSetter';
 import ErpModuleShowcase from '@/components/sections/ErpModuleShowcase';
+import ErpTechnicalShowcase from '@/components/sections/ErpTechnicalShowcase';
 import EarthquakeModuleShowcase from '@/components/sections/EarthquakeModuleShowcase';
+import EarthquakeTechnicalShowcase from '@/components/sections/EarthquakeTechnicalShowcase';
+import ProjectSectionNav from '@/components/ui/ProjectSectionNav';
+import { buildProjectNavSections } from '@/lib/projectNavSections';
 import {
   extractStrapiPlainText,
   fetchStrapiProject,
@@ -353,14 +357,26 @@ export default async function ProjectDetailPage({ params }: Props) {
     },
   ];
 
+  const hasPreviewSection = !!(imageUrl || isEarthquakeCheck || isErpProject);
+  const hasDefaultGallery = !isEarthquakeCheck && !isErpProject && !!imageUrl;
+
+  const navSections = buildProjectNavSections({
+    locale,
+    isErpProject,
+    isEarthquakeCheck,
+    hasPreview: hasPreviewSection,
+    hasDefaultGallery,
+  });
+
   return (
     <>
       <SlugMapSetter slugMap={slugMap} basePath="/portfolio" />
       <Header />
+      <ProjectSectionNav sections={navSections} locale={locale} />
       
       <main className="relative min-h-screen bg-dark">
         {/* Hero Section - Linear Style */}
-        <section className="relative pt-24 sm:pt-28 lg:pt-32 pb-12 sm:pb-16 lg:pb-20 px-4 sm:px-6 border-b border-dark-border">
+        <section id="project-hero" className="relative pt-24 sm:pt-28 lg:pt-32 pb-12 sm:pb-16 lg:pb-20 px-4 sm:px-6 border-b border-dark-border scroll-mt-32">
           <div className="max-w-[1400px] mx-auto">
             {/* Back Button */}
             <Link 
@@ -555,7 +571,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
         {/* Main Image Section */}
         {(imageUrl || isEarthquakeCheck || isErpProject) && (
-          <section className="relative py-8 sm:py-12 lg:py-16 px-4 sm:px-6 border-b border-dark-border">
+          <section id="project-preview" className="relative py-8 sm:py-12 lg:py-16 px-4 sm:px-6 border-b border-dark-border scroll-mt-32">
             <div className="max-w-[1400px] mx-auto">
               {isErpProject || isEarthquakeCheck ? (
                 /* Premium Startup Browser Wrap */
@@ -625,12 +641,28 @@ export default async function ProjectDetailPage({ params }: Props) {
                     </div>
                   </div>
                 )}
+                {(isEarthquakeCheck || isErpProject) && (
+                  <>
+                    <div className="space-y-3">
+                      <div className="text-sm font-mono text-gray-light">3.0</div>
+                      <div className="text-xs font-mono text-gray uppercase tracking-wider">
+                        {locale === 'tr' ? 'Arayüz Galerisi' : 'Interface Gallery'}
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="text-sm font-mono text-gray-light">4.0</div>
+                      <div className="text-xs font-mono text-gray uppercase tracking-wider">
+                        {locale === 'tr' ? 'Teknik Özellikler' : 'Technical Specs'}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* Right: Content */}
               <div className="space-y-16 sm:space-y-20 lg:space-y-24">
                 {/* 1.0 About Project */}
-                <div className="space-y-5 sm:space-y-6">
+                <div id="project-overview" className="space-y-5 sm:space-y-6 scroll-mt-32">
                   <div className="flex items-baseline gap-4 lg:hidden mb-4">
                     <span className="text-sm font-mono text-gray-light">1.0</span>
                     <span className="text-xs font-mono text-gray uppercase tracking-wider">Overview</span>
@@ -650,7 +682,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
                 {/* Technical Architecture & Challenges (ERP or EarthquakeCheck) */}
                 {(isErpProject || isEarthquakeCheck) && (
-                  <div className="space-y-8 border-t border-white/5 pt-12 sm:pt-16">
+                  <div id="project-engineering" className="space-y-8 border-t border-white/5 pt-12 sm:pt-16 scroll-mt-32">
                     <div className="space-y-3">
                       <span className="inline-flex items-center gap-1 text-[10px] font-mono text-gray uppercase tracking-wider font-semibold">
                         <Code2 size={12} />
@@ -794,7 +826,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
                 {/* 2.0 Project Gallery / System Modules */}
                 {isEarthquakeCheck && (
-                  <div className="space-y-12 sm:space-y-16 border-t border-dark-border pt-12 sm:pt-16 lg:pt-20">
+                  <div id="project-modules" className="space-y-12 sm:space-y-16 border-t border-dark-border pt-12 sm:pt-16 lg:pt-20 scroll-mt-32">
                     <div className="flex items-baseline gap-4 lg:hidden mb-4">
                       <span className="text-sm font-mono text-gray-light">2.0</span>
                       <span className="text-xs font-mono text-gray uppercase tracking-wider">
@@ -824,7 +856,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
                 {/* 3.0 System Gallery (Only for EarthquakeCheck) */}
                 {isEarthquakeCheck && (
-                  <div className="space-y-12 sm:space-y-16 border-t border-dark-border pt-12 sm:pt-16 lg:pt-20">
+                  <div id="project-gallery" className="space-y-12 sm:space-y-16 border-t border-dark-border pt-12 sm:pt-16 lg:pt-20 scroll-mt-32">
                     <div className="flex items-baseline gap-4 lg:hidden mb-4">
                       <span className="text-sm font-mono text-gray-light">3.0</span>
                       <span className="text-xs font-mono text-gray uppercase tracking-wider">
@@ -893,8 +925,39 @@ export default async function ProjectDetailPage({ params }: Props) {
                   </div>
                 )}
 
+                {/* 4.0 Technical Specs (EarthquakeCheck) */}
+                {isEarthquakeCheck && (
+                  <div id="project-technical" className="space-y-12 sm:space-y-16 border-t border-dark-border pt-12 sm:pt-16 lg:pt-20 scroll-mt-32">
+                    <div className="flex items-baseline gap-4 lg:hidden mb-4">
+                      <span className="text-sm font-mono text-gray-light">4.0</span>
+                      <span className="text-xs font-mono text-gray uppercase tracking-wider">
+                        {locale === 'tr' ? 'Teknik Özellikler' : 'Technical Specs'}
+                      </span>
+                    </div>
+
+                    <div className="space-y-8 sm:space-y-12">
+                      <div className="space-y-3 sm:space-y-4">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-white">
+                          {locale === 'tr'
+                            ? 'Teknik Özellikler & Kullanılan Teknolojiler'
+                            : 'Technical Specifications & Technology Stack'}
+                        </h2>
+                        <p className="text-gray-text max-w-3xl text-sm sm:text-base leading-relaxed font-body">
+                          {locale === 'tr'
+                            ? 'EarthquakeCheck platformunun React SPA istemci ve Spring Boot REST API katmanlarının mimari yapısı, deprem değerlendirme algoritmaları ve kullanılan teknolojiler.'
+                            : 'Architectural structure, earthquake evaluation algorithms, and technologies of the EarthquakeCheck platform across React SPA client and Spring Boot REST API layers.'}
+                        </p>
+                      </div>
+
+                      <div className="mt-8">
+                        <EarthquakeTechnicalShowcase locale={locale} />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {isErpProject && (
-                  <div className="space-y-12 sm:space-y-16 border-t border-dark-border pt-12 sm:pt-16 lg:pt-20">
+                  <div id="project-modules" className="space-y-12 sm:space-y-16 border-t border-dark-border pt-12 sm:pt-16 lg:pt-20 scroll-mt-32">
                     <div className="flex items-baseline gap-4 lg:hidden mb-4">
                       <span className="text-sm font-mono text-gray-light">2.0</span>
                       <span className="text-xs font-mono text-gray uppercase tracking-wider">
@@ -924,11 +987,11 @@ export default async function ProjectDetailPage({ params }: Props) {
 
                 {/* 3.0 System Gallery (Only for ERP Project) */}
                 {isErpProject && (
-                  <div className="space-y-12 sm:space-y-16 border-t border-dark-border pt-12 sm:pt-16 lg:pt-20">
+                  <div id="project-gallery" className="space-y-12 sm:space-y-16 border-t border-dark-border pt-12 sm:pt-16 lg:pt-20 scroll-mt-32">
                     <div className="flex items-baseline gap-4 lg:hidden mb-4">
                       <span className="text-sm font-mono text-gray-light">3.0</span>
                       <span className="text-xs font-mono text-gray uppercase tracking-wider">
-                        {locale === 'tr' ? 'Tüm Ekranlar' : 'All Previews'}
+                        {locale === 'tr' ? 'Arayüz Galerisi' : 'Interface Gallery'}
                       </span>
                     </div>
 
@@ -993,9 +1056,40 @@ export default async function ProjectDetailPage({ params }: Props) {
                   </div>
                 )}
 
+                {/* 4.0 Technical Specs (Only for ERP Project) */}
+                {isErpProject && (
+                  <div id="project-technical" className="space-y-12 sm:space-y-16 border-t border-dark-border pt-12 sm:pt-16 lg:pt-20 scroll-mt-32">
+                    <div className="flex items-baseline gap-4 lg:hidden mb-4">
+                      <span className="text-sm font-mono text-gray-light">4.0</span>
+                      <span className="text-xs font-mono text-gray uppercase tracking-wider">
+                        {locale === 'tr' ? 'Teknik Özellikler' : 'Technical Specs'}
+                      </span>
+                    </div>
+
+                    <div className="space-y-8 sm:space-y-12">
+                      <div className="space-y-3 sm:space-y-4">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-white">
+                          {locale === 'tr'
+                            ? 'Teknik Özellikler & Kullanılan Teknolojiler'
+                            : 'Technical Specifications & Technology Stack'}
+                        </h2>
+                        <p className="text-gray-text max-w-3xl text-sm sm:text-base leading-relaxed font-body">
+                          {locale === 'tr'
+                            ? 'İskeleTakip platformunun masaüstü istemci (Electron) ve backend API (Node.js) katmanlarının mimari yapısı, kullanılan teknolojiler ve yazılımsal desenler.'
+                            : 'Architectural structure, technologies, and software patterns of the İskeleTakip platform across desktop client (Electron) and backend API (Node.js) layers.'}
+                        </p>
+                      </div>
+
+                      <div className="mt-8">
+                        <ErpTechnicalShowcase locale={locale} />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {!isEarthquakeCheck && !isErpProject && imageUrl ? (
                   // Default Gallery for other projects
-                  <div className="space-y-5 sm:space-y-6 border-t border-dark-border pt-12 sm:pt-16 lg:pt-20">
+                  <div id="project-gallery" className="space-y-5 sm:space-y-6 border-t border-dark-border pt-12 sm:pt-16 lg:pt-20 scroll-mt-32">
                     <div className="flex items-baseline gap-4 lg:hidden mb-4">
                       <span className="text-sm font-mono text-gray-light">2.0</span>
                       <span className="text-xs font-mono text-gray uppercase tracking-wider">Gallery</span>

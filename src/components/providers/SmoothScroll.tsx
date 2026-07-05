@@ -9,7 +9,7 @@
 
 import { useEffect, useRef, useState, ReactNode } from "react";
 import { usePathname } from "next/navigation";
-import { setLenisInstance } from "@/lib/lenisControls";
+import { setLenisInstance, notifyScroll } from "@/lib/lenisControls";
 
 interface SmoothScrollProps {
   children: ReactNode;
@@ -82,8 +82,11 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
         lenisRef.current = lenis;
         setLenisInstance(lenis);
 
-        // ScrollTrigger entegrasyonu
-        lenis.on("scroll", ScrollTrigger.update);
+        // ScrollTrigger entegrasyonu + section nav dinleyicileri
+        lenis.on("scroll", () => {
+          ScrollTrigger.update();
+          notifyScroll();
+        });
 
         // GSAP ticker ile senkronizasyon
         const updatePhysics = (time: number) => {
