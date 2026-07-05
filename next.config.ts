@@ -11,8 +11,8 @@ const isProduction = process.env.NODE_ENV === "production";
 /** Production HTML sayfaları için CSP (Turnstile, Strapi medya, Vanta arka plan). */
 const productionContentSecurityPolicy = [
   "default-src 'self'",
-  // Turnstile + Vanta (Footer/VantaPageBackground) harici script kaynakları
-  "script-src 'self' https://challenges.cloudflare.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net",
+  // Next.js RSC bootstrap inline script'leri + harici kaynaklar
+  "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net",
   // Tailwind utility sınıfları ve GSAP inline style enjeksiyonu için bilinçli istisna
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' https://api.mehmeterenozden.com data: blob:",
