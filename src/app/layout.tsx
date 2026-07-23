@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Syne, DM_Sans, Geist } from 'next/font/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { cn } from '@/lib/utils';
 import './globals.css';
 
@@ -67,6 +68,7 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         {children}
       </body>
+      <GoogleAnalytics gaId="G-GK04ZQ2JL5" />
     </html>
   );
 }
