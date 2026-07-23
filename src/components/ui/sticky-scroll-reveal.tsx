@@ -37,14 +37,6 @@ function getActiveIndex(progress: number, total: number): number {
   return Math.min(Math.floor(progress * total + 0.0001), total - 1);
 }
 
-function getSegmentFill(progress: number, index: number, total: number): number {
-  const segStart = index / total;
-  const segEnd = (index + 1) / total;
-  if (progress >= segEnd) return 1;
-  if (progress <= segStart) return 0;
-  return (progress - segStart) / (segEnd - segStart);
-}
-
 function getScrollProgressForSlide(index: number, total: number): number {
   if (total <= 1) return 0;
   return (index + 0.5) / total;
@@ -66,33 +58,41 @@ export const StickyScroll = ({
   const sliderRef = useRef<HTMLDivElement>(null);
   const pinnedRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const totalSlides = content.length;
 
   useEffect(() => {
     setIsMounted(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   const scrollToSlide = useCallback(
     (index: number) => {
+      if (isMobile) {
+        setActiveCard(index);
+        return;
+      }
       const st = ScrollTrigger.getById(SCROLL_TRIGGER_ID);
       if (!st) return;
       const targetProgress = getScrollProgressForSlide(index, totalSlides);
       const scrollY = st.start + (st.end - st.start) * targetProgress;
       window.scrollTo({ top: scrollY, behavior: "smooth" });
     },
-    [totalSlides]
+    [totalSlides, isMobile]
   );
 
   useEffect(() => {
-    if (!isMounted || totalSlides === 0) return;
+    if (!isMounted || totalSlides === 0 || isMobile) return;
 
     const container = containerRef.current;
     const slider = sliderRef.current;
     const pinned = pinnedRef.current;
     if (!container || !slider || !pinned) return;
 
-    // Her slide için tam viewport height + minimal ekstra space
     const scrollDistance = (totalSlides + 0.2) * window.innerHeight;
 
     const ctx = gsap.context(() => {
@@ -103,7 +103,7 @@ export const StickyScroll = ({
         end: () => `+=${scrollDistance}`,
         pin: pinned,
         pinSpacing: true,
-        scrub: 0.5,
+        scrub: 0.3,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         fastScrollEnd: true,
@@ -113,9 +113,6 @@ export const StickyScroll = ({
         onLeaveBack: () => setShowProgressBar(false),
         onUpdate: (self) => {
           const progress = self.progress;
-          
-          // Her slide tam align olsun - basit hesaplama
-          // Progress 0-1 arası, her slide için eşit dağılım
           const yPercent = totalSlides > 1
             ? -progress * (totalSlides - 1) * 100
             : 0;
@@ -127,31 +124,26 @@ export const StickyScroll = ({
       });
     }, container);
 
-    // ScrollTrigger'ı birkaç kez refresh et ki pinSpacing düzgün hesaplansın
-    requestAnimationFrame(() => {
-      ScrollTrigger.refresh();
-      requestAnimationFrame(() => {
-        ScrollTrigger.refresh();
-      });
-    });
-    
     const refreshTimer = setTimeout(() => {
       ScrollTrigger.refresh(true);
-    }, 500);
+    }, 300);
 
+    let resizeTimeout: ReturnType<typeof setTimeout>;
     const handleResize = () => {
-      ScrollTrigger.refresh(true);
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => ScrollTrigger.refresh(true), 150);
     };
     
     window.addEventListener("resize", handleResize);
 
     return () => {
       clearTimeout(refreshTimer);
+      clearTimeout(resizeTimeout);
       window.removeEventListener("resize", handleResize);
       ctx.revert();
       setShowProgressBar(false);
     };
-  }, [isMounted, totalSlides]);
+  }, [isMounted, totalSlides, isMobile]);
 
   if (!isMounted) {
     return (
@@ -161,11 +153,21 @@ export const StickyScroll = ({
     );
   }
 
-  const overallPercent = Math.round(scrollProgress * 100);
-  const currentSegmentFill =
-    totalSlides > 1
-      ? getSegmentFill(scrollProgress, activeCard, totalSlides)
-      : scrollProgress;
+  if (isMobile) {
+    return (
+      <MobileStickyScroll
+        content={content}
+        activeCard={activeCard}
+        setActiveCard={setActiveCard}
+        sectionLabel={sectionLabel}
+        sectionTitle={sectionTitle}
+        featuredLabel={featuredLabel}
+        viewDetailsLabel={viewDetailsLabel}
+        goToProjectLabel={goToProjectLabel}
+        contentClassName={contentClassName}
+      />
+    );
+  }
 
   return (
     <>
@@ -180,9 +182,10 @@ export const StickyScroll = ({
             "w-full h-screen flex flex-col lg:flex-row justify-center items-center",
             "px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16",
             "gap-8 md:gap-10 lg:gap-12 xl:gap-20",
-            "bg-dark relative z-10",
+            "bg-dark relative z-20",
             "pt-20 sm:pt-24 pb-20 sm:pb-24 lg:pt-0 lg:pb-0"
           )}
+          style={{ isolation: "isolate" }}
         >
           {/* Premium Section Header */}
           <motion.div 
@@ -480,3 +483,178 @@ export const StickyScroll = ({
     </>
   );
 };
+
+interface MobileStickyScrollProps {
+  content: StickyScrollItem[];
+  activeCard: number;
+  setActiveCard: (index: number) => void;
+  sectionLabel?: string;
+  sectionTitle?: string;
+  featuredLabel?: string;
+  viewDetailsLabel?: string;
+  goToProjectLabel?: string;
+  contentClassName?: string;
+}
+
+function MobileStickyScroll({
+  content,
+  activeCard,
+  setActiveCard,
+  sectionLabel = "Projects",
+  sectionTitle = "Recent Work",
+  featuredLabel = "Featured Project",
+  viewDetailsLabel = "View Details",
+  goToProjectLabel = "go to project",
+}: MobileStickyScrollProps) {
+  const totalSlides = content.length;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const touchStartRef = useRef<number>(0);
+  const touchEndRef = useRef<number>(0);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartRef.current = e.targetTouches[0].clientX;
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    touchEndRef.current = e.targetTouches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    const diff = touchStartRef.current - touchEndRef.current;
+    const threshold = 50;
+    
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0 && activeCard < totalSlides - 1) {
+        setActiveCard(activeCard + 1);
+      } else if (diff < 0 && activeCard > 0) {
+        setActiveCard(activeCard - 1);
+      }
+    }
+  }, [activeCard, totalSlides, setActiveCard]);
+
+  const currentItem = content[activeCard];
+
+  return (
+    <section 
+      ref={containerRef}
+      className="relative w-full bg-dark py-16 sm:py-20 overflow-hidden"
+      style={{ isolation: "isolate" }}
+    >
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        {/* Section Header */}
+        <div className="mb-8 sm:mb-10">
+          <div className="inline-flex items-center gap-2 mb-2">
+            <Sparkles className="w-3 h-3 text-primary" />
+            <span className="text-primary/90 text-[10px] font-bold uppercase tracking-[0.3em]">
+              02 / {sectionLabel}
+            </span>
+          </div>
+          <h2 className="text-white font-heading font-bold text-xl sm:text-2xl">
+            {sectionTitle}
+          </h2>
+          <div className="h-0.5 w-20 bg-linear-to-r from-primary/80 to-transparent mt-2 rounded-full" />
+        </div>
+
+        {/* Project Counter */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-dark/60 backdrop-blur-md rounded-full border border-white/10">
+            <span className="text-primary text-xs font-mono font-bold">
+              {String(activeCard + 1).padStart(2, "0")}
+            </span>
+            <span className="text-white/30 text-xs font-mono">
+              / {String(totalSlides).padStart(2, "0")}
+            </span>
+          </div>
+          
+          {/* Navigation Dots */}
+          <div className="flex items-center gap-2">
+            {content.map((_, idx) => (
+              <button
+                key={`mobile-dot-${idx}`}
+                type="button"
+                onClick={() => setActiveCard(idx)}
+                className={cn(
+                  "transition-all duration-200 rounded-full",
+                  activeCard === idx ? "w-6 h-2 bg-primary" : "w-2 h-2 bg-white/30"
+                )}
+                aria-label={`${content[idx].title} ${goToProjectLabel}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Swipeable Card */}
+        <div 
+          className="relative"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Image Card */}
+          <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 border border-white/10 shadow-xl">
+            <div className="absolute -inset-2 bg-primary/10 rounded-3xl blur-xl opacity-20 pointer-events-none" />
+            <div className="absolute inset-0 bg-linear-to-t from-dark/80 via-transparent to-transparent z-10 pointer-events-none" />
+            {currentItem?.content}
+          </div>
+
+          {/* Content */}
+          <div className="space-y-4">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+              <span className="text-primary text-[10px] font-bold tracking-wider uppercase">
+                {featuredLabel}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h3 className="text-2xl sm:text-3xl font-heading font-bold leading-tight">
+              <span className="bg-linear-to-r from-white via-purple-100 to-white bg-clip-text text-transparent">
+                {currentItem?.title}
+              </span>
+            </h3>
+
+            {/* Description */}
+            <p className="text-gray-text text-sm leading-relaxed line-clamp-3">
+              {currentItem?.description}
+            </p>
+
+            {/* Technologies */}
+            {currentItem?.technologies && currentItem.technologies.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {currentItem.technologies.slice(0, 4).map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-3 py-1.5 text-[10px] bg-dark/60 backdrop-blur-sm border border-white/10 rounded-full text-white/70"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {/* CTA Link */}
+            {currentItem?.href && (
+              <Link
+                href={currentItem.href}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 border border-primary/30 text-sm font-semibold text-primary active:bg-primary/20 transition-all w-fit"
+              >
+                {viewDetailsLabel}
+                <ArrowUpRight size={16} />
+              </Link>
+            )}
+          </div>
+        </div>
+
+        {/* Swipe Hint */}
+        {totalSlides > 1 && (
+          <div className="flex items-center justify-center gap-2 mt-6 text-white/30 text-xs">
+            <span>←</span>
+            <span>Kaydırarak gezin</span>
+            <span>→</span>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}

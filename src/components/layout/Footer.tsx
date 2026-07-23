@@ -127,7 +127,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-dark border-t border-dark-border pt-16 pb-8 relative overflow-hidden z-20">
+    <footer className="bg-dark border-t border-dark-border pt-16 pb-8 relative overflow-hidden z-50" style={{ isolation: "isolate" }}>
       {/* Vanta Cells Interactive 3D Animated Background */}
       <div 
         ref={vantaRef} 

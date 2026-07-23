@@ -33,7 +33,7 @@ export default function CTA() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 relative z-20 bg-dark">
+    <section ref={sectionRef} className="py-20 relative z-30 bg-dark" style={{ isolation: "isolate" }}>
       <div className="glow-blob top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
       <div className="max-w-[800px] mx-auto px-4 sm:px-6 text-center relative z-10">
         <h2 data-cta-animate className="text-3xl md:text-4xl lg:text-[44px] font-heading font-bold text-white leading-[1.15] mb-5">

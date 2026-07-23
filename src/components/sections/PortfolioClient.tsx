@@ -158,8 +158,9 @@ export default function PortfolioClient({ projects, isHome = false }: PortfolioC
       id="portfolio"
       className={cn(
         "relative w-full flex flex-col items-center",
-        isHome ? "overflow-visible z-10" : "overflow-hidden section-padding"
+        isHome ? "overflow-visible z-20" : "overflow-hidden section-padding z-10"
       )}
+      style={{ isolation: "isolate" }}
     >
       {isHome ? (
         <StickyScroll

@@ -61,9 +61,9 @@ export default function RootLayout({
       className={cn(syne.variable, dmSans.variable, 'font-sans', geist.variable)}
     >
       <head>
-        <link rel="alternate" hrefLang="tr" href="https://erenozden.com/tr" />
-        <link rel="alternate" hrefLang="en" href="https://erenozden.com/en" />
-        <link rel="alternate" hrefLang="x-default" href="https://erenozden.com/tr" />
+        <link rel="alternate" hrefLang="tr" href="https://mehmeterenozden.com/tr" />
+        <link rel="alternate" hrefLang="en" href="https://mehmeterenozden.com/en" />
+        <link rel="alternate" hrefLang="x-default" href="https://mehmeterenozden.com/tr" />
       </head>
       <body suppressHydrationWarning>
         {children}
