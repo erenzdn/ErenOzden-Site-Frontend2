@@ -8,16 +8,16 @@ const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const isProduction = process.env.NODE_ENV === "production";
 
-/** Production HTML sayfaları için CSP (Turnstile, Strapi medya, Vanta arka plan). */
+/** Production HTML sayfaları için CSP (Turnstile, Strapi medya, Vanta arka plan, Google Analytics). */
 const productionContentSecurityPolicy = [
   "default-src 'self'",
   // Next.js RSC bootstrap inline script'leri + harici kaynaklar
-  "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net",
+  "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com",
   // Tailwind utility sınıfları ve GSAP inline style enjeksiyonu için bilinçli istisna
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' https://api.mehmeterenozden.com data: blob:",
   "font-src 'self' data:",
-  "connect-src 'self' https://api.mehmeterenozden.com https://challenges.cloudflare.com",
+  "connect-src 'self' https://api.mehmeterenozden.com https://challenges.cloudflare.com https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com",
   "frame-src 'self' https://challenges.cloudflare.com",
   "object-src 'none'",
   "base-uri 'self'",
