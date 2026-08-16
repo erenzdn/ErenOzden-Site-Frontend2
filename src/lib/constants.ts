@@ -11,7 +11,7 @@ export const SITE = {
 } as const;
 
 export const CONTACT = {
-  email: "mehmeteren850@gmail.com",
+  email: "info@mehmeterenozden.com",
   phone: "+90 507 027 63 00",
   location: "İstanbul, Türkiye",
 } as const;
